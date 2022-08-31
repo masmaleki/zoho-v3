@@ -85,7 +85,7 @@ class ZohoCustomTokenStore
         $now = Carbon::now();
         $token->expiry_time = $now->add($refreshed_token_resp['expires_in'],'seconds');
         $token->save();
-        return true;
+        return $token;
     }
     /**
     * @param id A string.
