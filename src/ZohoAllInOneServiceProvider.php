@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Masmaleki\ZohoAllInOne\Commands\ZohoAllInOneCommand;
@@ -21,5 +22,20 @@ class ZohoAllInOneServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_zoho_v3_table')
             ->hasCommand(ZohoAllInOneCommand::class);
+    }
+
+    public function boot()
+    {
+        $this->configureRoutes();
+    }
+
+    protected function configureRoutes()
+    {
+        Route::group([
+            'namespace' => 'Masmaleki\ZohoAllInOne\Http\Controllers',
+            'domain' => config('zoho-v3.domain', null),
+        ], function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
+        });
     }
 }
