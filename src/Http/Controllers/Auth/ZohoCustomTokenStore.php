@@ -1,6 +1,6 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Auth;
+namespace Masmaleki\ZohoAllInOne\Http\Controllers\Auth;
 
 use com\zoho\api\authenticator\Token;
 use com\zoho\crm\api\exception\SDKException;
@@ -81,12 +81,13 @@ class ZohoCustomTokenStore
             'client_secret' => $token->client_secret,
             'grant_type' => 'refresh_token',
         ];
-        $z_url = env('ZOHO_ACCOUNTS_URL');
-        $z_return_url = env('ZOHO_REDIRECT_URI');
+        $z_url = config('zoho-v3.accounts_url');
+        $z_return_url = config('zoho-v3.redirect_uri');
+
         $refreshed_token_resp = self::getToken($z_url, 'eu', $postInput);
 
         //check the error response
-        if(array_key_exists('error',$refreshed_token_resp)){
+        if (array_key_exists('error', $refreshed_token_resp ?? [])) {
             return null;
         }
         $token->access_token = $refreshed_token_resp['access_token'];

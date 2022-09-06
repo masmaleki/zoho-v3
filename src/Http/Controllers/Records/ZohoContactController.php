@@ -1,9 +1,9 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Records;
+namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Auth\ZohoTokenCheck;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoContactController
 {
