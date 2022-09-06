@@ -2,29 +2,14 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
-use com\zoho\crm\api\UserSignature;
-use com\zoho\api\logger\Logger;
-use com\zoho\crm\api\dc\USDataCenter;
-use com\zoho\api\authenticator\OAuthToken;
 use com\zoho\api\authenticator\TokenType;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Masmaleki\ZohoAllInOne\ZohoCustomTokenStore;
+use Masmaleki\ZohoAllInOne\Auth\ZohoCustomTokenStore;
+use Masmaleki\ZohoAllInOne\Records\ZohoContactController;
 
 class ZohoAllInOne
 {
-    public static function getAuthUrl()
-    {
-
-        $client_id = env('ZOHO_CLIENT_ID');
-        $secret_key = env('ZOHO_CLIENT_SECRET');
-        $z_url = env('ZOHO_ACCOUNTS_URL');
-        $z_return_url = env('ZOHO_REDIRECT_URI');
-        $z_api_url = env('ZOHO_API_BASE_URL');
-        $z_current_user_email = env('ZOHO_CURRENT_USER_EMAIL');
-
-        return $z_url . "/oauth/v2/auth?scope=ZohoCRM.users.ALL,ZohoCRM.settings.ALL,ZohoCRM.modules.ALL,ZohoSearch.securesearch.READ&client_id=" . $client_id . "&response_type=code&access_type=offline&redirect_uri=" . $z_return_url;
-    }
 
     public static function saveTokens(Request $request)
     {
@@ -64,6 +49,7 @@ class ZohoAllInOne
     public static function getUsers($token)
     {
 
+
         $apiURL = $token->api_domain . '/crm/v3/users';
         $client = new Client();
         $postInput = [
@@ -80,52 +66,18 @@ class ZohoAllInOne
         return $responseBody;
     }
 
-    public static function getContacts($token)
+    public static function getContacts()
     {
-        if (!$token) {
-            return null;
-        }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Email,First_Name,Last_Name,Mobile';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
+        return ZohoContactController::getAll();
     }
 
-    public static function getContact($zoho_contact_id, $token)
+    public static function getContact($zoho_contact_id)
     {
-
-        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?criteria=(id:equals:' . $zoho_contact_id . ')';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
+        return ZohoContactController::getById($zoho_contact_id);
     }
 
-    public static function getContactByEmailAddress($zoho_email, $token)
+    public static function getContactByEmailAddress($zoho_email)
     {
-        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?email=' . $zoho_email . '';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
+        return ZohoContactController::getByEmail($zoho_email);
     }
 }
