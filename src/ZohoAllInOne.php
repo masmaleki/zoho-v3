@@ -49,7 +49,16 @@ class ZohoAllInOne
             $resp = $zoho->getToken($data['accounts-server'], $data['location'], $postInput);
             $token = $zoho->saveToken($postInput, $resp, $client_id, $secret_key, $z_return_url);
         }
-         return $token;
+
+
+        //TODO: must be improved.
+        $previousURL = url()->previous();
+        //dd($previousURL,str_contains( $previousURL,'customers'));
+        if (str_contains($previousURL, 'customers'))
+            return redirect()->to($previousURL);
+
+
+        return $token;
     }
 
     public static function getUsers($token)
@@ -73,7 +82,9 @@ class ZohoAllInOne
 
     public static function getContacts($token)
     {
-
+        if (!$token) {
+            return null;
+        }
         $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Email,First_Name,Last_Name,Mobile';
         $client = new Client();
 
@@ -91,6 +102,21 @@ class ZohoAllInOne
     {
 
         $apiURL = $token->api_domain . '/crm/v3/Contacts/search?criteria=(id:equals:' . $zoho_contact_id . ')';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getContactByEmailAddress($zoho_email, $token)
+    {
+        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?email=' . $zoho_email . '';
         $client = new Client();
 
         $headers = [
