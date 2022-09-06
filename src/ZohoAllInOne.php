@@ -6,10 +6,16 @@ use com\zoho\api\authenticator\TokenType;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Masmaleki\ZohoAllInOne\Auth\ZohoCustomTokenStore;
+use Masmaleki\ZohoAllInOne\Auth\ZohoTokenCheck;
 use Masmaleki\ZohoAllInOne\Records\ZohoContactController;
 
 class ZohoAllInOne
 {
+
+    public static function refreshToken()
+    {
+        return ZohoTokenCheck::getToken(true);
+    }
 
     public static function saveTokens(Request $request)
     {
@@ -34,14 +40,6 @@ class ZohoAllInOne
             $resp = $zoho->getToken($data['accounts-server'], $data['location'], $postInput);
             $token = $zoho->saveToken($postInput, $resp, $client_id, $secret_key, $z_return_url);
         }
-
-
-        //TODO: must be improved.
-        $previousURL = url()->previous();
-        //dd($previousURL,str_contains( $previousURL,'customers'));
-        if (str_contains($previousURL, 'customers'))
-            return redirect()->to($previousURL);
-
 
         return $token;
     }
