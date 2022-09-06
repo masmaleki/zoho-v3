@@ -2,47 +2,10 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
-use com\zoho\api\authenticator\TokenType;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use Masmaleki\ZohoAllInOne\Auth\ZohoCustomTokenStore;
-use Masmaleki\ZohoAllInOne\Auth\ZohoTokenCheck;
-use Masmaleki\ZohoAllInOne\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 
 class ZohoAllInOne
 {
-
-    public static function refreshToken()
-    {
-        return ZohoTokenCheck::getToken(true);
-    }
-
-    public static function saveTokens(Request $request)
-    {
-        $data = $request->all();
-        $client_id = env('ZOHO_CLIENT_ID');
-        $secret_key = env('ZOHO_CLIENT_SECRET');
-        $z_url = env('ZOHO_ACCOUNTS_URL');
-        $z_return_url = env('ZOHO_REDIRECT_URI');
-        $z_api_url = env('ZOHO_API_BASE_URL');
-        $z_current_user_email = env('ZOHO_CURRENT_USER_EMAIL');
-        $postInput = [
-            'grant_type' => 'authorization_code',
-            'client_id' => $client_id,
-            'client_secret' => $secret_key,
-            'redirect_uri' => $z_return_url,
-            'code' => $data['code'],
-        ];
-        $zoho = new ZohoCustomTokenStore();
-        if ($request->has('refresh_token')) {
-            $token = $zoho->saveToken($postInput, $request->all(), $client_id, $secret_key, $z_return_url);
-        } else {
-            $resp = $zoho->getToken($data['accounts-server'], $data['location'], $postInput);
-            $token = $zoho->saveToken($postInput, $resp, $client_id, $secret_key, $z_return_url);
-        }
-
-        return $token;
-    }
 
     public static function getUsers($token)
     {
