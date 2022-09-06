@@ -1,22 +1,20 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne;
+namespace Masmaleki\ZohoAllInOne\Auth;
 
 use com\zoho\api\authenticator\Token;
 use com\zoho\crm\api\exception\SDKException;
-use com\zoho\crm\api\UserSignature;
-use com\zoho\api\authenticator\store\TokenStore;
-use App\Models\ZohoToken;
 use GuzzleHttp\Client;
 use Illuminate\Support\Carbon;
+use Masmaleki\ZohoAllInOne\ZohoToken;
 
 class ZohoCustomTokenStore
 {
     /**
-     * @param user A UserSignature class instance.
-     * @param token A Token (com\zoho\api\authenticator\OAuthToken) class instance.
+     * @param $account_url
+     * @param $location
+     * @param $postInput
      * @return A Token class instance representing the user token details.
-     * @throws SDKException if any problem occurs.
      */
     public function getToken($account_url, $location, $postInput)
     {
@@ -29,9 +27,12 @@ class ZohoCustomTokenStore
     }
 
     /**
-     * @param user A UserSignature class instance.
-     * @param token A Token (com\zoho\api\authenticator\OAuthToken) class instance.
-     * @throws SDKException if any problem occurs.
+     * @param $postInput
+     * @param $response
+     * @param $client_id
+     * @param $secret_key
+     * @param $z_return_url
+     * @return ZohoToken
      */
     public function saveToken($postInput, $response, $client_id, $secret_key, $z_return_url)
     {
@@ -83,6 +84,11 @@ class ZohoCustomTokenStore
         $z_url = env('ZOHO_ACCOUNTS_URL');
         $z_return_url = env('ZOHO_REDIRECT_URI');
         $refreshed_token_resp = self::getToken($z_url, 'eu', $postInput);
+
+        //check the error response
+        if(array_key_exists('error',$refreshed_token_resp)){
+            return null;
+        }
         $token->access_token = $refreshed_token_resp['access_token'];
         $now = Carbon::now();
         $token->expiry_time = $now->add($refreshed_token_resp['expires_in'], 'seconds');
@@ -91,10 +97,9 @@ class ZohoCustomTokenStore
     }
 
     /**
-     * @param id A string.
-     * @param token A Token (com\zoho\api\authenticator\OAuthToken) class instance.
+     * @param $id
+     * @param $token
      * @return A Token class instance representing the user token details.
-     * @throws SDKException if any problem occurs.
      */
     public function getTokenById($id, $token)
     {
