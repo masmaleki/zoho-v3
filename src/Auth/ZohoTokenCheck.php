@@ -20,8 +20,7 @@ class ZohoTokenCheck
             }
             return $zoho_token;
         } elseif ($redirect) {
-            $auth_url = ZohoConfig::getAuthUrl();
-            return redirect($auth_url);
+            return redirect(ZohoConfig::getAuthUrl());
         }
         return null;
 
