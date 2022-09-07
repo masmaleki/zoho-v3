@@ -3,30 +3,19 @@
 namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
 {
 
-    public static function getUsers($token)
+    // start - users functions
+    public static function getUsers()
     {
-
-
-        $apiURL = $token->api_domain . '/crm/v3/users';
-        $client = new Client();
-        $postInput = [
-            'page' => 1,
-            'type' => 'AllUsers'
-        ];
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $response = $client->request('GET', $apiURL, ['form_params' => $postInput, 'headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
+        return ZohoUserController::getAll();
     }
+    // end - users functions
 
+    // start - contact functions
     public static function getContacts()
     {
         return ZohoContactController::getAll();
@@ -41,4 +30,5 @@ class ZohoAllInOne
     {
         return ZohoContactController::getByEmail($zoho_email);
     }
+    // end - contact functions
 }
