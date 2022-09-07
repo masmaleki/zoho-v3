@@ -167,7 +167,7 @@ return [
     */
     'oauth_scope' => env('ZOHO_OAUTH_SCOPE', 'aaaserver.profile.READ,ZohoCRM.modules.ALL,ZohoCRM.settings.ALL'),
 
-    'middleware' => [],
+    'middleware' => ['web'],
 
     'domain' => null,
 
