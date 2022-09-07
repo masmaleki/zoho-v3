@@ -56,8 +56,9 @@ class ZohoTokenCheck
             $resp = $zoho->getToken($data['accounts-server'], $data['location'], $postInput);
             $token = $zoho->saveToken($postInput, $resp, $client_id, $secret_key, $z_return_url);
         }
+        $message = 'Token is Updated now!';
 
-        return $token;
+        return '<h1>' . $message . '</h1>';
     }
 
 }
