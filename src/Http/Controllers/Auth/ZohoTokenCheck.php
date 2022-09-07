@@ -25,7 +25,7 @@ class ZohoTokenCheck
 
     }
 
-    public function refreshToken()
+    public function applicationRegister()
     {
         return redirect(ZohoConfig::getAuthUrl());
     }
@@ -56,7 +56,7 @@ class ZohoTokenCheck
             $resp = $zoho->getToken($data['accounts-server'], $data['location'], $postInput);
             $token = $zoho->saveToken($postInput, $resp, $client_id, $secret_key, $z_return_url);
         }
-        $message = 'Token is Updated now!';
+        $message = 'Token is created now!';
 
         return '<h1>' . $message . '</h1>';
     }

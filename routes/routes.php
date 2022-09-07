@@ -17,6 +17,6 @@ Route::group([
     'prefix' => config('zoho-v3.prefix'),
 ], function () {
     Route::prefix('zoho')->group(function () {
-        Route::get('/refresh/token', [ZohoTokenCheck::class, 'refreshToken'])->name('zoho.refresh.token');
+        Route::get('/application/register', [ZohoTokenCheck::class, 'applicationRegister'])->name('zoho.application.register');
     });
 });
