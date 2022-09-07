@@ -31,11 +31,6 @@ class ZohoAllInOneServiceProvider extends PackageServiceProvider
 
     protected function configureRoutes()
     {
-        Route::group([
-            'namespace' => 'Masmaleki\ZohoAllInOne\Http\Controllers',
-            'domain' => config('zoho-v3.domain', null),
-        ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
-        });
+        $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
     }
 }
