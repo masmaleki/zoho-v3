@@ -30,5 +30,15 @@ class ZohoAllInOne
     {
         return ZohoContactController::getByEmail($zoho_email);
     }
+
+    public static function createContact($data = [])
+    {
+        return ZohoContactController::create($data);
+    }
+
+    public static function updateContact($zoho_contact_id, $data = [])
+    {
+        return ZohoContactController::updateById($zoho_contact_id, $data);
+    }
     // end - contact functions
 }
