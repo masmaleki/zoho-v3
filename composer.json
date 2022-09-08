@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.2",
         "spatie/laravel-package-tools": "^1.9.2",
         "illuminate/contracts": "^9.0",
         "zohocrm/php-sdk-3.0": "^1.0@beta"

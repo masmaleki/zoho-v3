@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
@@ -41,4 +42,17 @@ class ZohoAllInOne
         return ZohoContactController::updateById($zoho_contact_id, $data);
     }
     // end - contact functions
+
+    // start - products functions
+
+    public static function getProducts()
+    {
+        return ZohoProductController::getAll();
+    }
+    public static function productsSearch($phrase)
+    {
+        return ZohoProductController::search($phrase);
+    }
+    // end - product functions
+
 }
