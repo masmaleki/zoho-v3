@@ -42,9 +42,8 @@ class ZohoAllInOne
         return ZohoContactController::updateById($zoho_contact_id, $data);
     }
     // end - contact functions
-    // end - product functions
 
-    // start - users functions
+    // start - products functions
 
     public static function getProducts()
     {
