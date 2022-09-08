@@ -83,8 +83,9 @@ class ZohoCustomTokenStore
         ];
         $z_url = config('zoho-v3.accounts_url');
         $z_return_url = config('zoho-v3.redirect_uri');
+        $z_api_url = config('zoho-v3.api_base_url');
 
-        $refreshed_token_resp = self::getToken($z_url, 'eu', $postInput);
+        $refreshed_token_resp = self::getToken($z_url, config('zoho-v3.location'), $postInput);
 
         //check the error response
         if (array_key_exists('error', $refreshed_token_resp ?? [])) {
