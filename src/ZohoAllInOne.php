@@ -49,6 +49,12 @@ class ZohoAllInOne
     {
         return ZohoProductController::getAll();
     }
+
+    public static function getProduct($zoho_product_id)
+    {
+        return ZohoProductController::getById($zoho_product_id);
+    }
+
     public static function productsSearch($phrase)
     {
         return ZohoProductController::search($phrase);
