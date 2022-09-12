@@ -4,6 +4,7 @@ namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
@@ -41,6 +42,21 @@ class ZohoAllInOne
     {
         return ZohoContactController::updateById($zoho_contact_id, $data);
     }
+
+    public static function getContactAvatar($zoho_contact_id)
+    {
+        return ZohoContactController::getAvatar($zoho_contact_id);
+    }
+
+    public static function updateContactAvatar($zoho_contact_id, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoContactController::updateAvatar($zoho_contact_id, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteContactAvatar($zoho_contact_id)
+    {
+        return ZohoContactController::deleteAvatar($zoho_contact_id);
+    }
     // end - contact functions
 
     // start - products functions
@@ -60,5 +76,13 @@ class ZohoAllInOne
         return ZohoProductController::search($phrase);
     }
     // end - product functions
+
+    // start - settings functions
+
+    public static function getRoles()
+    {
+        return ZohoRoleController::getAll();
+    }
+    // end - settings functions
 
 }
