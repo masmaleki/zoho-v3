@@ -3,7 +3,9 @@
 namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
@@ -60,5 +62,33 @@ class ZohoAllInOne
         return ZohoProductController::search($phrase);
     }
     // end - product functions
+
+    // start - invoice functions
+    public static function getInvoices($organization_id)
+    {
+        return ZohoInvoiceController::getAll($organization_id);
+    }
+
+    public static function getInvoice($zoho_invoice_id)
+    {
+        return ZohoInvoiceController::getById($zoho_invoice_id);
+    }
+
+    public static function getVendorInvoices($zoho_vendor_id)
+    {
+        return ZohoInvoiceController::getByVendorId($zoho_vendor_id);
+    }
+
+    // end - invoice functions
+
+
+    // start - organizations functions
+
+    public static function getOrganizations()
+    {
+        return ZohoOrganizationController::getAll();
+    }
+
+    // end - organizations functions
 
 }
