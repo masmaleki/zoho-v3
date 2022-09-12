@@ -119,6 +119,7 @@ return [
     |
     */
     'api_base_url' => env('ZOHO_API_BASE_URL', 'www.zohoapis.com'),
+    'books_api_base_url' => env('ZOHO_BOOKS_API_BASE_URL', 'books.zoho.eu'),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,7 +176,7 @@ return [
     | this path according to your preferences and application design.
     |
     */
-    'oauth_scope' => env('ZOHO_OAUTH_SCOPE', 'aaaserver.profile.READ,ZohoCRM.modules.ALL,ZohoCRM.settings.ALL'),
+    'oauth_scope' => env('ZOHO_OAUTH_SCOPE', 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL'),
 
     'middleware' => ['web'],
 
