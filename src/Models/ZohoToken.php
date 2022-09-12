@@ -1,6 +1,6 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne;
+namespace Masmaleki\ZohoAllInOne\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -6,7 +6,7 @@ use com\zoho\api\authenticator\Token;
 use com\zoho\crm\api\exception\SDKException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Carbon;
-use Masmaleki\ZohoAllInOne\ZohoToken;
+use Masmaleki\ZohoAllInOne\Models\ZohoToken;
 
 class ZohoCustomTokenStore
 {
