@@ -24,7 +24,7 @@ class ZohoAllInOneServiceProvider extends PackageServiceProvider
             ->hasCommand(ZohoAllInOneCommand::class);
     }
 
-    public function boot()
+    public function packageBooted()
     {
         $this->configureRoutes();
     }
