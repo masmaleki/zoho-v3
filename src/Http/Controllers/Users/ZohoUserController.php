@@ -2,7 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Users;
 
-
+use GuzzleHttp\Client;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoUserController
