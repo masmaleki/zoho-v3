@@ -38,7 +38,7 @@ class ZohoCustomTokenStore
     {
         $token = new ZohoToken();
         $token->access_token = $response['access_token'];
-        $token->refresh_token = $response['refresh_token'];
+        $token->refresh_token = $response['refresh_token'] ?? '';
         $token->api_domain = $response['api_domain'];
         $token->token_type = $response['token_type'];
         $now = Carbon::now();
