@@ -71,4 +71,24 @@ class ZohoInvoiceController
         return $responseBody;
     }
 
+    public static function getByCustomerId($zoho_customer_id, $organization_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices?organization_id=' . $organization_id .'&customer_id=' . $zoho_customer_id .'';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
@@ -61,6 +62,18 @@ class ZohoAllInOne
     }
     // end - contact functions
 
+    // start - accounts functions
+    public static function getZohoCrmAccount($zoho_crm_account_id)
+    {
+        return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
+    }
+
+    public static function getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id = null)
+    {
+        return ZohoAccountController::getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id);
+    }
+    // end - accounts functions
+
     // start - products functions
 
     public static function getProducts()
@@ -93,6 +106,11 @@ class ZohoAllInOne
     public static function getVendorInvoices($zoho_vendor_id)
     {
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);
+    }
+
+    public static function getByCustomerId($zoho_customer_id, $organization_id = null)
+    {
+        return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
     }
 
     // end - invoice functions
