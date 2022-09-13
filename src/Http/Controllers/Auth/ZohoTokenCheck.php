@@ -5,7 +5,7 @@ namespace Masmaleki\ZohoAllInOne\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Masmaleki\ZohoAllInOne\ZohoToken;
+use Masmaleki\ZohoAllInOne\Models\ZohoToken;
 
 class ZohoTokenCheck
 {

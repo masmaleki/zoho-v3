@@ -2,10 +2,12 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
@@ -43,7 +45,34 @@ class ZohoAllInOne
     {
         return ZohoContactController::updateById($zoho_contact_id, $data);
     }
+
+    public static function getContactAvatar($zoho_contact_id)
+    {
+        return ZohoContactController::getAvatar($zoho_contact_id);
+    }
+
+    public static function updateContactAvatar($zoho_contact_id, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoContactController::updateAvatar($zoho_contact_id, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteContactAvatar($zoho_contact_id)
+    {
+        return ZohoContactController::deleteAvatar($zoho_contact_id);
+    }
     // end - contact functions
+
+    // start - accounts functions
+    public static function getZohoCrmAccount($zoho_crm_account_id)
+    {
+        return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
+    }
+
+    public static function getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id = null)
+    {
+        return ZohoAccountController::getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id);
+    }
+    // end - accounts functions
 
     // start - products functions
 
@@ -79,6 +108,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);
     }
 
+    public static function getByCustomerId($zoho_customer_id, $organization_id = null)
+    {
+        return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
     // end - invoice functions
 
 
@@ -90,5 +124,13 @@ class ZohoAllInOne
     }
 
     // end - organizations functions
+
+    // start - settings functions
+
+    public static function getRoles()
+    {
+        return ZohoRoleController::getAll();
+    }
+    // end - settings functions
 
 }
