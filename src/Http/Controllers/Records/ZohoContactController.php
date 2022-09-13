@@ -15,7 +15,7 @@ class ZohoContactController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Email,First_Name,Last_Name,Mobile';
+        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
