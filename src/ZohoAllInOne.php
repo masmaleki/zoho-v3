@@ -19,9 +19,9 @@ class ZohoAllInOne
     // end - users functions
 
     // start - contact functions
-    public static function getContacts()
+    public static function getContacts($page_token = null)
     {
-        return ZohoContactController::getAll();
+        return ZohoContactController::getAll($page_token);
     }
 
     public static function getContact($zoho_contact_id)

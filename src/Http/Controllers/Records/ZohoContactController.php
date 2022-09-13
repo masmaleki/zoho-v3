@@ -9,13 +9,16 @@ class ZohoContactController
 {
 
 
-    public static function getAll()
+    public static function getAll($page_token = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
         $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Email,First_Name,Last_Name,Mobile';
+        if ($page_token) {
+            $apiURL .= '&page_token=' . $page_token;
+        }
         $client = new Client();
 
         $headers = [
