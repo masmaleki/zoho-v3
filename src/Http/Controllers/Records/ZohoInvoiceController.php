@@ -28,16 +28,17 @@ class ZohoInvoiceController
         return $responseBody;
     }
 
-    public static function getById($zoho_invoice_id)
+    public static function getById($zoho_invoice_id, $organization_id = null)
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Invoices/search?criteria=(id:equals:' . $zoho_invoice_id . ')';
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices?organization_id=' . $organization_id;
-
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices/' . $zoho_invoice_id;
+        if ($organization_id) {
+            $apiURL .= '/?organization_id=' . $organization_id;
+        }
         $client = new Client();
 
         $headers = [

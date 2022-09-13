@@ -85,9 +85,9 @@ class ZohoAllInOne
         return ZohoInvoiceController::getAll($organization_id);
     }
 
-    public static function getInvoice($zoho_invoice_id)
+    public static function getInvoice($zoho_invoice_id, $organization_id = null)
     {
-        return ZohoInvoiceController::getById($zoho_invoice_id);
+        return ZohoInvoiceController::getById($zoho_invoice_id, $organization_id);
     }
 
     public static function getVendorInvoices($zoho_vendor_id)
