@@ -37,7 +37,7 @@ class ZohoInvoiceController
         }
         $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices/' . $zoho_invoice_id;
         if ($organization_id) {
-            $apiURL .= '/?organization_id=' . $organization_id;
+            $apiURL .= '?organization_id=' . $organization_id;
         }
         $client = new Client();
 
