@@ -20,17 +20,28 @@ class ZohoAllInOneServiceProvider extends PackageServiceProvider
             ->name('zoho-v3')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_zoho_v3_table')
+            ->hasMigrations('create_zoho_v3_table', 'create_zoho_model_has_roles_table')
             ->hasCommand(ZohoAllInOneCommand::class);
     }
 
     public function packageBooted()
     {
         $this->configureRoutes();
+
+        if ($this->app->runningInConsole()) {
+            $this->publishSeeders();
+        }
     }
 
     protected function configureRoutes()
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
+    }
+
+    protected function publishSeeders()
+    {
+        $this->publishes([
+            __DIR__ . '/../database/seeders/ZohoUserHasRoleSeeder.php' => database_path('seeders/ZohoUserHasRoleSeeder.php'),
+        ], 'zoho-v3-seeders');
     }
 }
