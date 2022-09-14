@@ -2,10 +2,12 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -124,6 +126,46 @@ class ZohoAllInOne
     }
 
     // end - organizations functions
+
+
+    // start - RFQ functions
+
+    public static function getRFQ($rfq_id)
+    {
+        return ZohoRFQController::get($rfq_id);
+    }
+
+    public static function getRFQs()
+    {
+        return ZohoRFQController::getAll();
+    }
+
+    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null)
+    {
+        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token);
+    }
+
+    // end - RFQ functions
+
+
+    // start - Quote functions
+
+    public static function getQuote($quote_id)
+    {
+        return ZohoQuoteController::get($quote_id);
+    }
+
+    public static function getQuotes()
+    {
+        return ZohoQuoteController::getAll();
+    }
+
+    public static function getVendorQuotes($zoho_crm_account_id, $page_token = null)
+    {
+        return ZohoQuoteController::getVendorQuotes($zoho_crm_account_id, $page_token);
+    }
+
+    // end - Quote functions
 
     // start - settings functions
 
