@@ -183,4 +183,81 @@ return [
     'domain' => null,
 
     'prefix' => '',
+    
+        
+    /*
+    |--------------------------------------------------------------------------
+    | Zoho User Roles
+    |--------------------------------------------------------------------------
+    |
+    | This is array of all zoho roles which we used in our system.
+    |
+    */
+
+    'roles' => [
+        1 => [
+            "display_label" => "CEO",
+            "forecast_manager" => null,
+            "share_with_peers" => true,
+            "name" => "CEO",
+            "description" => "Users with this role have access to the data owned by all other users.",
+            "id" => "12792000000026968",
+            "default_email" => "ceo@ceo.com"
+        ],
+        2 => [
+            "display_label" => "Operative Manager",
+            "forecast_manager" => null,
+            "share_with_peers" => false,
+            "name" => "Operative Manager",
+            "description" => "Users belonging to this role cannot see data for admin users.",
+            "id" => "12792000000369349",
+            "default_email" => "operative.manager@operative.manager.com"
+        ],
+        3 => [
+            "display_label" => "Administration",
+            "forecast_manager" => null,
+            "share_with_peers" => true,
+            "name" => "Administration",
+            "description" => "",
+            "id" => "12792000000369350",
+            "default_email" => "administration@administration.com"
+        ],
+        4 => [
+            "display_label" => "Marketing",
+            "forecast_manager" => null,
+            "share_with_peers" => true,
+            "name" => "Marketing",
+            "description" => "",
+            "id" => "12792000000369351",
+            "default_email" => "marketing@marketing.com"
+        ],
+        5 => [
+            "display_label" => "Purchasing",
+            "forecast_manager" => null,
+            "share_with_peers" => true,
+            "name" => "Purchasing",
+            "description" => "",
+            "id" => "12792000000369352",
+            "default_email" => "purchasing@purchasing.com"
+        ],
+        6 => [
+            "display_label" => "Sales Manager",
+            "forecast_manager" => null,
+            "share_with_peers" => false,
+            "name" => "Sales Manager",
+            "description" => null,
+            "id" => "12792000000369353",
+            "default_email" => "sales.manager@sales.manager.com"
+        ],
+        7 => [
+            "display_label" => "Sales",
+            "forecast_manager" => null,
+            "share_with_peers" => true,
+            "name" => "Sales",
+            "description" => "",
+            "id" => "12792000000369354",
+            "default_email" => "sales@sales.com"
+        ],
+    ],
+
 ];
