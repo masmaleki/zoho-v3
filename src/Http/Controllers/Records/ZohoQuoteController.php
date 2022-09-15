@@ -47,7 +47,7 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getVendorQuotes($zoho_crm_vendor_id, $page_token = null)
+    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {

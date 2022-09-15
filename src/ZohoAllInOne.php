@@ -165,9 +165,9 @@ class ZohoAllInOne
         return ZohoQuoteController::getAll();
     }
 
-    public static function getVendorQuotes($zoho_crm_account_id, $page_token = null)
+    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null)
     {
-        return ZohoQuoteController::getVendorQuotes($zoho_crm_account_id, $page_token);
+        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
     }
 
     // end - Quote functions
