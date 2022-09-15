@@ -78,9 +78,9 @@ class ZohoAllInOne
 
     // start - products functions
 
-    public static function getProducts()
+    public static function getProducts($page_token = null)
     {
-        return ZohoProductController::getAll();
+        return ZohoProductController::getAll($page_token);
     }
 
     public static function getProduct($zoho_product_id)
