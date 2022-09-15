@@ -110,9 +110,14 @@ class ZohoAllInOne
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);
     }
 
-    public static function getByCustomerId($zoho_customer_id, $organization_id = null)
+    public static function getInvoiceByCustomerId($zoho_customer_id, $organization_id = null)
     {
         return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
+    public static function getInvoicePDF($zoho_customer_id)
+    {
+        return ZohoInvoiceController::getPDF($zoho_customer_id);
     }
 
     // end - invoice functions
