@@ -34,7 +34,7 @@ class ZohoQuoteController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes/';
+        $apiURL = $token->api_domain . '/crm/v3/Quotes?fields=Subject,Product_Name,id,Quote_Date,Quantity,Quote_Stage';
         $client = new Client();
 
         $headers = [
