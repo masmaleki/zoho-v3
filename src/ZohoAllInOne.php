@@ -8,6 +8,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -118,6 +119,30 @@ class ZohoAllInOne
     public static function getInvoicePDF($invoice_id)
     {
         return ZohoInvoiceController::getPDF($invoice_id);
+    }
+
+    // end - invoice functions
+
+
+    // start - invoice functions
+    public static function getSaleOrders($organization_id)
+    {
+        return ZohoSaleOrderController::getAll($organization_id);
+    }
+
+    public static function getSaleOrder($sale_order_id, $organization_id = null)
+    {
+        return ZohoSaleOrderController::getById($sale_order_id, $organization_id);
+    }
+
+    public static function getSaleOrderByCustomerId($zoho_customer_id, $organization_id = null)
+    {
+        return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
+    public static function getSaleOrderPDF($sale_order_id)
+    {
+        return ZohoSaleOrderController::getPDF($sale_order_id);
     }
 
     // end - invoice functions
