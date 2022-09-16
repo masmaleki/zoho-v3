@@ -63,6 +63,11 @@ class ZohoAllInOne
     {
         return ZohoContactController::deleteAvatar($zoho_contact_id);
     }
+
+    public static function contactsSearch($phrase)
+    {
+        return ZohoContactController::search($phrase);
+    }
     // end - contact functions
 
     // start - accounts functions

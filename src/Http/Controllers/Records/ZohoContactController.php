@@ -190,4 +190,26 @@ class ZohoContactController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function search($phrase)
+    {
+        $token = ZohoTokenCheck::getToken();
+        //dd($token);
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?word=' . $phrase;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        //dump($response);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }
