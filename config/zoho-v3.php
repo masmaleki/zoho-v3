@@ -184,6 +184,9 @@ return [
 
     'prefix' => '',
     
+    'custom_modules_names' => [
+        'rfq' => env('ZOHO_CUSTOM_MODULE_RFQ', 'rfq'),
+    ],
         
     /*
     |--------------------------------------------------------------------------

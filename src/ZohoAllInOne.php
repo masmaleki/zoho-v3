@@ -2,10 +2,13 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -60,6 +63,11 @@ class ZohoAllInOne
     {
         return ZohoContactController::deleteAvatar($zoho_contact_id);
     }
+
+    public static function contactsSearch($phrase)
+    {
+        return ZohoContactController::search($phrase);
+    }
     // end - contact functions
 
     // start - accounts functions
@@ -76,9 +84,9 @@ class ZohoAllInOne
 
     // start - products functions
 
-    public static function getProducts()
+    public static function getProducts($page_token = null)
     {
-        return ZohoProductController::getAll();
+        return ZohoProductController::getAll($page_token);
     }
 
     public static function getProduct($zoho_product_id)
@@ -108,9 +116,38 @@ class ZohoAllInOne
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);
     }
 
-    public static function getByCustomerId($zoho_customer_id, $organization_id = null)
+    public static function getInvoiceByCustomerId($zoho_customer_id, $organization_id = null)
     {
         return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
+    public static function getInvoicePDF($invoice_id)
+    {
+        return ZohoInvoiceController::getPDF($invoice_id);
+    }
+
+    // end - invoice functions
+
+
+    // start - invoice functions
+    public static function getSaleOrders($organization_id)
+    {
+        return ZohoSaleOrderController::getAll($organization_id);
+    }
+
+    public static function getSaleOrder($sale_order_id, $organization_id = null)
+    {
+        return ZohoSaleOrderController::getById($sale_order_id, $organization_id);
+    }
+
+    public static function getSaleOrderByCustomerId($zoho_customer_id, $organization_id = null)
+    {
+        return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
+    public static function getSaleOrderPDF($sale_order_id)
+    {
+        return ZohoSaleOrderController::getPDF($sale_order_id);
     }
 
     // end - invoice functions
@@ -124,6 +161,46 @@ class ZohoAllInOne
     }
 
     // end - organizations functions
+
+
+    // start - RFQ functions
+
+    public static function getRFQ($rfq_id)
+    {
+        return ZohoRFQController::get($rfq_id);
+    }
+
+    public static function getRFQs()
+    {
+        return ZohoRFQController::getAll();
+    }
+
+    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null)
+    {
+        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token);
+    }
+
+    // end - RFQ functions
+
+
+    // start - Quote functions
+
+    public static function getQuote($quote_id)
+    {
+        return ZohoQuoteController::get($quote_id);
+    }
+
+    public static function getQuotes()
+    {
+        return ZohoQuoteController::getAll();
+    }
+
+    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null)
+    {
+        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
+    }
+
+    // end - Quote functions
 
     // start - settings functions
 
