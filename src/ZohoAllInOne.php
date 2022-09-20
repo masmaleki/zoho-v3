@@ -180,6 +180,11 @@ class ZohoAllInOne
         return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token);
     }
 
+    public static function getAccountRFQsCOQL($zoho_crm_account_id, $more_records = null)
+    {
+        return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $more_records);
+    }
+
     // end - RFQ functions
 
 
