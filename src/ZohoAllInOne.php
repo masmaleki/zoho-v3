@@ -106,6 +106,11 @@ class ZohoAllInOne
     {
         return ZohoProductController::search($phrase);
     }
+
+    public static function getProductImage($zoho_product_id)
+    {
+        return ZohoProductController::getImage($zoho_product_id);
+    }
     // end - product functions
 
     // start - invoice functions
