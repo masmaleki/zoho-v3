@@ -18,9 +18,9 @@ class ZohoAllInOne
 {
 
     // start - general functions
-    public static function getModuleCount($moduleName)
+    public static function getModuleCount($moduleName, $type = null, $value = null)
     {
-        return ZohoRecordCountController::count($moduleName);
+        return ZohoRecordCountController::count($moduleName, $type, $value);
     }
     // end - general functions
 

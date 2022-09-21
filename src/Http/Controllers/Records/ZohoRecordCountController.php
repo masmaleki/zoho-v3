@@ -21,7 +21,7 @@ class ZohoRecordCountController
         //GET /{module_api_name}/actions/count?word=(search_word_here)
 
         $responseBody['count'] = 0;
-        if (!$moduleName) {
+        if (!$moduleName || ($type != null && $value == null)) {
             return $responseBody;
         }
 
@@ -31,7 +31,23 @@ class ZohoRecordCountController
             return null;
         }
 
-        $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count';
+        switch ($type) {
+            case 'criteria':
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?criteria=(' . $value . ')';
+                break;
+            case 'email':
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?email=(' . $value . ')';
+                break;
+            case 'phone':
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?phone=(' . $value . ')';
+                break;
+            case 'word':
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?word=(' . $value . ')';
+                break;
+            default:
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count';
+
+        }
         $client = new Client();
 
         $headers = [
