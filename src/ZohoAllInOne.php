@@ -22,6 +22,11 @@ class ZohoAllInOne
     {
         return ZohoRecordCountController::count($moduleName, $type, $value);
     }
+
+    public static function getModuleCountCOQL($moduleName, $condition = null)
+    {
+        return ZohoRecordCountController::countCOQL($moduleName, $condition);
+    }
     // end - general functions
 
     // start - users functions

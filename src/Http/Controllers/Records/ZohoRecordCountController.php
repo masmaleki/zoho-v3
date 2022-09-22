@@ -36,13 +36,13 @@ class ZohoRecordCountController
                 $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?criteria=(' . $value . ')';
                 break;
             case 'email':
-                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?email=(' . $value . ')';
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?email=' . $value;
                 break;
             case 'phone':
-                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?phone=(' . $value . ')';
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?phone=' . $value;
                 break;
             case 'word':
-                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?word=(' . $value . ')';
+                $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count?word=' . $value;
                 break;
             default:
                 $apiURL = $token->api_domain . '/crm/v3/' . $moduleName . '/actions/count';
@@ -61,5 +61,51 @@ class ZohoRecordCountController
 
     }
 
+
+    public static function countCOQL($moduleName, $condition = null)
+    {
+        $result = 0;
+        $offset = 0;
+        $morePage = true;
+        do {
+            $a = self::processCountCOQL($moduleName, $condition, $offset);
+            if (($a['info']['more_records'] ?? false) == true) {
+                $offset += 200;
+            } else {
+                $morePage = false;
+            }
+            $result += $a['info']['count'] ?? 0;
+        } while ($morePage);
+        return $result;
+    }
+
+    protected static function processCountCOQL($moduleName, $condition = null, $offset = 0)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        if (!$condition) {
+            $condition = 'id != null';
+        }
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = [
+            'select_query' => "Select id from " . $moduleName . "  WHERE " . $condition . " limit " . $offset . " , 200 ",
+        ];
+
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
 
 }
