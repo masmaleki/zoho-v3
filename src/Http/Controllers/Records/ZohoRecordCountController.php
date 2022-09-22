@@ -61,7 +61,6 @@ class ZohoRecordCountController
 
     }
 
-
     public static function countCOQL($moduleName, $condition = null)
     {
         $result = 0;
@@ -106,6 +105,35 @@ class ZohoRecordCountController
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
+    }
+
+    public static function countZBCOQL($moduleName = null, $organization_id)
+    {
+
+        $responseBody['count'] = 0;
+        if (!$moduleName) {
+            return $responseBody;
+        }
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/' . $moduleName . '?page=1&per_page=2&filter_by=Status.All&sort_column=created_time&sort_order=D&response_option=2&organization_id=' . $organization_id;
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        $responseBody['count'] = $responseBody['page_context']['total'] ?? 0;
+        return $responseBody;
+
     }
 
 }
