@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
@@ -15,6 +16,18 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
 {
+
+    // start - general functions
+    public static function getModuleCount($moduleName, $type = null, $value = null)
+    {
+        return ZohoRecordCountController::count($moduleName, $type, $value);
+    }
+
+    public static function getModuleCountCOQL($moduleName, $condition = null)
+    {
+        return ZohoRecordCountController::countCOQL($moduleName, $condition);
+    }
+    // end - general functions
 
     // start - users functions
     public static function getUsers()
@@ -97,6 +110,11 @@ class ZohoAllInOne
     public static function productsSearch($phrase)
     {
         return ZohoProductController::search($phrase);
+    }
+
+    public static function getProductImage($zoho_product_id)
+    {
+        return ZohoProductController::getImage($zoho_product_id);
     }
     // end - product functions
 
