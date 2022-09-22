@@ -27,6 +27,11 @@ class ZohoAllInOne
     {
         return ZohoRecordCountController::countCOQL($moduleName, $condition);
     }
+
+    public static function getZBCount($moduleName, $organization_id)
+    {
+        return ZohoRecordCountController::countZBCOQL($moduleName, $organization_id);
+    }
     // end - general functions
 
     // start - users functions
