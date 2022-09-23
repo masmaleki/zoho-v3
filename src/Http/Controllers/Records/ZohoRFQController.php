@@ -90,7 +90,7 @@ class ZohoRFQController
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
-        $conditions = $conditions ? '( ' . $conditions . ' ) and' : '(Product_Name.Product_Name like "Si8%") and';
+        $conditions = $conditions ? '( ' . $conditions . ' ) and' : '';
 
         $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
         $body = [
