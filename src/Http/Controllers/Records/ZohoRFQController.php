@@ -94,7 +94,7 @@ class ZohoRFQController
 
         $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
         $body = [
-            'select_query' => 'select ' . $fields . ' from ' . config('zoho-v3.custom_modules_names.rfq') . '  where ' . $conditions . ' (Account_Name.id = ' . $zoho_crm_account_id . ')  limit ' . $offset . ', 200',
+            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . " (Account_Name.id = " . $zoho_crm_account_id . ")  limit " . $offset . ", 200",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
