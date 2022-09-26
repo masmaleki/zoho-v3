@@ -233,6 +233,11 @@ class ZohoAllInOne
         return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
     }
 
+    public static function quotesSearch($phrase, $criteria = null)
+    {
+        return ZohoQuoteController::search($phrase, $criteria);
+    }
+
     // end - Quote functions
 
     // start - settings functions
