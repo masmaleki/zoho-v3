@@ -208,6 +208,11 @@ class ZohoAllInOne
         return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $more_records);
     }
 
+    public static function rfqsSearch($phrase, $criteria = null)
+    {
+        return ZohoRFQController::search($phrase, $criteria);
+    }
+
     // end - RFQ functions
 
 
