@@ -144,6 +144,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
     }
 
+    public static function searchInvoiceByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoInvoiceController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
+
     public static function getInvoicePDF($invoice_id)
     {
         return ZohoInvoiceController::getPDF($invoice_id);
