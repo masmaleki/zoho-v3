@@ -77,7 +77,7 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function getAccountRFQsCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
+    public static function getAccountRFQsCOQL($zoho_crm_account_id = null, $offset = 0, $conditions = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -90,11 +90,14 @@ class ZohoRFQController
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
-        $conditions = $conditions ? $conditions . ' and ' : '';
+
+        $conditions = ($zoho_crm_account_id != null && $conditions != null) ? $conditions . ' and ' : '';
+        $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(Account_Name.id != 0) ";
+
 
         $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
         $body = [
-            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . " (Account_Name.id = " . $zoho_crm_account_id . ")  limit " . $offset . ", 200",
+            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . $zoho_crm_account_id_conditions . "  limit " . $offset . ", 200",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
@@ -104,7 +107,7 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    
+
     public static function search($phrase, $criteria = null)
     {
         $token = ZohoTokenCheck::getToken();
