@@ -10,6 +10,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -104,6 +105,14 @@ class ZohoAllInOne
         return ZohoAccountController::getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id);
     }
     // end - accounts functions
+
+    // start - vendors functions
+    public static function getVendors($page_token = null)
+    {
+        return ZohoVendorController::getAll($page_token);
+    }
+
+    // end - vendors functions
 
     // start - products functions
 
