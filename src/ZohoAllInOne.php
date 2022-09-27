@@ -89,6 +89,11 @@ class ZohoAllInOne
     // end - contact functions
 
     // start - accounts functions
+    public static function getAccounts($page_token = null)
+    {
+        return ZohoAccountController::getAll($page_token);
+    }
+
     public static function getZohoCrmAccount($zoho_crm_account_id)
     {
         return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
@@ -172,7 +177,7 @@ class ZohoAllInOne
     {
         return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
     }
-    
+
     public static function searchSaleOrderByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
     {
         return ZohoSaleOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
