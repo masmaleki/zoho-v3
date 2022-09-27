@@ -72,6 +72,34 @@ class ZohoSaleOrderController
         return $responseBody;
     }
 
+    public static function searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?&customer_id=' . $zoho_customer_id .'';
+
+        if ($searchParameter) {
+            $apiURL .= '&salesorder_number_contains=' . $searchParameter;
+        }
+        if ($organization_id) {
+            $apiURL .= '&organization_id=' . $organization_id;
+        }
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function getPDF($sale_order_id)
     {
         $token = ZohoTokenCheck::getToken();
