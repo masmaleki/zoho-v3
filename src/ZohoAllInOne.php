@@ -144,6 +144,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getByCustomerId($zoho_customer_id, $organization_id);
     }
 
+    public static function searchInvoiceByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoInvoiceController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
+
     public static function getInvoicePDF($invoice_id)
     {
         return ZohoInvoiceController::getPDF($invoice_id);
@@ -203,9 +208,14 @@ class ZohoAllInOne
         return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token);
     }
 
-    public static function getAccountRFQsCOQL($zoho_crm_account_id, $more_records = null)
+    public static function getAccountRFQsCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
     {
-        return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $more_records);
+        return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $offset, $conditions, $fields);
+    }
+
+    public static function rfqsSearch($phrase, $criteria = null)
+    {
+        return ZohoRFQController::search($phrase, $criteria);
     }
 
     // end - RFQ functions
@@ -226,6 +236,11 @@ class ZohoAllInOne
     public static function getAccountQuotes($zoho_crm_account_id, $page_token = null)
     {
         return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
+    }
+
+    public static function quotesSearch($phrase, $criteria = null)
+    {
+        return ZohoQuoteController::search($phrase, $criteria);
     }
 
     // end - Quote functions
