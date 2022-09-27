@@ -172,6 +172,11 @@ class ZohoAllInOne
     {
         return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
     }
+    
+    public static function searchSaleOrderByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoSaleOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
 
     public static function getSaleOrderPDF($sale_order_id)
     {
