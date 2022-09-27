@@ -91,7 +91,7 @@ class ZohoRFQController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $conditions = ($zoho_crm_account_id != null && $conditions != null) ? $conditions . ' and ' : '';
+        $conditions = ( $conditions ) ? $conditions . ' and ' : '';
         $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(Account_Name.id != 0) ";
 
 
