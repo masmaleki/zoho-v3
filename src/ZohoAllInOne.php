@@ -37,9 +37,9 @@ class ZohoAllInOne
     // end - general functions
 
     // start - users functions
-    public static function getUsers()
+    public static function getUsers($page_token = null)
     {
-        return ZohoUserController::getAll();
+        return ZohoUserController::getAll($page_token);
     }
     // end - users functions
 
