@@ -92,7 +92,7 @@ class ZohoRFQController
         ];
 
         $conditions = ( $conditions ) ? $conditions . ' and ' : '';
-        $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(Account_Name.id != 0) ";
+        $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(id != 0) ";
 
 
         $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Owner, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
