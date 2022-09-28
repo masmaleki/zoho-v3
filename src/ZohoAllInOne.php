@@ -181,9 +181,9 @@ class ZohoAllInOne
 
 
     // start - sales orders functions
-    public static function getSaleOrders($organization_id)
+    public static function getSaleOrders($organization_id, $page = 1)
     {
-        return ZohoSaleOrderController::getAll($organization_id);
+        return ZohoSaleOrderController::getAll($organization_id, $page);
     }
 
     public static function getSaleOrder($sale_order_id, $organization_id = null)
