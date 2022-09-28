@@ -107,7 +107,7 @@ class ZohoRecordCountController
         return $responseBody;
     }
 
-    public static function countZBCOQL($moduleName = null, $organization_id)
+    public static function countZBCOQL($moduleName = null, $organization_id, $condition = null)
     {
 
         $responseBody['count'] = 0;
@@ -120,7 +120,11 @@ class ZohoRecordCountController
             return null;
         }
 
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/' . $moduleName . '?page=1&per_page=2&filter_by=Status.All&sort_column=created_time&sort_order=D&response_option=2&organization_id=' . $organization_id;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/' . $moduleName . '?page=1&per_page=2&response_option=2&organization_id=' . $organization_id;
+
+        if ($condition) {
+            $apiURL .= $condition;
+        }
 
         $client = new Client();
 
