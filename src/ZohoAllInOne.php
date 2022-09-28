@@ -265,6 +265,11 @@ class ZohoAllInOne
         return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
     }
 
+    public static function getAccountQuotesCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoQuoteController::getAccountQuotesCOQL($zoho_crm_account_id, $offset, $conditions, $fields);
+    }
+
     public static function quotesSearch($phrase, $criteria = null)
     {
         return ZohoQuoteController::search($phrase, $criteria);

@@ -69,6 +69,36 @@ class ZohoQuoteController
         return $responseBody;
     }
 
+    public static function getAccountQuotesCOQL($zoho_crm_account_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $conditions = ($conditions) ? $conditions . ' and ' : '';
+        $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(id != 0) ";
+
+        $fields = $fields ? $fields : ' id, Owner, Customer_RFQ_No, Quote_Date,  RFQ, Product_Name, Quote_Number1, Product_Name.Product_Name,  Account_Name, Quantity, Contact_Name ,Quote_Type ';
+
+        $body = [
+            'select_query' => "select " . $fields . " from Quotes where " . $conditions . $zoho_crm_account_id_conditions . "  limit " . $offset . ", 200",
+        ];
+
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function search($phrase, $criteria = null)
     {
         $token = ZohoTokenCheck::getToken();
