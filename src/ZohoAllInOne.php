@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
@@ -10,6 +11,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -35,9 +37,9 @@ class ZohoAllInOne
     // end - general functions
 
     // start - users functions
-    public static function getUsers()
+    public static function getUsers($page_token = null)
     {
-        return ZohoUserController::getAll();
+        return ZohoUserController::getAll($page_token);
     }
     // end - users functions
 
@@ -89,6 +91,11 @@ class ZohoAllInOne
     // end - contact functions
 
     // start - accounts functions
+    public static function getAccounts($page_token = null)
+    {
+        return ZohoAccountController::getAll($page_token);
+    }
+
     public static function getZohoCrmAccount($zoho_crm_account_id)
     {
         return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
@@ -99,6 +106,21 @@ class ZohoAllInOne
         return ZohoAccountController::getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id);
     }
     // end - accounts functions
+
+    // start - vendors functions
+    public static function getVendors($page_token = null)
+    {
+        return ZohoVendorController::getAll($page_token);
+    }
+    // end - vendors functions
+
+    // start - manufactures functions
+    public static function getManufactures($page_token = null)
+    {
+        return ZohoManufactureController::getAll($page_token);
+    }
+
+    // end - manufactures functions
 
     // start - products functions
 
@@ -172,7 +194,7 @@ class ZohoAllInOne
     {
         return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
     }
-    
+
     public static function searchSaleOrderByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
     {
         return ZohoSaleOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
