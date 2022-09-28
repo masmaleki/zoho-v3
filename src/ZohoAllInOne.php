@@ -29,9 +29,9 @@ class ZohoAllInOne
         return ZohoRecordCountController::countCOQL($moduleName, $condition);
     }
 
-    public static function getZBCount($moduleName, $organization_id)
+    public static function getZBCount($moduleName, $organization_id, $condition = null)
     {
-        return ZohoRecordCountController::countZBCOQL($moduleName, $organization_id);
+        return ZohoRecordCountController::countZBCOQL($moduleName, $organization_id, $condition);
     }
     // end - general functions
 
