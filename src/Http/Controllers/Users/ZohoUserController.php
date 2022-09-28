@@ -15,8 +15,9 @@ class ZohoUserController
             return null;
         }
         $apiURL = $token->api_domain . '/crm/v3/users';
+        //TODO: paginations
         if ($page_token) {
-            $apiURL .= '&page_token=' . $page_token;
+           // $apiURL .= '&page_token=' . $page_token;
         }
         $client = new Client();
         $postInput = [
