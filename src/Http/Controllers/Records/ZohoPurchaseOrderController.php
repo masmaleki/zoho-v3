@@ -27,7 +27,6 @@ class ZohoPurchaseOrderController
         $response = $client->request('GET', $apiURL, ['headers' => $headers]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
-        dd($responseBody);
         return $responseBody;
     }
 
