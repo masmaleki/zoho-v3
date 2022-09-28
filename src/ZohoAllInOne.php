@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
@@ -36,9 +37,9 @@ class ZohoAllInOne
     // end - general functions
 
     // start - users functions
-    public static function getUsers()
+    public static function getUsers($page_token = null)
     {
-        return ZohoUserController::getAll();
+        return ZohoUserController::getAll($page_token);
     }
     // end - users functions
 
@@ -111,8 +112,15 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getAll($page_token);
     }
-
     // end - vendors functions
+
+    // start - manufactures functions
+    public static function getManufactures($page_token = null)
+    {
+        return ZohoManufactureController::getAll($page_token);
+    }
+
+    // end - manufactures functions
 
     // start - products functions
 
