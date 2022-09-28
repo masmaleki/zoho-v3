@@ -181,9 +181,9 @@ class ZohoAllInOne
 
 
     // start - sales orders functions
-    public static function getSaleOrders($organization_id, $page = 1)
+    public static function getSaleOrders($organization_id, $page = 1, $condition = '')
     {
-        return ZohoSaleOrderController::getAll($organization_id, $page);
+        return ZohoSaleOrderController::getAll($organization_id, $page, $condition);
     }
 
     public static function getSaleOrder($sale_order_id, $organization_id = null)
@@ -209,9 +209,9 @@ class ZohoAllInOne
     // end - sales orders functions
 
     // start - purchase order functions
-    public static function getPurchaseOrders($organization_id, $page = 1)
+    public static function getPurchaseOrders($organization_id, $page = 1, $condition = '')
     {
-        return ZohoPurchaseOrderController::getAll($organization_id, $page);
+        return ZohoPurchaseOrderController::getAll($organization_id, $page, $condition);
     }
 
     public static function getPurchaseOrder($sale_order_id, $organization_id = null)

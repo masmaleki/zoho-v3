@@ -9,14 +9,14 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ZohoPurchaseOrderController
 {
-    public static function getAll($organization_id, $page = 1)
+    public static function getAll($organization_id, $page = 1, $condition = '')
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -27,7 +27,7 @@ class ZohoPurchaseOrderController
         $response = $client->request('GET', $apiURL, ['headers' => $headers]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
-       dd($responseBody);
+        dd($responseBody);
         return $responseBody;
     }
 
