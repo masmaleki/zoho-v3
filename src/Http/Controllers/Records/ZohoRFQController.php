@@ -95,7 +95,7 @@ class ZohoRFQController
         $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(Account_Name.id != 0) ";
 
 
-        $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
+        $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id, Owner, Status, RFQ_Dead_Line, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, Contact ,RFQ_Source';
         $body = [
             'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . $zoho_crm_account_id_conditions . "  limit " . $offset . ", 200",
         ];
@@ -106,7 +106,6 @@ class ZohoRFQController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
-
 
     public static function search($phrase, $criteria = null)
     {
