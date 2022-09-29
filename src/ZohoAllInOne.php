@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
@@ -179,10 +180,10 @@ class ZohoAllInOne
     // end - invoice functions
 
 
-    // start - invoice functions
-    public static function getSaleOrders($organization_id)
+    // start - sales orders functions
+    public static function getSaleOrders($organization_id, $page = 1, $condition = '')
     {
-        return ZohoSaleOrderController::getAll($organization_id);
+        return ZohoSaleOrderController::getAll($organization_id, $page, $condition);
     }
 
     public static function getSaleOrder($sale_order_id, $organization_id = null)
@@ -205,7 +206,35 @@ class ZohoAllInOne
         return ZohoSaleOrderController::getPDF($sale_order_id);
     }
 
-    // end - invoice functions
+    // end - sales orders functions
+
+    // start - purchase order functions
+    public static function getPurchaseOrders($organization_id, $page = 1, $condition = '')
+    {
+        return ZohoPurchaseOrderController::getAll($organization_id, $page, $condition);
+    }
+
+    public static function getPurchaseOrder($sale_order_id, $organization_id = null)
+    {
+        return ZohoPurchaseOrderController::getById($sale_order_id, $organization_id);
+    }
+
+    public static function getPurchaseOrderByCustomerId($zoho_customer_id, $organization_id = null)
+    {
+        return ZohoPurchaseOrderController::getByCustomerId($zoho_customer_id, $organization_id);
+    }
+
+    public static function searchPurchaseOrderByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoPurchaseOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
+
+    public static function getPurchaseOrderPDF($sale_order_id)
+    {
+        return ZohoPurchaseOrderController::getPDF($sale_order_id);
+    }
+
+    // end -  purchase order functions
 
 
     // start - organizations functions
@@ -263,6 +292,11 @@ class ZohoAllInOne
     public static function getAccountQuotes($zoho_crm_account_id, $page_token = null)
     {
         return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
+    }
+
+    public static function getAccountQuotesCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoQuoteController::getAccountQuotesCOQL($zoho_crm_account_id, $offset, $conditions, $fields);
     }
 
     public static function quotesSearch($phrase, $criteria = null)

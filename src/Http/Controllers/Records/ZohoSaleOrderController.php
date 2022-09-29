@@ -9,13 +9,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ZohoSaleOrderController
 {
-    public static function getAll($organization_id)
+    public static function getAll($organization_id, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?organization_id=' . $organization_id;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -59,7 +59,7 @@ class ZohoSaleOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?organization_id=' . $organization_id .'&customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?organization_id=' . $organization_id . '&customer_id=' . $zoho_customer_id . '';
         $client = new Client();
 
         $headers = [
@@ -79,7 +79,7 @@ class ZohoSaleOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?&customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders?&customer_id=' . $zoho_customer_id . '';
 
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
@@ -106,7 +106,7 @@ class ZohoSaleOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders/' . $sale_order_id .'?accept=pdf';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/salesorders/' . $sale_order_id . '?accept=pdf';
         $client = new Client();
 
         $headers = [
@@ -116,15 +116,15 @@ class ZohoSaleOrderController
         $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
         $responseBody = $response->getBody();
 
-        $streamResponse = new StreamedResponse(function() use ($responseBody) {
+        $streamResponse = new StreamedResponse(function () use ($responseBody) {
             while (!$responseBody->eof()) {
                 echo $responseBody->read(1024);
             }
         });
-   
+
         $streamResponse->headers->set('Content-Type', 'application/pdf');
         $streamResponse->headers->set('Cache-Control', 'no-cache');
-   
+
         return $streamResponse;
     }
 

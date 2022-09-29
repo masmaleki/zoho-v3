@@ -2,19 +2,21 @@
 
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 
+
 use GuzzleHttp\Client;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ZohoQuoteController
+class ZohoPurchaseOrderController
 {
-
-    public static function get($quote_id)
+    public static function getAll($organization_id, $page = 1, $condition = '')
     {
+
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes/' . $quote_id;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -28,34 +30,16 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getAll()
+    public static function getById($sale_order_id, $organization_id = null)
     {
+
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes?fields=Subject,Product_Name,id,Quote_Date,Quantity,Quote_Stage';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
-    }
-
-    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null)
-    {
-        $token = ZohoTokenCheck::getToken();
-        if (!$token) {
-            return null;
-        }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=(Account_Name.id:equals:' . $zoho_crm_vendor_id . ')';
-        if ($page_token) {
-            $apiURL .= '&page_token=' . $page_token;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $sale_order_id;
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
         }
         $client = new Client();
 
@@ -69,43 +53,14 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getAccountQuotesCOQL($zoho_crm_account_id = null, $offset = 0, $conditions = null, $fields = null)
+    public static function getByCustomerId($zoho_customer_id, $organization_id)
     {
+
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-
-        $apiURL = $token->api_domain . '/crm/v3/coql';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        $conditions = ($conditions) ? $conditions . ' and ' : '';
-        $zoho_crm_account_id_conditions = $zoho_crm_account_id != null ? " (Account_Name.id = " . $zoho_crm_account_id . ")" : "(id != 0) ";
-
-        $fields = $fields ? $fields : ' id, Owner, Customer_RFQ_No, Quote_Date,  RFQ, Product_Name, Quote_Number1, Product_Name.Product_Name,  Account_Name, Quantity, Contact_Name ,Quote_Type ';
-
-        $body = [
-            'select_query' => "select " . $fields . " from Quotes where " . $conditions . $zoho_crm_account_id_conditions . "  limit " . $offset . ", 200",
-        ];
-
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
-        return $responseBody;
-    }
-
-    public static function search($phrase, $criteria = null)
-    {
-        $token = ZohoTokenCheck::getToken();
-        if (!$token) {
-            return null;
-        }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes/search?word=' . $phrase . $criteria;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&customer_id=' . $zoho_customer_id . '';
         $client = new Client();
 
         $headers = [
@@ -117,4 +72,61 @@ class ZohoQuoteController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?&customer_id=' . $zoho_customer_id . '';
+
+        if ($searchParameter) {
+            $apiURL .= '&salesorder_number_contains=' . $searchParameter;
+        }
+        if ($organization_id) {
+            $apiURL .= '&organization_id=' . $organization_id;
+        }
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getPDF($sale_order_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $sale_order_id . '?accept=pdf';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+        $responseBody = $response->getBody();
+
+        $streamResponse = new StreamedResponse(function () use ($responseBody) {
+            while (!$responseBody->eof()) {
+                echo $responseBody->read(1024);
+            }
+        });
+
+        $streamResponse->headers->set('Content-Type', 'application/pdf');
+        $streamResponse->headers->set('Cache-Control', 'no-cache');
+
+        return $streamResponse;
+    }
+
 }
