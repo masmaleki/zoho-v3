@@ -153,4 +153,23 @@ class ZohoInvoiceController
         return $streamResponse;
     }
 
+    public static function getHTML($invoice_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices/' . $invoice_id .'?accept=html';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+        $responseBody = $response->getBody();
+
+        return $responseBody;
+    }
+
 }

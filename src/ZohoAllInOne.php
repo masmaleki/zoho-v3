@@ -177,6 +177,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getPDF($invoice_id);
     }
 
+    public static function getInvoiceHTML($invoice_id)
+    {
+        return ZohoInvoiceController::getHTML($invoice_id);
+    }
+
     // end - invoice functions
 
 
