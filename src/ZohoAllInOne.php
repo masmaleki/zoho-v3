@@ -118,9 +118,15 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getAllFromBooks($organization_id, $page, $condition);
     }
+
     public static function vendorsSearch($phrase)
     {
         return ZohoVendorController::search($phrase);
+    }
+
+    public static function getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id = null)
+    {
+        return ZohoVendorController::getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id);
     }
     // end - vendors functions
 
