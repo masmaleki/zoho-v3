@@ -9,13 +9,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ZohoInvoiceController
 {
-    public static function getAll($organization_id)
+    public static function getAll($organization_id, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices?organization_id=' . $organization_id;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -80,7 +80,7 @@ class ZohoInvoiceController
             return null;
         }
         $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices?&customer_id=' . $zoho_customer_id .'';
-        
+
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
         }
@@ -146,11 +146,30 @@ class ZohoInvoiceController
                 echo $responseBody->read(1024);
             }
         });
-   
+
         $streamResponse->headers->set('Content-Type', 'application/pdf');
         $streamResponse->headers->set('Cache-Control', 'no-cache');
-   
+
         return $streamResponse;
+    }
+
+    public static function getHTML($invoice_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/invoices/' . $invoice_id .'?accept=html';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+        $responseBody = $response->getBody();
+
+        return $responseBody;
     }
 
 }

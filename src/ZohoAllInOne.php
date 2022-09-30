@@ -113,6 +113,21 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getAll($page_token);
     }
+
+    public static function getVendorsZB($organization_id, $page = 1, $condition = '')
+    {
+        return ZohoVendorController::getAllFromBooks($organization_id, $page, $condition);
+    }
+
+    public static function vendorsSearch($phrase)
+    {
+        return ZohoVendorController::search($phrase);
+    }
+
+    public static function getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id = null)
+    {
+        return ZohoVendorController::getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id);
+    }
     // end - vendors functions
 
     // start - manufactures functions
@@ -147,9 +162,9 @@ class ZohoAllInOne
     // end - product functions
 
     // start - invoice functions
-    public static function getInvoices($organization_id)
+    public static function getInvoices($organization_id, $page = 1, $condition = '')
     {
-        return ZohoInvoiceController::getAll($organization_id);
+        return ZohoInvoiceController::getAll($organization_id, $page, $condition);
     }
 
     public static function getInvoice($zoho_invoice_id, $organization_id = null)
@@ -175,6 +190,11 @@ class ZohoAllInOne
     public static function getInvoicePDF($invoice_id)
     {
         return ZohoInvoiceController::getPDF($invoice_id);
+    }
+
+    public static function getInvoiceHTML($invoice_id)
+    {
+        return ZohoInvoiceController::getHTML($invoice_id);
     }
 
     // end - invoice functions
