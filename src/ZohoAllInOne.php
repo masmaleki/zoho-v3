@@ -12,6 +12,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
@@ -336,6 +337,24 @@ class ZohoAllInOne
     }
 
     // end - Quote functions
+
+    // start - tasks functions
+
+    public static function getTasks($page_token = null)
+    {
+        return ZohoTaskController::getAll($page_token);
+    }
+
+    public static function getTasksCOQL($conditions = null, $offset = 0, $fields = null)
+    {
+        return ZohoTaskController::getByCOQL($conditions, $offset, $fields);
+    }
+
+    public static function getTaskById($id)
+    {
+        return ZohoTaskController::get($id);
+    }
+    // end - tasks functions
 
     // start - settings functions
 
