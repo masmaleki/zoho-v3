@@ -89,6 +89,12 @@ class ZohoAllInOne
     {
         return ZohoContactController::search($phrase);
     }
+
+    public static function getContactImage($zoho_contact_id)
+    {
+        return ZohoContactController::getImage($zoho_contact_id);
+    }
+
     // end - contact functions
 
     // start - accounts functions
@@ -117,6 +123,11 @@ class ZohoAllInOne
     public static function getVendorsZB($organization_id, $page = 1, $condition = '')
     {
         return ZohoVendorController::getAllFromBooks($organization_id, $page, $condition);
+    }
+
+    public static function getZohoCrmVendor($zoho_crm_vendor_id)
+    {
+        return ZohoVendorController::getZohoCrmVendor($zoho_crm_vendor_id);
     }
 
     public static function vendorsSearch($phrase)
