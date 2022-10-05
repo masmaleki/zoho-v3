@@ -89,6 +89,12 @@ class ZohoAllInOne
     {
         return ZohoContactController::search($phrase);
     }
+
+    public static function getContactImage($zoho_contact_id)
+    {
+        return ZohoContactController::getImage($zoho_contact_id);
+    }
+
     // end - contact functions
 
     // start - accounts functions

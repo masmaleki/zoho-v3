@@ -211,5 +211,31 @@ class ZohoContactController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+    
+    public static function getImage($zoho_contact_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Contacts/' . $zoho_contact_id . '/photo';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers, ['stream' => true]]);
+
+        $responseBody = $response->getBody()->getContents();
+        $base64 = base64_encode($responseBody);
+        
+        if (!$base64) return null;
+        
+        $mime = "image/jpeg";
+        $img = ('data:' . $mime . ';base64,' . $base64);
+   
+        return $img;
+    }
 
 }
