@@ -34,7 +34,7 @@ class ZohoTaskController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Tasks?fields=Subject,What_Id,Owner,Who_Id,id,Priority,Status,Due_Date,Modified_Time,Closed_Time,Remind_At';
+        $apiURL = $token->api_domain . '/crm/v3/Tasks?fields=Subject,What_Id,Owner,Who_Id,id,Priority,Status,Due_Date,Modified_Time,Closed_Time,Remind_At,Description';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
