@@ -345,9 +345,9 @@ class ZohoAllInOne
 
     // start - tasks functions
 
-    public static function getTasks($page_token = null)
+    public static function getTasks($page_token = null, $fields = null)
     {
-        return ZohoTaskController::getAll($page_token);
+        return ZohoTaskController::getAll($page_token, $fields);
     }
 
     public static function getTasksCOQL($conditions = null, $offset = 0, $fields = null)

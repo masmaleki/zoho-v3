@@ -28,13 +28,14 @@ class ZohoTaskController
         return $responseBody;
     }
 
-    public static function getAll($page_token = null)
+    public static function getAll($page_token = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Tasks?fields=Subject,What_Id,Owner,Who_Id,id,Priority,Status,Due_Date,Modified_Time,Closed_Time,Remind_At,Description';
+        $fields = $fields ? $fields : 'Subject,What_Id,Owner,Who_Id,id,Priority,Status,Due_Date,Modified_Time,Closed_Time,Remind_At,Description';
+        $apiURL = $token->api_domain . '/crm/v3/Tasks?fields=' . $fields;
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
