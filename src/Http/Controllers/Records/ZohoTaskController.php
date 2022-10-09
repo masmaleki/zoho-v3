@@ -96,4 +96,30 @@ class ZohoTaskController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function create($data = [])
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Tasks';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+        //dd(json_encode($body));
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }

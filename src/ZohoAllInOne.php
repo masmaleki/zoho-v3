@@ -359,6 +359,12 @@ class ZohoAllInOne
     {
         return ZohoTaskController::get($id);
     }
+
+    public static function createTask($data = [])
+    {
+        return ZohoTaskController::create($data);
+    }
+
     // end - tasks functions
 
     // start - settings functions
