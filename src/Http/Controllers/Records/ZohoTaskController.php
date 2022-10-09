@@ -65,7 +65,7 @@ class ZohoTaskController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $fields = $fields ? $fields : ' Subject, What_Id, Owner, Owner, Who_Id, id, Priority, Status, Due_Date, Modified_Time, Closed_Time, Remind_At ';
+        $fields = $fields ? $fields : ' Subject, What_Id, Owner, Owner, Who_Id, id, $se_module, Priority, Status, Due_Date, Modified_Time, Closed_Time, Remind_At ';
         $conditions = $conditions ? $conditions : " (id != 0) ";
         $body = [
             'select_query' => "select " . $fields . " from Tasks where " . $conditions . "  limit " . $offset . ", 200",
