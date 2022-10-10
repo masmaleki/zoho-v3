@@ -171,6 +171,11 @@ class ZohoAllInOne
     {
         return ZohoProductController::getImage($zoho_product_id);
     }
+
+    public function getZohoBooksItem($zoho_books_item_id, $organization_id = null)
+    {
+        return ZohoProductController::getZohoBooksItem($zoho_books_item_id, $organization_id);
+    }
     // end - product functions
 
     // start - invoice functions
@@ -340,9 +345,9 @@ class ZohoAllInOne
 
     // start - tasks functions
 
-    public static function getTasks($page_token = null)
+    public static function getTasks($page_token = null, $fields = null)
     {
-        return ZohoTaskController::getAll($page_token);
+        return ZohoTaskController::getAll($page_token, $fields);
     }
 
     public static function getTasksCOQL($conditions = null, $offset = 0, $fields = null)
@@ -354,6 +359,12 @@ class ZohoAllInOne
     {
         return ZohoTaskController::get($id);
     }
+
+    public static function createTask($data = [])
+    {
+        return ZohoTaskController::create($data);
+    }
+
     // end - tasks functions
 
     // start - settings functions
