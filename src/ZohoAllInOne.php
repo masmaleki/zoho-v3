@@ -311,6 +311,11 @@ class ZohoAllInOne
         return ZohoRFQController::search($phrase, $criteria);
     }
 
+    public static function createRFQ($data)
+    {
+        return ZohoRFQController::create($data);
+    }
+
     // end - RFQ functions
 
 
