@@ -115,7 +115,6 @@ class ZohoTaskController
                 0 => $data
             ]
         ];
-        //dd(json_encode($body));
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
