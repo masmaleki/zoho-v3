@@ -135,7 +135,7 @@ class ZohoRFQController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/';
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq');
         $client = new Client();
 
         $headers = [
