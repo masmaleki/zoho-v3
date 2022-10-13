@@ -360,7 +360,7 @@ class ZohoAllInOne
         return ZohoTaskController::get($id);
     }
 
-    public static function createTask($data = [])
+    public static function createTask($data)
     {
         return ZohoTaskController::create($data);
     }

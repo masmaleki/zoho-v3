@@ -97,8 +97,11 @@ class ZohoTaskController
         return $responseBody;
     }
 
-    public static function create($data = [])
+    public static function create($data = null)
     {
+        if (!$data) {
+            return null;
+        }
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
