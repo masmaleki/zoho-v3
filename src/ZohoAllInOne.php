@@ -66,9 +66,9 @@ class ZohoAllInOne
         return ZohoContactController::create($data);
     }
 
-    public static function updateContact($zoho_contact_id, $data = [])
+    public static function updateContact($data = [])
     {
-        return ZohoContactController::updateById($zoho_contact_id, $data);
+        return ZohoContactController::updateById($data);
     }
 
     public static function getContactAvatar($zoho_contact_id)
