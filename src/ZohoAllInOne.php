@@ -104,6 +104,11 @@ class ZohoAllInOne
         return ZohoAccountController::getAll($page_token);
     }
 
+    public static function createAccount($data)
+    {
+        return ZohoAccountController::create($data);
+    }
+
     public static function getZohoCrmAccount($zoho_crm_account_id)
     {
         return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
