@@ -97,8 +97,11 @@ class ZohoTaskController
         return $responseBody;
     }
 
-    public static function create($data = [])
+    public static function create($data = null)
     {
+        if (!$data) {
+            return null;
+        }
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
@@ -115,7 +118,6 @@ class ZohoTaskController
                 0 => $data
             ]
         ];
-        //dd(json_encode($body));
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
