@@ -95,8 +95,10 @@ class ZohoContactController
         return $responseBody;
     }
 
-    public static function updateById($zoho_contact_id, $data = [])
+    public static function updateById($data = [])
     {
+        $zoho_contact_id = $data['id'];
+
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
