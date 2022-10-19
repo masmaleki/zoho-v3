@@ -23,15 +23,15 @@ class ZohoCompositeAPIController
         ];
 
         $body = [
-            'rollback_on_fail' => false,
-            'concurrent_execution' => true,
+            'rollback_on_fail' => true,
+            'concurrent_execution' => false,
             '__composite_requests' => $requests
         ];
 
         try {
             $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            return $e->getResponse()->getBody()->getContents();
+            return json_decode($e->getResponse()->getBody()->getContents());
         }
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
