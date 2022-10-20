@@ -9,15 +9,17 @@ class ZohoContactController
 {
 
 
-    public static function getAll($page_token = null)
+    public static function getAll($page_token = null, $page = 1, $perPage = 200)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Title,Contact_Type,Department,Rating,Phone,Fax,Date_of_Birth,Other_Phone,Secondary_Email,Skype_ID,LinkedIn,Mailing_Street,Mailing_City,Mailing_Zip,Mailing_State,Mailing_Country,Description,Last_Activity_Date,Private_Email,Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name';
+        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Title,Full_Name,Contact_Type,Department,Rating,Phone,Fax,Date_of_Birth,Other_Phone,Secondary_Email,Skype_ID,LinkedIn,Mailing_Street,Mailing_City,Mailing_Zip,Mailing_State,Mailing_Country,Description,Last_Activity_Date,Private_Email,Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
+        } else {
+            $apiURL .= '&page=' . $page . '&per_page=' . $perPage;
         }
         $client = new Client();
 
@@ -160,9 +162,9 @@ class ZohoContactController
             ],
             'multipart' => [
                 [
-                    'name'      => 'file',
+                    'name' => 'file',
                     'filename' => $fileUploadedName,
-                    'Mime-Type'=> $fileMime,
+                    'Mime-Type' => $fileMime,
                     'contents' => fopen($filePath, 'r'),
                 ],
             ],
@@ -193,14 +195,20 @@ class ZohoContactController
         return $responseBody;
     }
 
-    public static function search($phrase)
+    public static function search($phrase, $page = 1, $perPage = 200)
     {
+        if (strlen($phrase) == 0) {
+            return self::getAll(null, $page, $perPage);
+        }
+        if (strlen($phrase) < 3) {
+            return [];
+        }
         $token = ZohoTokenCheck::getToken();
         //dd($token);
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?word=' . $phrase;
+        $apiURL = $token->api_domain . '/crm/v3/Contacts/search?word=' . $phrase . '&per_page=' . $perPage . '&page=' . $page;
         $client = new Client();
 
         $headers = [
@@ -213,7 +221,7 @@ class ZohoContactController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
-    
+
     public static function getImage($zoho_contact_id)
     {
         $token = ZohoTokenCheck::getToken();
@@ -231,12 +239,12 @@ class ZohoContactController
 
         $responseBody = $response->getBody()->getContents();
         $base64 = base64_encode($responseBody);
-        
+
         if (!$base64) return null;
-        
+
         $mime = "image/jpeg";
         $img = ('data:' . $mime . ';base64,' . $base64);
-   
+
         return $img;
     }
 
