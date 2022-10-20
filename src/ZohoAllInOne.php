@@ -92,9 +92,9 @@ class ZohoAllInOne
         return ZohoContactController::deleteAvatar($zoho_contact_id);
     }
 
-    public static function contactsSearch($phrase)
+    public static function contactsSearch($phrase, $page = 1, $perPage = 200)
     {
-        return ZohoContactController::search($phrase);
+        return ZohoContactController::search($phrase, $page, $perPage);
     }
 
     public static function getContactImage($zoho_contact_id)
