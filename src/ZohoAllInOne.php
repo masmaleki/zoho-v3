@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
@@ -35,6 +36,11 @@ class ZohoAllInOne
     public static function getZBCount($moduleName, $organization_id, $condition = null)
     {
         return ZohoRecordCountController::countZBCOQL($moduleName, $organization_id, $condition);
+    }
+
+    public static function compositeAPI($requests)
+    {
+        return ZohoCompositeAPIController::compositeRequests($requests);
     }
     // end - general functions
 
