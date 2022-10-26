@@ -14,7 +14,7 @@ class ZohoAccountController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Accounts?fields=Email,Fax,Account_Type,LinkedIn,Website,Mobile,Phone,Account_Name';
+        $apiURL = $token->api_domain . '/crm/v3/Accounts?fields=Email,Fax,Account_Type,LinkedIn,Website,Mobile,Phone,Account_Name,Billing_Country,Shipping_Country';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
@@ -28,8 +28,8 @@ class ZohoAccountController
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
-    }   
-    
+    }
+
     public static function create($data)
     {
         if (!$data) {
