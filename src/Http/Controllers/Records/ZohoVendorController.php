@@ -15,7 +15,7 @@ class ZohoVendorController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Vendors?fields=Email,Fax_Number,Business_Vendor,Vendor_Source,Vendor_Type,LinkedIn,Website,Mobile,Phone,Vendor_Name';
+        $apiURL = $token->api_domain . '/crm/v3/Vendors?fields=Email,Fax_Number,Business_Vendor,Vendor_Source,Vendor_Type,LinkedIn,Website,Mobile,Phone,Vendor_Name,Country';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
