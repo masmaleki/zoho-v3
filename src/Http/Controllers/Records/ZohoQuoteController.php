@@ -47,7 +47,7 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null)
+    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -56,6 +56,9 @@ class ZohoQuoteController
         $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=(Account_Name.id:equals:' . $zoho_crm_vendor_id . ')';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
+        }
+        if ($fields) {
+            $apiURL .= '&fields=' . $fields;
         }
         $client = new Client();
 
