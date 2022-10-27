@@ -46,7 +46,7 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function getAccountRFQs($zoho_crm_account_id,  /*$conditions = null,*/ $page_token = null)
+    public static function getAccountRFQs($zoho_crm_account_id,  /*$conditions = null,*/ $page_token = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -64,6 +64,9 @@ class ZohoRFQController
         $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
+        }
+        if ($fields) {
+            $apiURL .= '&fields=' . $fields;
         }
         $client = new Client();
 

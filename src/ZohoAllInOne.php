@@ -307,9 +307,9 @@ class ZohoAllInOne
         return ZohoRFQController::getAll();
     }
 
-    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null)
+    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null)
     {
-        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token);
+        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token, $fields);
     }
 
     public static function getAccountRFQsCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
@@ -342,9 +342,9 @@ class ZohoAllInOne
         return ZohoQuoteController::getAll();
     }
 
-    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null)
+    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null, $fields = null)
     {
-        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token);
+        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token, $fields);
     }
 
     public static function getAccountQuotesCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
