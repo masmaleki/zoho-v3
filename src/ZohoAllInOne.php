@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne;
 
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
@@ -328,6 +329,30 @@ class ZohoAllInOne
     }
 
     // end - RFQ functions
+
+    // start - Availability functions
+
+    public static function getAvailability($availability_id)
+    {
+        return ZohoAvailabilityController::get($availability_id);
+    }
+
+    public static function getAvailabilities()
+    {
+        return ZohoAvailabilityController::getAll();
+    }
+
+    public static function availabilitySearch($phrase, $criteria = null)
+    {
+        return ZohoAvailabilityController::search($phrase, $criteria);
+    }
+
+    public static function createAvailability($data)
+    {
+        return ZohoAvailabilityController::create($data);
+    }
+
+    // end - Availability functions
 
 
     // start - Quote functions
