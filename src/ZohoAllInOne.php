@@ -337,6 +337,11 @@ class ZohoAllInOne
         return ZohoAvailabilityController::get($availability_id);
     }
 
+    public static function getProductAvailabilities($product_id)
+    {
+        return ZohoAvailabilityController::getProductAvailabilities($product_id);
+    }
+
     public static function getAvailabilities()
     {
         return ZohoAvailabilityController::getAll();
