@@ -31,7 +31,7 @@ class ZohoProductController
         return $responseBody;
     }
 
-    public static function getById($zoho_product_id)
+    public static function getById($zoho_product_id, $fields = null)
     {
 
         $token = ZohoTokenCheck::getToken();
@@ -39,6 +39,9 @@ class ZohoProductController
             return null;
         }
         $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
+        if ($fields) {
+            $apiURL .= '&fields=' . $fields;
+        }
         $client = new Client();
 
         $headers = [

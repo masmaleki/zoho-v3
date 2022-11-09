@@ -169,9 +169,9 @@ class ZohoAllInOne
         return ZohoProductController::getAll($page_token);
     }
 
-    public static function getProduct($zoho_product_id)
+    public static function getProduct($zoho_product_id, $fields = null)
     {
-        return ZohoProductController::getById($zoho_product_id);
+        return ZohoProductController::getById($zoho_product_id, $fields);
     }
 
     public static function productsSearch($phrase)
@@ -337,9 +337,9 @@ class ZohoAllInOne
         return ZohoAvailabilityController::get($availability_id);
     }
 
-    public static function getProductAvailabilities($product_id)
+    public static function getProductAvailabilities($product_id, $fields = null)
     {
-        return ZohoAvailabilityController::getProductAvailabilities($product_id);
+        return ZohoAvailabilityController::getProductAvailabilities($product_id, $fields);
     }
 
     public static function getAvailabilities()
