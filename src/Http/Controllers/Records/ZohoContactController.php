@@ -15,7 +15,7 @@ class ZohoContactController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Title,Full_Name,Contact_Type,Department,Rating,Phone,Fax,Date_of_Birth,Other_Phone,Secondary_Email,Skype_ID,LinkedIn,Mailing_Street,Mailing_City,Mailing_Zip,Mailing_State,Mailing_Country,Description,Last_Activity_Date,Private_Email,Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name';
+        $apiURL = $token->api_domain . '/crm/v3/Contacts?fields=Created_Time,Title,Full_Name,Contact_Type,Department,Rating,Phone,Fax,Date_of_Birth,Other_Phone,Secondary_Email,Skype_ID,LinkedIn,Mailing_Street,Mailing_City,Mailing_Zip,Mailing_State,Mailing_Country,Description,Last_Activity_Date,Private_Email,Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         } else {
