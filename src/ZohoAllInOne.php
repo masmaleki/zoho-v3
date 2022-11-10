@@ -423,9 +423,9 @@ class ZohoAllInOne
 
     // start - bulk functions
 
-    public static function uploadBulkFile($organization_id, $fileName, $fileMime, $content)
+    public static function uploadBulkFile($organization_id, $filePath)
     {
-        return ZohoBulkWriteController::uploadFile($organization_id, $fileName, $fileMime, $content);
+        return ZohoBulkWriteController::uploadFile($organization_id, $filePath);
     }
 
     public static function createBulkWriteJob($module, $mapping, $file_id, $callback_url)

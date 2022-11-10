@@ -8,7 +8,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 class ZohoBulkWriteController
 {
 
-    public static function uploadFile($organization_id, $fileName, $fileMime, $content)
+    public static function uploadFile($organization_id, $filePath)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -16,7 +16,7 @@ class ZohoBulkWriteController
         }
         $apiURL = 'https://content.zohoapis.eu/crm/v3/upload';
         $client = new Client();
-
+        
         $params = [
             'headers' => [
                 'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
@@ -26,9 +26,8 @@ class ZohoBulkWriteController
             'multipart' => [
                 [
                     'name' => 'file',
-                    'filename' => $fileName,
-                    'Mime-Type' => $fileMime,
-                    'contents' => $content,
+                    // 'Mime-Type' => mime_content_type($filePath),
+                    'contents' => fopen($filePath, 'r'),
                 ],
             ],
         ];
@@ -45,40 +44,39 @@ class ZohoBulkWriteController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/write';
+        $apiURL = $token->api_domain . '/crm/bulk/v3/write';
         $client = new Client();
 
         $params = [
             'headers' => [
                 'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+                'Content-Type' => 'application/json'
             ],
             'form_params' => [
-                [
-                    'operation' => 'insert',
-                    'ignore_empty' => true,
-                    'callback' =>
+                'operation' => 'insert',
+                'ignore_empty' => true,
+                'callback' => [
+                    'url' => $callback_url,
+                    'method' => 'post',
+                ],
+                'resource' => [
                     [
-                        'url' => $callback_url,
-                        'method' => 'post',
-                    ],
-                    'resource' =>
-                    [
-                        0 =>
+                        'type' => 'data',
+                        'module' =>
                         [
-                            'type' => 'data',
-                            'module' =>
-                            [
-                                'api_name' => $module,
-                            ],
-                            'file_id' => $file_id,
-                            'field_mappings' => $mapping
+                            'api_name' => $module,
                         ],
+                        'file_id' => $file_id,
+                        'field_mappings' => $mapping
                     ],
-                ]
+                ],
             ],
         ];
 
-        $response = $client->request('POST', $apiURL, $params);
+        // dd($params);
+
+        // $response = $client->request('POST', $apiURL, ['headers' => $params['headers'], 'body' => json_encode($params['form_params'])]);
+        $response = $client->request('POST', $apiURL, ['headers' => $params['headers'], 'body' => json_encode($params['form_params'])]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
