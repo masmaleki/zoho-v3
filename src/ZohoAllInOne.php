@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkWriteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
@@ -16,6 +17,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoCrmOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -419,11 +421,29 @@ class ZohoAllInOne
 
     // end - tasks functions
 
+    // start - bulk functions
+
+    public static function uploadBulkFile($organization_id, $fileName, $fileMime, $content)
+    {
+        return ZohoBulkWriteController::uploadFile($organization_id, $fileName, $fileMime, $content);
+    }
+
+    public static function createBulkWriteJob($module, $mapping, $file_id, $callback_url)
+    {
+        return ZohoBulkWriteController::createJob($module, $mapping, $file_id, $callback_url);
+    }
+    // end - bulk functions
+
     // start - settings functions
 
     public static function getRoles()
     {
         return ZohoRoleController::getAll();
+    }
+
+    public static function getOrganization()
+    {
+        return ZohoCrmOrganizationController::get();
     }
     // end - settings functions
 
