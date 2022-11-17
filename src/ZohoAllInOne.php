@@ -271,14 +271,14 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getAll($organization_id, $page, $condition);
     }
 
-    public static function getPurchaseOrder($sale_order_id, $organization_id = null)
+    public static function getPurchaseOrder($purchase_order_id, $organization_id = null)
     {
-        return ZohoPurchaseOrderController::getById($sale_order_id, $organization_id);
+        return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
 
-    public static function getPurchaseOrderByCustomerId($zoho_customer_id, $organization_id = null)
+    public static function getPurchaseOrderByCustomerId($zoho_vendor_id, $organization_id = null)
     {
-        return ZohoPurchaseOrderController::getByCustomerId($zoho_customer_id, $organization_id);
+        return ZohoPurchaseOrderController::getByCustomerId($zoho_vendor_id, $organization_id);
     }
 
     public static function searchPurchaseOrderByCustomerId($zoho_vendor_id, $searchParameter = null, $organization_id = null)
