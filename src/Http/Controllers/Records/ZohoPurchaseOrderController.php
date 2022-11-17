@@ -73,15 +73,15 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id)
+    public static function searchByCustomerId($zoho_vendor_id, $searchParameter, $organization_id)
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?&customer_id=' . $zoho_customer_id . '';
-
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
+        
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
         }
