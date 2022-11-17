@@ -30,14 +30,14 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function getById($sale_order_id, $organization_id = null)
+    public static function getById($purchase_order_id, $organization_id = null)
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $sale_order_id;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $purchase_order_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -53,14 +53,14 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function getByCustomerId($zoho_customer_id, $organization_id)
+    public static function getByCustomerId($zoho_vendor_id, $organization_id)
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&customer_id=' . $zoho_customer_id . '';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id . '';
         $client = new Client();
 
         $headers = [
@@ -73,15 +73,15 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id)
+    public static function searchByCustomerId($zoho_vendor_id, $searchParameter, $organization_id)
     {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?&customer_id=' . $zoho_customer_id . '';
-
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
+        
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
         }
@@ -101,13 +101,13 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function getPDF($sale_order_id)
+    public static function getPDF($purchase_order_id)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $sale_order_id . '?accept=pdf';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/purchaseorders/' . $purchase_order_id . '?accept=pdf';
         $client = new Client();
 
         $headers = [

@@ -46,7 +46,7 @@ class ZohoAvailabilityController
         }
 
         $body = [
-            'select_query' => "select " . $fields . " from Availability where Product_name.id = " . $product_id,
+            'select_query' => "select " . $fields . " from Availability where Product_name.id = " . $product_id . " order by Created_Time desc",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);

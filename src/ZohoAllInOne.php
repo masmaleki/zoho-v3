@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkWriteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
@@ -16,6 +17,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoCrmOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
@@ -269,19 +271,19 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getAll($organization_id, $page, $condition);
     }
 
-    public static function getPurchaseOrder($sale_order_id, $organization_id = null)
+    public static function getPurchaseOrder($purchase_order_id, $organization_id = null)
     {
-        return ZohoPurchaseOrderController::getById($sale_order_id, $organization_id);
+        return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
 
-    public static function getPurchaseOrderByCustomerId($zoho_customer_id, $organization_id = null)
+    public static function getPurchaseOrderByCustomerId($zoho_vendor_id, $organization_id = null)
     {
-        return ZohoPurchaseOrderController::getByCustomerId($zoho_customer_id, $organization_id);
+        return ZohoPurchaseOrderController::getByCustomerId($zoho_vendor_id, $organization_id);
     }
 
-    public static function searchPurchaseOrderByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    public static function searchPurchaseOrderByCustomerId($zoho_vendor_id, $searchParameter = null, $organization_id = null)
     {
-        return ZohoPurchaseOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+        return ZohoPurchaseOrderController::searchByCustomerId($zoho_vendor_id, $searchParameter, $organization_id);
     }
 
     public static function getPurchaseOrderPDF($sale_order_id)
@@ -419,11 +421,29 @@ class ZohoAllInOne
 
     // end - tasks functions
 
+    // start - bulk functions
+
+    public static function uploadBulkFile($organization_id, $filePath)
+    {
+        return ZohoBulkWriteController::uploadFile($organization_id, $filePath);
+    }
+
+    public static function createBulkWriteJob($module, $mapping, $file_id, $callback_url)
+    {
+        return ZohoBulkWriteController::createJob($module, $mapping, $file_id, $callback_url);
+    }
+    // end - bulk functions
+
     // start - settings functions
 
     public static function getRoles()
     {
         return ZohoRoleController::getAll();
+    }
+
+    public static function getOrganization()
+    {
+        return ZohoCrmOrganizationController::get();
     }
     // end - settings functions
 
