@@ -14,7 +14,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Products?fields=Product_Name,Lifecylce_Status';
+        $apiURL = $token->api_domain . '/crm/v3/Products?fields=Product_Name,Lifecylce_Status,Owner,Created_By,Modified_By';
 //        $apiURL = $token->api_domain . '/crm/v3/Products';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
@@ -90,12 +90,12 @@ class ZohoProductController
 
         $responseBody = $response->getBody()->getContents();
         $base64 = base64_encode($responseBody);
-        
+
         if (!$base64) return null;
-        
+
         $mime = "image/jpeg";
         $img = ('data:' . $mime . ';base64,' . $base64);
-   
+
         return $img;
     }
 
