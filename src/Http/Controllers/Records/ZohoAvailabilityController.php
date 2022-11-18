@@ -27,7 +27,7 @@ class ZohoAvailabilityController
         return $responseBody;
     }
 
-    public static function getProductAvailabilities($product_id, $fields = null)
+    public static function getProductAvailabilities($product_id, $fields = null, $condition)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -45,8 +45,12 @@ class ZohoAvailabilityController
             $fields = 'Name,Product_name,id,Owner,Currency,Created_Time,Valid,Price,Availability_Type,Lead_Time,Availability_Source,Rating,SKU_name,Availability_Stage,Quantity';
         }
 
+        if (!$condition) {
+            $condition = "Product_name.id = " . $product_id . " ";
+        } 
+
         $body = [
-            'select_query' => "select " . $fields . " from Availability where Product_name.id = " . $product_id . " order by Created_Time desc",
+            'select_query' => "select " . $fields . " from Availability where " . $condition . " order by Created_Time desc",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
