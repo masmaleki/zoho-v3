@@ -187,7 +187,10 @@ return [
     'custom_modules_names' => [
         'rfq' => env('ZOHO_CUSTOM_MODULE_RFQ', 'rfq'),
         'manufacture' => env('ZOHO_CUSTOM_MODULE_MANUFACTURE', 'Manufacture'),
+        'excess' => env('ZOHO_CUSTOM_MODULE_EXCESS', 'excess'),
     ],
+    
+    'bulk_read_callback_base_url' => env('ZOHO_BULK_READ_CALLBACK_BASE_URL', env('APP_URL')),
 
     /*
     |--------------------------------------------------------------------------
