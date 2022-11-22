@@ -197,6 +197,11 @@ class ZohoAllInOne
     {
         return ZohoProductController::getZohoBooksItem($zoho_books_item_id, $organization_id);
     }
+
+    public function getAllZohoBooksItems($organization_id = null, $page, $conditions)
+    {
+        return ZohoProductController::getAllZohoBooksItems($organization_id, $page, $conditions);
+    }
     // end - product functions
 
     // start - invoice functions
