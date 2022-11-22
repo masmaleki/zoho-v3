@@ -2,6 +2,7 @@
 
 namespace Masmaleki\ZohoAllInOne;
 
+use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkReadController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkWriteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
@@ -428,9 +429,14 @@ class ZohoAllInOne
         return ZohoBulkWriteController::uploadFile($organization_id, $filePath);
     }
 
-    public static function createBulkWriteJob($module, $mapping, $file_id, $callback_url)
+    public static function createBulkReadJob($data)
     {
-        return ZohoBulkWriteController::createJob($module, $mapping, $file_id, $callback_url);
+        return ZohoBulkReadController::createJob($data);
+    }
+
+    public static function downloadBulkReadResult($download_url)
+    {
+        return ZohoBulkReadController::downloadResult($download_url);
     }
     // end - bulk functions
 
