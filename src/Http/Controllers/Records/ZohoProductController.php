@@ -121,4 +121,24 @@ class ZohoProductController
         return $responseBody;
     }
 
+    public static function getAllZohoBooksItems($organization_id = null, $page, $conditions)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/items?organization_id=' . $organization_id . '&page=' . $page . $conditions;
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }
