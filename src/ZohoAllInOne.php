@@ -184,6 +184,11 @@ class ZohoAllInOne
         return ZohoProductController::getById($zoho_product_id, $fields);
     }
 
+    public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoProductController::getProductsCOQL($zoho_crm_product_id, $offset, $conditions, $fields);
+    }
+
     public static function productsSearch($phrase)
     {
         return ZohoProductController::search($phrase);
