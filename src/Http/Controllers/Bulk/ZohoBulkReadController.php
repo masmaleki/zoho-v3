@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Bulk;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoBulkReadController
@@ -55,5 +56,12 @@ class ZohoBulkReadController
         // $mime = "image/jpeg";
         // $img = ('data:' . $mime . ';base64,' . $base64);
         return $fileContents;
+    }
+
+    public static function saveDuplicatedList($file_name, $data)
+    {
+        Storage::put($file_name, json_encode($data));
+        return true;
+
     }
 }

@@ -7,8 +7,12 @@ use Masmaleki\ZohoAllInOne\Models\AllInOneObject;
 
 class ZohoAllInOneObjectController extends Controller
 {
-    public function do_merge(){
-        // $objects = exported data csv file
+    public function do_merge()
+    {
+        $result = json_decode(file_get_contents(storage_path() . '/app/public/bulk-read-result/result.json'), true);
+        foreach ($result as $obj) {
+            AllInOneObject::create($obj);
+        }
         // $object_model_items = $objects to AllInOneObject::class
         // $duplicated_objects = $this->get_duplicated_object($object_model_items)
         //
@@ -19,7 +23,8 @@ class ZohoAllInOneObjectController extends Controller
         //                    ->havingRaw('COUNT(*) > 1');
         //            })->get();
     }
-    public static function get_duplicated_object($module,$object_zoho_crm_name): array
+
+    public static function get_duplicated_object($module, $object_zoho_crm_name): array
     {
         $duplicated_objects_arr = [];
 

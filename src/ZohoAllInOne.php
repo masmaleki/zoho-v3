@@ -459,6 +459,13 @@ class ZohoAllInOne
     {
         return ZohoBulkReadController::downloadResult($download_url);
     }
+
+    public static function saveDuplicatedList($file_name,$data)
+    {
+        return ZohoBulkReadController::saveDuplicatedList($file_name,$data);
+    }
+
+
     // end - bulk functions
 
     // start - settings functions
