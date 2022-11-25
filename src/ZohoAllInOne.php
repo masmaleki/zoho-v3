@@ -12,6 +12,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
@@ -181,6 +182,11 @@ class ZohoAllInOne
     public static function getProduct($zoho_product_id, $fields = null)
     {
         return ZohoProductController::getById($zoho_product_id, $fields);
+    }
+
+    public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoProductController::getProductsCOQL($zoho_crm_product_id, $offset, $conditions, $fields);
     }
 
     public static function productsSearch($phrase)
@@ -372,6 +378,16 @@ class ZohoAllInOne
     }
 
     // end - Availability functions
+
+
+    // start - History PO SO functions
+
+    public static function getAllHistory($fields = null, $page_token = null, $conditions = null)
+    {
+        return ZohoHistoryPOSO::getAll($fields, $page_token, $conditions);
+    }
+
+    // end -History PO SO functions
 
 
     // start - Quote functions

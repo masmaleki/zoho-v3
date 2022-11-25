@@ -38,6 +38,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
+        //$apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id ;
         $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
             $apiURL .= '&fields=' . $fields;
@@ -136,6 +137,36 @@ class ZohoProductController
         ];
 
         $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $conditions = ($conditions) ? $conditions . ' and ' : '';
+        $zoho_crm_product_id_conditions = $zoho_crm_product_id != null ? " (id = " . $zoho_crm_product_id . ")" : "(id != 0) ";
+
+        $fields = $fields ? $fields : 'Qty_in_Demand , Owner ,RoHs,  Product_Active , Created_Time, id, Product_Name , Lifecylce_Status , SPQ1 , Record_Image , RoHs_Status ,  Catagory, MPN_ID , Taxable ,Product_Category, Manufacture_Name, Packaging, Datasheet_URL, Octopart_URL';
+
+        $body = [
+            'select_query' => "select " . $fields . " from Products where " . $conditions . $zoho_crm_product_id_conditions . "  limit " . $offset . ", 200",
+        ];
+
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
