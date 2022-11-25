@@ -8,21 +8,52 @@ use Masmaleki\ZohoAllInOne\Models\AllInOneObject;
 class ZohoAllInOneObjectController extends Controller
 {
     public function do_merge(){
-        // $objects = exported data csv file
-        // $object_model_items = $objects to AllInOneObject::class
-        // $duplicated_objects = $this->get_duplicated_object($object_model_items)
-        //
-        //        $duplicates = AllInOneObject::select('product_name')
-        //            ->whereIn('product_name', function ($q){
-        //                $q->select('product_name')
-        //                    ->from( AllInOneObject::class)
+        $result = json_decode(file_get_contents(storage_path() . '/app/public/bulk-read-result/result.json'), true);
+        $object_model_items = collect() ;
+        foreach ($result as $obj) {
+            $object = new AllInOneObject;
+            $object->Zoho_ID  =  $obj['Zoho_ID'];
+            $object->Zoho_Books_ID =  $obj['Zoho_Books_ID'];
+            $object->Product_Name =  $obj['Product_Name'];
+            $object->Owner =  $obj['Owner'];
+            $object->Created_By = $obj['Created_By'];
+            $object->Modified_By =  $obj['Modified_By'];
+            $object->RFQs =  $obj['RFQs'];
+            $object->Quotes = $obj['Quotes'];
+            $object->AVAs =  $obj['AVAs'];
+            $object->Invoices =  $obj['Invoices'];
+            $object->POs  =  $obj['POs'];
+            $object->SOs  =  $obj['SOs'];
+            $object_model_items->push($object);
+        }
+
+         $duplicated_objects =  $object_model_items->duplicates('Product_Name');
+        foreach ($duplicated_objects as $d_object){
+            $all_product_duplicates = $object_model_items->where('Product_Name',$d_object->Product_Name)->get();
+            // step 1 = get main product
+            $main_product = $this->detect_main_object($all_product_duplicates);
+            foreach ($all_product_duplicates as $item){
+
+            }
+        }
+         //$duplicated_objects = $this->get_duplicated_object($object_model_items);
+        //        $duplicates = $object_model_items::select('Product_Name')
+        //            ->whereIn('Product_Name', function ($q){
+        //                $q->select('Product_Name')
+        //                    ->from($object_model_items)
         //                    ->havingRaw('COUNT(*) > 1');
         //            })->get();
     }
-    public static function get_duplicated_object($module,$object_zoho_crm_name): array
+
+    public static function get_duplicated_object($module,$duplicated_objects): array
     {
         $duplicated_objects_arr = [];
-
+        $duplicates = $object_model_items::select('Product_Name')
+                    ->whereIn('Product_Name', function ($q){
+                        $q->select('Product_Name')
+                            ->from($object_model_items)
+                            ->havingRaw('COUNT(*) > 1');
+                    })->get();
         return $duplicated_objects_arr;
     }
 
