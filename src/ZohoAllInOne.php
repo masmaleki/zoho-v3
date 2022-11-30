@@ -184,6 +184,11 @@ class ZohoAllInOne
         return ZohoProductController::getById($zoho_product_id, $fields);
     }
 
+    public static function updateProduct($data = [])
+    {
+        return ZohoProductController::updateById($data);
+    }
+
     public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
     {
         return ZohoProductController::getProductsCOQL($zoho_crm_product_id, $offset, $conditions, $fields);
@@ -460,9 +465,9 @@ class ZohoAllInOne
         return ZohoBulkReadController::downloadResult($download_url);
     }
 
-    public static function saveDuplicatedList($file_name,$data)
+    public static function saveDuplicatedList($file_name, $data)
     {
-        return ZohoBulkReadController::saveDuplicatedList($file_name,$data);
+        return ZohoBulkReadController::saveDuplicatedList($file_name, $data);
     }
 
 
