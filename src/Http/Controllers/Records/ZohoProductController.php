@@ -55,6 +55,38 @@ class ZohoProductController
         return $responseBody;
     }
 
+    public static function updateById($data = [])
+    {
+        $zoho_product_id = $data['id'];
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id . '';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!isset($data['id'])) {
+            $data['id'] = $zoho_product_id;
+        }
+       //unset($data['id']);
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+//dd(json_encode($body));
+        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function search($phrase)
     {
         $token = ZohoTokenCheck::getToken();
