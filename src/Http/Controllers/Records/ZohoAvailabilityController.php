@@ -47,7 +47,7 @@ class ZohoAvailabilityController
 
         if (!$condition) {
             $condition = "Product_name.id = " . $product_id . " ";
-        } 
+        }
 
         $body = [
             'select_query' => "select " . $fields . " from Availability where " . $condition . " order by Created_Time desc",
@@ -123,6 +123,37 @@ class ZohoAvailabilityController
 //        $statusCode = $response->getStatusCode();
 //        $responseBody = json_decode($response->getBody(), true);
 //        return $responseBody;
+    }
+
+    public static function update($data = [])
+    {
+        $zoho_availability_id = $data['id'];
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Availability/' . $zoho_availability_id . '';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!isset($data['id'])) {
+            $data['id'] = $zoho_availability_id;
+        }
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+        //dd(json_encode($body));
+        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
     }
 
 }

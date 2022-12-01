@@ -79,7 +79,7 @@ class ZohoAllInOne
 
     public static function updateContact($data = [])
     {
-        return ZohoContactController::updateById($data);
+        return ZohoContactController::update($data);
     }
 
     public static function getContactAvatar($zoho_contact_id)
@@ -338,6 +338,11 @@ class ZohoAllInOne
         return ZohoRFQController::getAll();
     }
 
+    public static function updateRFQ($data = [])
+    {
+        return ZohoRFQController::update($data);
+    }
+
     public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null)
     {
         return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token, $fields);
@@ -387,6 +392,12 @@ class ZohoAllInOne
         return ZohoAvailabilityController::create($data);
     }
 
+    public static function updateAvailability($data = [])
+    {
+        return ZohoAvailabilityController::update($data);
+    }
+
+
     // end - Availability functions
 
 
@@ -425,6 +436,11 @@ class ZohoAllInOne
     public static function quotesSearch($phrase, $criteria = null)
     {
         return ZohoQuoteController::search($phrase, $criteria);
+    }
+
+    public static function updateQuote($data = [])
+    {
+        return ZohoQuoteController::update($data);
     }
 
     // end - Quote functions

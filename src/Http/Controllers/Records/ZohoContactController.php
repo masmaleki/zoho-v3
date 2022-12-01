@@ -97,7 +97,7 @@ class ZohoContactController
         return $responseBody;
     }
 
-    public static function updateById($data = [])
+    public static function update($data = [])
     {
         $zoho_contact_id = $data['id'];
 
