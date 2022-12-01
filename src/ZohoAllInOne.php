@@ -186,7 +186,12 @@ class ZohoAllInOne
 
     public static function updateProduct($data = [])
     {
-        return ZohoProductController::updateById($data);
+        return ZohoProductController::updateProduct($data);
+    }
+
+    public static function updateItem($data = [])
+    {
+        return ZohoProductController::updateItem($data);
     }
 
     public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
