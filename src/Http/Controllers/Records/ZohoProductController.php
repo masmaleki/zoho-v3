@@ -55,7 +55,7 @@ class ZohoProductController
         return $responseBody;
     }
 
-    public static function updateById($data = [])
+    public static function updateProduct($data = [])
     {
         $zoho_product_id = $data['id'];
 
@@ -73,14 +73,40 @@ class ZohoProductController
         if (!isset($data['id'])) {
             $data['id'] = $zoho_product_id;
         }
-       //unset($data['id']);
 
         $body = [
             'data' => [
                 0 => $data
             ]
         ];
-//dd(json_encode($body));
+        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function updateItem($data = [])
+    {
+        $zoho_books_item_id = $data['id'];
+        $organization_id = $data['organization_id'] ?? null;
+        unset($data['organization_id']);
+        unset($data['id']);
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/items/' . $zoho_books_item_id;
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = $data;
+
         $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
