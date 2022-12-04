@@ -120,6 +120,11 @@ class ZohoAllInOne
         return ZohoAccountController::create($data);
     }
 
+    public static function updateAccount($zoho_crm_account_id, $data)
+    {
+        return ZohoAccountController::update($zoho_crm_account_id, $data);
+    }
+
     public static function getZohoCrmAccount($zoho_crm_account_id)
     {
         return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
