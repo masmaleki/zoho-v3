@@ -120,6 +120,11 @@ class ZohoAllInOne
         return ZohoAccountController::create($data);
     }
 
+    public static function updateAccount($zoho_crm_account_id, $data)
+    {
+        return ZohoAccountController::update($zoho_crm_account_id, $data);
+    }
+
     public static function getZohoCrmAccount($zoho_crm_account_id)
     {
         return ZohoAccountController::getZohoCrmAccount($zoho_crm_account_id);
@@ -182,6 +187,11 @@ class ZohoAllInOne
     public static function getProduct($zoho_product_id, $fields = null)
     {
         return ZohoProductController::getById($zoho_product_id, $fields);
+    }
+
+    public static function getItem($zoho_books_item_id, $organization_id = null)
+    {
+        return ZohoProductController::getItemById($zoho_books_item_id, $organization_id);
     }
 
     public static function updateProduct($data = [])
