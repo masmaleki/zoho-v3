@@ -14,6 +14,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
@@ -267,6 +268,19 @@ class ZohoAllInOne
     }
 
     // end - invoice functions
+
+
+    // start - packages functions
+    public static function getPackages($organization_id, $page = 1, $condition = '')
+    {
+        return ZohoPackageController::getAll($organization_id, $page, $condition);
+    }
+
+    public static function searchPackageByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoPackageController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
+    // end - packages functions
 
 
     // start - sales orders functions
