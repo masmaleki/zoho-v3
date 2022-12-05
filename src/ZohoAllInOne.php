@@ -270,12 +270,17 @@ class ZohoAllInOne
     // end - invoice functions
 
 
-    // start - invoice functions
+    // start - packages functions
     public static function getPackages($organization_id, $page = 1, $condition = '')
     {
         return ZohoPackageController::getAll($organization_id, $page, $condition);
     }
-    // end - invoice functions
+
+    public static function searchPackageByCustomerId($zoho_customer_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoPackageController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
+    }
+    // end - packages functions
 
 
     // start - sales orders functions
