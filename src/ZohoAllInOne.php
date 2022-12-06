@@ -200,6 +200,11 @@ class ZohoAllInOne
         return ZohoProductController::updateProduct($data);
     }
 
+    public static function createProduct($data)
+    {
+        return ZohoProductController::create($data);
+    }
+
     public static function updateItem($data = [])
     {
         return ZohoProductController::updateItem($data);
