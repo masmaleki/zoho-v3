@@ -176,6 +176,21 @@ class ZohoAllInOne
         return ZohoManufactureController::getAll($page_token);
     }
 
+    public static function getManufacture($zoho_manufacture_id, $fields = null)
+    {
+        return ZohoManufactureController::getById($zoho_manufacture_id, $fields);
+    }
+
+    public static function manufactureSearch($phrase)
+    {
+        return ZohoManufactureController::search($phrase);
+    }
+
+    public static function createManufacture($data)
+    {
+        return ZohoManufactureController::create($data);
+    }
+
     // end - manufactures functions
 
     // start - products functions
