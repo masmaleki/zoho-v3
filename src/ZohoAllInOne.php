@@ -186,6 +186,11 @@ class ZohoAllInOne
         return ZohoManufactureController::search($phrase);
     }
 
+    public static function getManufacturesCOQL($zoho_crm_manufacture_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoManufactureController::getCOQL($zoho_crm_manufacture_id, $offset, $conditions, $fields);
+    }
+
     public static function createManufacture($data)
     {
         return ZohoManufactureController::create($data);

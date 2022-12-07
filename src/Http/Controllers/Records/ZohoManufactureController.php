@@ -73,6 +73,36 @@ class ZohoManufactureController
         return $responseBody;
     }
 
+    public static function getCOQL($zoho_crm_manufacture_id = null, $offset = 0, $conditions = null, $fields = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $conditions = ($conditions) ? $conditions . ' and ' : '';
+        $zoho_crm_manufacture_id_conditions = $zoho_crm_manufacture_id != null ? " (id = " . $zoho_crm_manufacture_id . ")" : "(id != 0) ";
+
+        $fields = $fields ? $fields : 'id, Name, Email, Octo_API_Id, Modified_By, Owner, Exchange_Rate, Currency, Active';
+
+        $body = [
+            'select_query' => "select " . $fields . " from Manufacture where " . $conditions . $zoho_crm_manufacture_id_conditions . "  limit " . $offset . ", 200",
+        ];
+
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function create($data = [])
     {
         $token = ZohoTokenCheck::getToken();
