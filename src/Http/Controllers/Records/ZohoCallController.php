@@ -5,16 +5,16 @@ namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 use GuzzleHttp\Client;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
-class ZohoTaskController
+class ZohoCallController
 {
 
-    public static function get($task_id)
+    public static function get($call_id)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Tasks/' . $task_id;
+        $apiURL = $token->api_domain . '/crm/v3/Calls/' . $call_id;
 
         $client = new Client();
 
@@ -35,7 +35,7 @@ class ZohoTaskController
             return null;
         }
         $fields = $fields ? $fields : 'Subject,What_Id,Owner,Who_Id,id,Priority,Status,Due_Date,Modified_Time,Closed_Time,Remind_At,Description';
-        $apiURL = $token->api_domain . '/crm/v3/Tasks?fields=' . $fields;
+        $apiURL = $token->api_domain . '/crm/v3/Calls?fields=' . $fields;
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
@@ -65,10 +65,11 @@ class ZohoTaskController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $fields = $fields ? $fields : ' Subject, What_Id, Owner,  Who_Id, id, $se_module, Priority, Status, Due_Date, Modified_Time, Closed_Time, Remind_At ';
+        $fields = $fields ? $fields : ' Call_Agenda, Call_Duration, Call_Purpose, Call_Result, id, Call_Start_Time, Call_Type, Caller_ID, Who_Id, Created_By, Description, Dialled_Number , Modified_By , Outgoing_Call_Status , What_Id , Scheduled_In_CRM ,Contact ';
+       // $fields = $fields ? $fields : ' Subject, What_Id, Owner, Owner, Who_Id, id, $se_module, Priority, Status, Due_Date, Modified_Time, Closed_Time, Remind_At ';
         $conditions = $conditions ? $conditions : " (id != 0) ";
         $body = [
-            'select_query' => "select " . $fields . " from Tasks where " . $conditions . "  limit " . $offset . ", 200",
+            'select_query' => "select " . $fields . " from Calls where " . $conditions . "  limit " . $offset . ", 200",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
@@ -84,7 +85,7 @@ class ZohoTaskController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Tasks/search?word=' . $phrase . $criteria;
+        $apiURL = $token->api_domain . '/crm/v3/Calls/search?word=' . $phrase . $criteria;
         $client = new Client();
 
         $headers = [
@@ -106,7 +107,7 @@ class ZohoTaskController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Tasks';
+        $apiURL = $token->api_domain . '/crm/v3/Calls';
         $client = new Client();
 
         $headers = [

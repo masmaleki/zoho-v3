@@ -6,6 +6,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkReadController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkWriteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoCallController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
@@ -517,6 +518,30 @@ class ZohoAllInOne
     }
 
     // end - tasks functions
+
+    // start - calls functions
+
+    public static function getCalls($page_token = null, $fields = null)
+    {
+        return ZohoCallController::getAll($page_token, $fields);
+    }
+
+    public static function getCallsCOQL($conditions = null, $offset = 0, $fields = null)
+    {
+        return ZohoCallController::getByCOQL($conditions, $offset, $fields);
+    }
+
+    public static function getCallById($id)
+    {
+        return ZohoCallController::get($id);
+    }
+
+    public static function createCall($data)
+    {
+        return ZohoCallController::create($data);
+    }
+
+    // end - calls functions
 
     // start - bulk functions
 
