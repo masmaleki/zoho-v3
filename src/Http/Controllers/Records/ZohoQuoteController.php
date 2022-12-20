@@ -47,7 +47,7 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null, $fields = null)
+    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null, $fields = null, $next_page, $per_page)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -56,6 +56,12 @@ class ZohoQuoteController
         $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=(Account_Name.id:equals:' . $zoho_crm_vendor_id . ')';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
+        }
+        if ($next_page) {
+            $apiURL .= '&page=' . $next_page;
+        }
+        if ($per_page) {
+            $apiURL .= '&per_page=' . $per_page;
         }
         if ($fields) {
             $apiURL .= '&fields=' . $fields;
