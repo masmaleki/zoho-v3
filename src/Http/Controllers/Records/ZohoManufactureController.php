@@ -15,7 +15,8 @@ class ZohoManufactureController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Manufacture?fields=$review_process,$field_states,Record_Image,$approval_state,Email,Active,Name,Octo_API_Id,$approval,Vendor_Strong_Lines';
+        //$apiURL = $token->api_domain . '/crm/v3/Manufacture?fields=$review_process,$field_states,Record_Image,$approval_state,Email,Active,Name,Octo_API_Id,$approval,Vendor_Strong_Lines';
+        $apiURL = $token->api_domain . '/crm/v3/Manufacture?fields=id,Created_By,Active,Currency,Email,Email_Opt_Out,Exchange_Rate,Record_Image,Name,Owner,Modified_By,Octo_API_Id,Secondary_Email';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
