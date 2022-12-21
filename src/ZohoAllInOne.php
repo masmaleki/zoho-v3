@@ -197,6 +197,11 @@ class ZohoAllInOne
         return ZohoManufactureController::create($data);
     }
 
+    public static function updateManufacture($zoho_crm_manufacture_id, $data)
+    {
+        return ZohoManufactureController::update($zoho_crm_manufacture_id, $data);
+    }
+
     // end - manufactures functions
 
     // start - products functions
@@ -475,7 +480,7 @@ class ZohoAllInOne
 
     public static function getAccountQuotes($zoho_crm_account_id, $page_token = null, $fields = null, $next_page = 1, $per_page = 200)
     {
-        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token, $fields,$next_page,$per_page);
+        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token, $fields, $next_page, $per_page);
     }
 
     public static function getAccountQuotesCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
