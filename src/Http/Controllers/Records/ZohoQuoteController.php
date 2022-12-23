@@ -47,13 +47,19 @@ class ZohoQuoteController
         return $responseBody;
     }
 
-    public static function getAccountQuotes($zoho_crm_vendor_id, $page_token = null, $fields = null, $next_page, $per_page)
+    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null, $fields = null, $next_page, $per_page, $conditions = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=(Account_Name.id:equals:' . $zoho_crm_vendor_id . ')';
+        $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+        if ($conditions ) {
+            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=' . $conditionString;
+
+        // $apiURL = $token->api_domain . '/crm/v3/Quotes/search?criteria=(Account_Name.id:equals:' . $zoho_crm_vendor_id . ')';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }

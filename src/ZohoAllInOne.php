@@ -478,9 +478,9 @@ class ZohoAllInOne
         return ZohoQuoteController::getAll();
     }
 
-    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null, $fields = null, $next_page = 1, $per_page = 200)
+    public static function getAccountQuotes($zoho_crm_account_id, $page_token = null, $fields = null, $next_page = 1, $per_page = 200, $conditions = null)
     {
-        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token, $fields, $next_page, $per_page);
+        return ZohoQuoteController::getAccountQuotes($zoho_crm_account_id, $page_token, $fields, $next_page, $per_page, $conditions);
     }
 
     public static function getAccountQuotesCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
