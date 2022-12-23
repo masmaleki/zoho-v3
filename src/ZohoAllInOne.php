@@ -393,9 +393,9 @@ class ZohoAllInOne
         return ZohoRFQController::update($data);
     }
 
-    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null, $next_page = 1, $per_page = 200)
+    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null, $next_page = 1, $per_page = 200, $conditions = null)
     {
-        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token, $fields, $next_page, $per_page);
+        return ZohoRFQController::getAccountRFQs($zoho_crm_account_id, $page_token, $fields, $next_page, $per_page, $conditions);
     }
 
     public static function getAccountRFQsCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
