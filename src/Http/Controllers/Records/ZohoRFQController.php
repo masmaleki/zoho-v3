@@ -46,22 +46,20 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null, $next_page, $per_page)
+    public static function getAccountRFQs($zoho_crm_account_id, $page_token = null, $fields = null, $next_page, $per_page, $conditions = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
 
-//        $conditions='Account_Name.id:equals:';
-//        $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
-//        if ($conditions ) {
-//            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . ')';
-//        }
-//
-//        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=' . $conditionString;
+        $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+        if ($conditions ) {
+            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
+        }
 
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=' . $conditionString;
+        // $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
