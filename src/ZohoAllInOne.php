@@ -13,6 +13,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
@@ -313,8 +314,13 @@ class ZohoAllInOne
     }
     // end - packages functions
 
+    // start - deals functions
+    public static function createDeal($data)
+    {
+        return ZohoDealController::create($data);
+    }
+    // end - deals functions
 
-    // start - sales orders functions
     public static function getSaleOrders($organization_id, $page = 1, $condition = '')
     {
         return ZohoSaleOrderController::getAll($organization_id, $page, $condition);
