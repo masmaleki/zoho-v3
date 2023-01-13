@@ -30,6 +30,41 @@ class ZohoAccountController
         return $responseBody;
     }
 
+    public static function getContacts($zoho_crm_account_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $result = [];
+        $page = 1;
+        $morePage = true;
+
+        do {
+            $apiURL = $token->api_domain . '/crm/v3/Accounts/' . $zoho_crm_account_id . '/Contacts?page=' . $page . '&fields=Created_Time,Title,Full_Name,Contact_Type,Department,Rating,Phone,Fax,Date_of_Birth,Other_Phone,Secondary_Email,Skype_ID,LinkedIn,Mailing_Street,Mailing_City,Mailing_Zip,Mailing_State,Mailing_Country,Description,Last_Activity_Date,Private_Email,Email,First_Name,Last_Name,Mobile,Vendor_Name,Account_Name,Owner,Created_By,Modified_By';
+
+            $client = new Client();
+
+            $headers = [
+                'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+            ];
+
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+            $result = array_merge($result, $responseBody['data']);
+            if (($responseBody['info']['more_records'] ?? false) == true) {
+                $page++;
+            } else {
+                $morePage = false;
+            }
+
+        } while ($morePage);
+
+
+        return $result;
+    }
+
     public static function create($data)
     {
         if (!$data) {
