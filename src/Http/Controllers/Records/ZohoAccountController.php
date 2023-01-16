@@ -52,12 +52,17 @@ class ZohoAccountController
             $response = $client->request('GET', $apiURL, ['headers' => $headers]);
             $statusCode = $response->getStatusCode();
             $responseBody = json_decode($response->getBody(), true);
-            $result = array_merge($result, $responseBody['data']);
-            if (($responseBody['info']['more_records'] ?? false) == true) {
-                $page++;
-            } else {
+            if($responseBody != null){
+                $result = array_merge($result, $responseBody['data']);
+                if (($responseBody['info']['more_records'] ?? false) == true) {
+                    $page++;
+                } else {
+                    $morePage = false;
+                }
+            }else {
                 $morePage = false;
             }
+
 
         } while ($morePage);
 
