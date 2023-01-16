@@ -16,6 +16,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
@@ -323,6 +324,20 @@ class ZohoAllInOne
     public static function createDeal($data)
     {
         return ZohoDealController::create($data);
+    }
+    // end - deals functions
+
+    // start - deals functions
+    public static function createLead($data)
+    {
+        return ZohoLeadController::create($data);
+    }
+    // end - deals functions
+
+    // start - deals functions
+    public static function getLeadByEmailAddress($zoho_email)
+    {
+        return ZohoLeadController::getByEmailAddress($zoho_email);
     }
     // end - deals functions
 
