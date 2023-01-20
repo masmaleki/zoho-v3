@@ -55,9 +55,16 @@ class ZohoQuoteController
         }
 
         if (is_array($zoho_crm_account_id)) {
-            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))';
-            if ($conditions ) {
-                $conditionString = '(((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))and(' . $conditions . '))';
+            if ($zoho_crm_account_id[1] ?? false) {
+                $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))';
+                if ($conditions ) {
+                    $conditionString = '(((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))and(' . $conditions . '))';
+                }
+            } else {
+                $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')';
+                if ($conditions ) {
+                    $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')and(' . $conditions . '))';
+                }
             }
         } else {
             $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
