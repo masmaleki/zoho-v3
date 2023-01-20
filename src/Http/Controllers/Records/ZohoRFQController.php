@@ -53,9 +53,16 @@ class ZohoRFQController
             return null;
         }
 
-        $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
-        if ($conditions ) {
-            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
+        if (is_array($zoho_crm_account_id)) {
+            $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))';
+            if ($conditions ) {
+                $conditionString = '(((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))and(' . $conditions . '))';
+            }
+        } else {
+            $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+            if ($conditions ) {
+                $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
+            }
         }
 
         $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=' . $conditionString;
