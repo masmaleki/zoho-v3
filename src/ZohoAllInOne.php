@@ -7,6 +7,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Bulk\ZohoBulkWriteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Other\ZohoCompositeAPIController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAvailabilityController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoCallController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Functions\ZohoFunctionApiController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoManufactureController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
@@ -30,6 +31,13 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoUserController;
 
 class ZohoAllInOne
 {
+
+    // start - API functions
+    public static function callApiFunction($url)
+    {
+        return ZohoFunctionApiController::run($url);
+    }
+    // end - API functions
 
     // start - general functions
     public static function getModuleCount($moduleName, $type = null, $value = null)
@@ -339,6 +347,7 @@ class ZohoAllInOne
     {
         return ZohoLeadController::getByEmailAddress($zoho_email);
     }
+
     // end - deals functions
 
     public static function getSaleOrders($organization_id, $page = 1, $condition = '')
