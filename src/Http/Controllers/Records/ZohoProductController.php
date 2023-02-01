@@ -38,10 +38,10 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        //$apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id ;
-        $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
+        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id ;
+        // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
-            $apiURL .= '&fields=' . $fields;
+            $apiURL .= '?fields=' . $fields;
         }
         $client = new Client();
 
