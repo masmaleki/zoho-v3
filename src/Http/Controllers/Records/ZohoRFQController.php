@@ -56,18 +56,18 @@ class ZohoRFQController
         if (is_array($zoho_crm_account_id)) {
             if ($zoho_crm_account_id[1] ?? false) {
                 $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))';
-                if ($conditions ) {
+                if ($conditions) {
                     $conditionString = '(((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))and(' . $conditions . '))';
                 }
             } else {
                 $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')';
-                if ($conditions ) {
+                if ($conditions) {
                     $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')and(' . $conditions . '))';
                 }
             }
         } else {
             $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
-            if ($conditions ) {
+            if ($conditions) {
                 $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
             }
         }
@@ -92,9 +92,15 @@ class ZohoRFQController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        //TODO: improve it for results with more than 2000 records.
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Throwable $th) {
+            $responseBody = [];
+            $responseBody['data'] = [];
+        }
         return $responseBody;
     }
 
