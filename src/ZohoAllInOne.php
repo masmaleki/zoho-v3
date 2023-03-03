@@ -236,6 +236,11 @@ class ZohoAllInOne
         return ZohoProductController::getItemById($zoho_books_item_id, $organization_id);
     }
 
+    public static function searchItemByName($product_name, $organization_id = null)
+    {
+        return ZohoProductController::searchItemByName($product_name, $organization_id);
+    }
+
     public static function updateProduct($data = [])
     {
         return ZohoProductController::updateProduct($data);
