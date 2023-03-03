@@ -423,6 +423,11 @@ class ZohoAllInOne
         return ZohoRFQController::get($rfq_id);
     }
 
+    public static function getRFQList($rfq_id, $list)
+    {
+        return ZohoRFQController::getRFQList($rfq_id, $list);
+    }
+
     public static function getRFQs()
     {
         return ZohoRFQController::getAll();

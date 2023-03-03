@@ -27,6 +27,25 @@ class ZohoRFQController
         return $responseBody;
     }
 
+    public static function getRFQList($rfq_id,$list)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v2/' . config('zoho-v3.custom_modules_names.rfq') . '/' . $rfq_id . '/'.$list;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function getAll()
     {
         $token = ZohoTokenCheck::getToken();
