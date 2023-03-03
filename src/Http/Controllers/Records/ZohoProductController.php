@@ -83,7 +83,7 @@ class ZohoProductController
         }
         $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains='.$product_name;
         if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
+            $apiURL .= '&organization_id=' . $organization_id;
         }
         $client = new Client();
         $headers = [
