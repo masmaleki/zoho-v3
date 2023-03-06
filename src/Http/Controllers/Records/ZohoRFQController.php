@@ -71,28 +71,14 @@ class ZohoRFQController
         if (!$token) {
             return null;
         }
-
-        if (is_array($zoho_crm_account_id)) {
-            if ($zoho_crm_account_id[1] ?? false) {
-                $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))';
-                if ($conditions) {
-                    $conditionString = '(((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')or(Account_Name.id:equals:' . $zoho_crm_account_id[1] . '))and(' . $conditions . '))';
-                }
-            } else {
-                $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')';
-                if ($conditions) {
-                    $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id[0] . ')and(' . $conditions . '))';
-                }
-            }
-        } else {
-            $conditionString = '(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
-            if ($conditions) {
-                $conditionString = '((Account_Name.id:equals:' . $zoho_crm_account_id . ')and(' . $conditions . '))';
-            }
-        }
-
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=' . $conditionString;
+    
+        // $apiURL = $token->api_domain . '/crm/v3/Accounts/' . $zoho_crm_account_id[0] . '/RFQ_NEW?';
         // $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+        $apiURL = $token->api_domain . '/crm/v3/Accounts/' . $zoho_crm_account_id . '/RFQ_NEW?';
+        
+        if ($conditions) {
+            $apiURL .= '&criteria=(' . $conditions . ')';
+        }
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
@@ -105,21 +91,16 @@ class ZohoRFQController
         if ($fields) {
             $apiURL .= '&fields=' . $fields;
         }
+        
         $client = new Client();
-
+    
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
-
-        //TODO: improve it for results with more than 2000 records.
-        try {
-            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-            $statusCode = $response->getStatusCode();
-            $responseBody = json_decode($response->getBody(), true);
-        } catch (\Throwable $th) {
-            $responseBody = [];
-            $responseBody['data'] = [];
-        }
+    
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $responseBody = json_decode($response->getBody(), true);
+            
         return $responseBody;
     }
 
