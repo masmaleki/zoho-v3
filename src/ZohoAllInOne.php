@@ -299,6 +299,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getById($zoho_invoice_id, $organization_id);
     }
 
+    public static function getCRMInvoice($zoho_invoice_id)
+    {
+        return ZohoInvoiceController::getCRMInvoiceById($zoho_invoice_id);
+    }
+
     public static function getVendorInvoices($zoho_vendor_id)
     {
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);

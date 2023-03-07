@@ -52,6 +52,30 @@ class ZohoInvoiceController
         return $responseBody;
     }
 
+    public static function getCRMInvoiceById($zoho_invoice_id, $fields = null)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id ;
+        // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
+        if ($fields) {
+            $apiURL .= '?fields=' . $fields;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function getByVendorId($zoho_vendor_id)
     {
 
