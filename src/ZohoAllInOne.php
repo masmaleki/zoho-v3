@@ -409,6 +409,11 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
 
+    public static function getCRMPurchaseOrder($purchase_order_id)
+    {
+        return ZohoPurchaseOrderController::getCRMPurchaseOrderById($purchase_order_id);
+    }
+
     public static function getPurchaseOrderByCustomerId($zoho_vendor_id, $organization_id = null)
     {
         return ZohoPurchaseOrderController::getByCustomerId($zoho_vendor_id, $organization_id);

@@ -152,4 +152,29 @@ class ZohoPurchaseOrderController
         return $streamResponse;
     }
 
+    public static function getCRMPurchaseOrderById($purchase_order_id, $fields = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/Purchase_Orders/' . $purchase_order_id ;
+
+        if ($fields) {
+            $apiURL .= '?fields=' . $fields;
+        }
+
+        $client = new Client();
+        
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }
