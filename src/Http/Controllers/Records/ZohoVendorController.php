@@ -124,8 +124,13 @@ class ZohoVendorController
         if (!$token) {
             return null;
         }
-        //$apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/contacts?organization_id=' . $organization_id . '&crm_id=' . $zoho_crm_vendor_id . '';
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/crm/vendor/' . $zoho_crm_vendor_id . '/import?organization_id=' . $organization_id;
+        // TODO: Must be checked
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/vendors?zcrm_vendor_id=' . $zoho_crm_vendor_id;
+        // $apiURL = $token->api_domain . '/books/v3/crm/vendor/' . $zoho_crm_vendor_id . '/import?organization_id=' . $organization_id;
+
+        if ($organization_id) {
+            $apiURL .= '&organization_id=' . $organization_id;
+        }
 
         $client = new Client();
 
@@ -133,7 +138,7 @@ class ZohoVendorController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('POST', $apiURL, ['headers' => $headers]);
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
