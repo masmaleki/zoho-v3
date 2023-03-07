@@ -139,4 +139,27 @@ class ZohoVendorController
         return $responseBody;
     }
 
+    public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/contacts/' . $zoho_books_vendor_id ;
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }
