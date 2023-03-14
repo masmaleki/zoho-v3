@@ -159,6 +159,11 @@ class ZohoAllInOne
         return ZohoVendorController::getAll($page_token);
     }
 
+    public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
+    {
+        return ZohoVendorController::getZohoBooksVendorById($zoho_books_vendor_id, $organization_id);
+    }
+
     public static function createVendor($data)
     {
         return ZohoVendorController::create($data);
@@ -184,6 +189,7 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id);
     }
+
     // end - vendors functions
 
     // start - manufactures functions
@@ -236,6 +242,11 @@ class ZohoAllInOne
         return ZohoProductController::getItemById($zoho_books_item_id, $organization_id);
     }
 
+    public static function searchItemByName($product_name, $organization_id = null)
+    {
+        return ZohoProductController::searchItemByName($product_name, $organization_id);
+    }
+
     public static function updateProduct($data = [])
     {
         return ZohoProductController::updateProduct($data);
@@ -286,6 +297,11 @@ class ZohoAllInOne
     public static function getInvoice($zoho_invoice_id, $organization_id = null)
     {
         return ZohoInvoiceController::getById($zoho_invoice_id, $organization_id);
+    }
+
+    public static function getCRMInvoice($zoho_invoice_id)
+    {
+        return ZohoInvoiceController::getCRMInvoiceById($zoho_invoice_id);
     }
 
     public static function getVendorInvoices($zoho_vendor_id)
@@ -360,6 +376,11 @@ class ZohoAllInOne
         return ZohoSaleOrderController::getById($sale_order_id, $organization_id);
     }
 
+    public static function getCRMSaleOrder($sale_order_id)
+    {
+        return ZohoSaleOrderController::getCRMSaleOrderById($sale_order_id);
+    }
+
     public static function getSaleOrderByCustomerId($zoho_customer_id, $organization_id = null)
     {
         return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
@@ -388,9 +409,19 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
 
+    public static function getCRMPurchaseOrder($purchase_order_id)
+    {
+        return ZohoPurchaseOrderController::getCRMPurchaseOrderById($purchase_order_id);
+    }
+
     public static function getPurchaseOrderByCustomerId($zoho_vendor_id, $organization_id = null)
     {
         return ZohoPurchaseOrderController::getByCustomerId($zoho_vendor_id, $organization_id);
+    }
+
+    public static function getPurchaseOrderByItemName($item_name, $organization_id = null)
+    {
+        return ZohoPurchaseOrderController::getByItemName($item_name, $organization_id);
     }
 
     public static function searchPurchaseOrderByCustomerId($zoho_vendor_id, $searchParameter = null, $organization_id = null)
@@ -421,6 +452,11 @@ class ZohoAllInOne
     public static function getRFQ($rfq_id)
     {
         return ZohoRFQController::get($rfq_id);
+    }
+
+    public static function getRFQList($rfq_id, $list)
+    {
+        return ZohoRFQController::getRFQList($rfq_id, $list);
     }
 
     public static function getRFQs()
