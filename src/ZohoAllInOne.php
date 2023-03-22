@@ -24,6 +24,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoCrmOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
@@ -490,6 +491,14 @@ class ZohoAllInOne
     }
 
     // end - RFQ functions
+    // start - Vendor RFQ functions
+
+    public static function getVendorRFQ($vendor_rfq_id)
+    {
+        return ZohoVendorRFQController::get($vendor_rfq_id);
+    }
+
+    // end - Vendor RFQ functions
 
     // start - Availability functions
 
