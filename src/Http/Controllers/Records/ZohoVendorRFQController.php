@@ -28,4 +28,28 @@ class ZohoVendorRFQController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function getAll($page_token = null, $page = 1, $perPage = 200)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.vendor_rfq') . '?fields=Created_Time,id,Date,Email,Offered_Products,Quantity,Related_RFQs,Requested_Products,Secondary_Email,Status,Vendor_Name,Tag,Name,Vendor_RFQ_Number,Owner';
+        if ($page_token) {
+            $apiURL .= '&page_token=' . $page_token;
+        } else {
+            $apiURL .= '&page=' . $page . '&per_page=' . $perPage;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
 }
