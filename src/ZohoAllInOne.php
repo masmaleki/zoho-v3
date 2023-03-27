@@ -13,6 +13,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAttachmentController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
@@ -675,5 +676,13 @@ class ZohoAllInOne
         return ZohoCrmOrganizationController::get();
     }
     // end - settings functions
+
+    // start - attachments functions
+
+    public static function uploadAttachment($zoho_module_name, $zoho_record_id, $file_path, $file_mime, $file_uploaded_name)
+    {
+        return ZohoAttachmentController::upload($zoho_module_name, $zoho_record_id, $file_path, $file_mime, $file_uploaded_name);
+    }
+    // end - attachments functions
 
 }
