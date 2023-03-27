@@ -13,7 +13,7 @@ class ZohoAttachmentController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/' . $zoho_module_name . '/' . $zoho_record_id . '/Attachments?fields=id,File_Name';
+        $apiURL = $token->api_domain . '/crm/v3/' . $zoho_module_name . '/' . $zoho_record_id . '/Attachments?fields=id,File_Name,$file_id';
         $client = new Client();
 
         $headers = [
