@@ -7,30 +7,23 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoAttachmentController
 {
-    public static function get($zoho_contact_id)
+    public static function getAll($zoho_module_name, $zoho_record_id)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts/' . $zoho_contact_id . '/Attachments';
+        $apiURL = $token->api_domain . '/crm/v3/' . $zoho_module_name . '/' . $zoho_record_id . '/Attachments?fields=id,File_Name';
         $client = new Client();
 
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers, ['stream' => true]]);
-
-        $responseBody = $response->getBody()->getContents();
-        $base64 = base64_encode($responseBody);
-
-        if (!$base64) return null;
-
-        $mime = "image/jpeg";
-        $img = ('data:' . $mime . ';base64,' . $base64);
-
-        return $img;
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
     }
 
     public static function upload($zoho_module_name, $zoho_record_id, $file_content, $file_mime, $file_upload_name)
@@ -62,13 +55,13 @@ class ZohoAttachmentController
         return $responseBody;
     }
 
-    public static function delete($zoho_contact_id)
+    public static function delete($zoho_module_name, $zoho_record_id, $zoho_attachment_id)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Contacts/' . $zoho_contact_id . '/Attachments';
+        $apiURL = $token->api_domain . '/crm/v3/' . $zoho_module_name . '/' . $zoho_record_id . '/Attachments/' . $zoho_attachment_id;
         $client = new Client();
 
         $headers = [

@@ -683,6 +683,16 @@ class ZohoAllInOne
     {
         return ZohoAttachmentController::upload($zoho_module_name, $zoho_record_id, $file_path, $file_mime, $file_uploaded_name);
     }
+
+    public static function getAttachments($zoho_module_name, $zoho_record_id)
+    {
+        return ZohoAttachmentController::getAll($zoho_module_name, $zoho_record_id);
+    }
+
+    public static function deleteAttachment($zoho_module_name, $zoho_record_id, $zoho_attachment_id)
+    {
+        return ZohoAttachmentController::delete($zoho_module_name, $zoho_record_id, $zoho_attachment_id);
+    }
     // end - attachments functions
 
 }
