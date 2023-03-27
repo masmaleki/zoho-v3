@@ -16,6 +16,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAttachmentController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
@@ -694,5 +695,13 @@ class ZohoAllInOne
         return ZohoAttachmentController::delete($zoho_module_name, $zoho_record_id, $zoho_attachment_id);
     }
     // end - attachments functions
+
+    // start - Email functions
+
+    public static function sendEmail($zoho_module_name, $zoho_record_id, $data)
+    {
+        return ZohoEmailController::send($zoho_module_name, $zoho_record_id, $data);
+    }
+    // end - Email functions
 
 }
