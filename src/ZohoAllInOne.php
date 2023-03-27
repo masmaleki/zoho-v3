@@ -503,6 +503,11 @@ class ZohoAllInOne
         return ZohoVendorRFQController::getAll($vendor_rfq_id);
     }
 
+    public static function updateVendorRFQ($data = [])
+    {
+        return ZohoVendorRFQController::update($data);
+    }
+
     // end - Vendor RFQ functions
 
     // start - Availability functions
