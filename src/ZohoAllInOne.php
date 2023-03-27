@@ -13,8 +13,10 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoPurchaseOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRecordCountController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAccountController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAttachmentController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
@@ -24,6 +26,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoVendorRFQController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoCrmOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Users\ZohoOrganizationController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Settings\ZohoRoleController;
@@ -490,6 +493,24 @@ class ZohoAllInOne
     }
 
     // end - RFQ functions
+    // start - Vendor RFQ functions
+
+    public static function getVendorRFQ($vendor_rfq_id)
+    {
+        return ZohoVendorRFQController::get($vendor_rfq_id);
+    }
+
+    public static function getVendorRFQs($vendor_rfq_id)
+    {
+        return ZohoVendorRFQController::getAll($vendor_rfq_id);
+    }
+
+    public static function updateVendorRFQ($data = [])
+    {
+        return ZohoVendorRFQController::update($data);
+    }
+
+    // end - Vendor RFQ functions
 
     // start - Availability functions
 
@@ -656,5 +677,31 @@ class ZohoAllInOne
         return ZohoCrmOrganizationController::get();
     }
     // end - settings functions
+
+    // start - attachments functions
+
+    public static function uploadAttachment($zoho_module_name, $zoho_record_id, $file_path, $file_mime, $file_uploaded_name)
+    {
+        return ZohoAttachmentController::upload($zoho_module_name, $zoho_record_id, $file_path, $file_mime, $file_uploaded_name);
+    }
+
+    public static function getAttachments($zoho_module_name, $zoho_record_id)
+    {
+        return ZohoAttachmentController::getAll($zoho_module_name, $zoho_record_id);
+    }
+
+    public static function deleteAttachment($zoho_module_name, $zoho_record_id, $zoho_attachment_id)
+    {
+        return ZohoAttachmentController::delete($zoho_module_name, $zoho_record_id, $zoho_attachment_id);
+    }
+    // end - attachments functions
+
+    // start - Email functions
+
+    public static function sendEmail($zoho_module_name, $zoho_record_id, $data)
+    {
+        return ZohoEmailController::send($zoho_module_name, $zoho_record_id, $data);
+    }
+    // end - Email functions
 
 }
