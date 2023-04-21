@@ -9,7 +9,6 @@ class ZohoExcessController
 {
     public static function create($data = null)
     {
-        try{
         if (!$data) {
             return null;
         }
@@ -33,10 +32,5 @@ class ZohoExcessController
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
-    } catch (\GuzzleHttp\Exception\ClientException $e) {
-
-        dd($e->getResponse()->getBody()->getContents(), $data);
-
-    }
     }
 }
