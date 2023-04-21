@@ -17,6 +17,7 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoAttachmentController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
+use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoExcessController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
@@ -703,5 +704,13 @@ class ZohoAllInOne
         return ZohoEmailController::send($zoho_module_name, $zoho_record_id, $data);
     }
     // end - Email functions
+
+    // start - Excess functions
+
+    public static function createExcess($data)
+    {
+        return ZohoExcessController::create($data);
+    }
+    // end - Excess functions
 
 }
