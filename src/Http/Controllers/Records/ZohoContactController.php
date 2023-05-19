@@ -53,6 +53,26 @@ class ZohoContactController
         return $responseBody;
     }
 
+    public static function getByIdSecond($zoho_contact_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Contacts/' . $zoho_contact_id;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function getByEmail($zoho_email)
     {
         $token = ZohoTokenCheck::getToken();
