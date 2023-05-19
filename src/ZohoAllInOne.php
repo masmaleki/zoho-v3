@@ -355,20 +355,23 @@ class ZohoAllInOne
     }
     // end - deals functions
 
-    // start - deals functions
+    // start - leads functions
     public static function createLead($data)
     {
         return ZohoLeadController::create($data);
     }
-    // end - deals functions
 
-    // start - deals functions
+    public static function getLead($id)
+    {
+        return ZohoLeadController::getLead($id);
+    }
+
     public static function getLeadByEmailAddress($zoho_email)
     {
         return ZohoLeadController::getByEmailAddress($zoho_email);
     }
 
-    // end - deals functions
+    // end - leads functions
 
     public static function getSaleOrders($organization_id, $page = 1, $condition = '')
     {
