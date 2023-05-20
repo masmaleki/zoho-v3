@@ -361,6 +361,20 @@ class ZohoAllInOne
         return ZohoLeadController::create($data);
     }
     // end - deals functions
+    
+    // start - deals functions
+    public static function convertLead($data)
+    {
+        return ZohoLeadController::convertLead($data);
+    }
+    // end - deals functions
+
+    // start - deals functions
+    public static function conversionOptionsLead($data)
+    {
+        return ZohoLeadController::conversionOptions($data);
+    }
+    // end - deals functions
 
     // start - deals functions
     public static function getLeadByEmailAddress($zoho_email)

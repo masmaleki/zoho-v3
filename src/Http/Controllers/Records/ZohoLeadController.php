@@ -33,6 +33,50 @@ class ZohoLeadController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+    public static function convertLead($data = null)
+    {
+        if (!$data) {
+            return null;
+        }
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Leads/'.$data->id.'/actions/convert';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        
+        $response = $client->request('POST', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+    public static function conversionOptions($id = null)
+    {
+        if (!$id) {
+            return null;
+        }
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Leads/'.$id.'/__conversion_options';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
     
     public static function getByEmailAddress($zoho_email)
     {
