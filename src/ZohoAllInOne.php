@@ -83,6 +83,11 @@ class ZohoAllInOne
         return ZohoContactController::getById($zoho_contact_id);
     }
 
+    public static function getContactSecond($zoho_contact_id)
+    {
+        return ZohoContactController::getByIdSecond($zoho_contact_id);
+    }
+
     public static function getContactByEmailAddress($zoho_email)
     {
         return ZohoContactController::getByEmail($zoho_email);
@@ -355,34 +360,33 @@ class ZohoAllInOne
     }
     // end - deals functions
 
-    // start - deals functions
+    // start - leads functions
     public static function createLead($data)
     {
         return ZohoLeadController::create($data);
     }
-    // end - deals functions
-    
-    // start - deals functions
-    public static function convertLead($data)
-    {
-        return ZohoLeadController::convertLead($data);
-    }
-    // end - deals functions
 
-    // start - deals functions
-    public static function conversionOptionsLead($data)
+    public static function getLead($id)
     {
-        return ZohoLeadController::conversionOptions($data);
+        return ZohoLeadController::getLead($id);
     }
-    // end - deals functions
 
-    // start - deals functions
     public static function getLeadByEmailAddress($zoho_email)
     {
         return ZohoLeadController::getByEmailAddress($zoho_email);
     }
+    public static function convertLead($data)
+    {
+        return ZohoLeadController::convertLead($data);
+    }
+    
+    public static function conversionOptionsLead($data)
+    {
+        return ZohoLeadController::conversionOptions($data);
+    }
+    
 
-    // end - deals functions
+    // end - leads functions
 
     public static function getSaleOrders($organization_id, $page = 1, $condition = '')
     {
