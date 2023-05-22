@@ -370,14 +370,18 @@ class ZohoAllInOne
     {
         return ZohoLeadController::getLead($id);
     }
+    public static function updateLead($data)
+    {
+        return ZohoLeadController::update($data);
+    }
 
     public static function getLeadByEmailAddress($zoho_email)
     {
         return ZohoLeadController::getByEmailAddress($zoho_email);
     }
-    public static function convertLead($data)
+    public static function convertLead($data,$id)
     {
-        return ZohoLeadController::convertLead($data);
+        return ZohoLeadController::convertLead($data,$id);
     }
     
     public static function conversionOptionsLead($data)
