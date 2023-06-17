@@ -234,7 +234,7 @@ class ZohoRFQController
             'RFQ_Alternative'=>[
                 'id'=>$rfq_id
             ],
-            'Owner'=>['id'=>538281000040776006]
+            // 'Owner'=>['id'=>538281000040776006]
         ];
         $body = [
             'data' => [
