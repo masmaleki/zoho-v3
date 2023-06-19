@@ -211,4 +211,41 @@ class ZohoRFQController
         return $responseBody;
     }
 
+    public static function setRFQAlternative($rfq_id,$product_id)  {
+        if (!$rfq_id || !$product_id) {
+            return null;
+        }
+        
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq_alternative_product');
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+        $data=[
+            'Alternative_Products'=>[
+                'id'=>$product_id
+            ],
+            'RFQ_Alternative'=>[
+                'id'=>$rfq_id
+            ],
+            // 'Owner'=>['id'=>538281000040776006]
+        ];
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        // dd($response->getBody());
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
 }
