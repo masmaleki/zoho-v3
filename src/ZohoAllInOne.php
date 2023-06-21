@@ -738,6 +738,12 @@ class ZohoAllInOne
     {
         return ZohoExcessController::create($data);
     }
+
+    public static function getProductExcesses($product_id, $fields = null, $condition = null)
+    {
+        return ZohoExcessController::getProductExcesses($product_id, $fields, $condition);
+    }
+
     // end - Excess functions
 
 }
