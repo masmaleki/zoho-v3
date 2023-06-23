@@ -739,6 +739,11 @@ class ZohoAllInOne
         return ZohoExcessController::create($data);
     }
 
+    public static function getExcess($excess_id)
+    {
+        return ZohoExcessController::get($excess_id);
+    }
+
     public static function getProductExcesses($product_id, $fields = null, $condition = null)
     {
         return ZohoExcessController::getProductExcesses($product_id, $fields, $condition);
