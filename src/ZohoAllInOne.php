@@ -163,9 +163,9 @@ class ZohoAllInOne
     // end - accounts functions
 
     // start - vendors functions
-    public static function getVendors($page_token = null)
+    public static function getVendors($page_token = null,$fields=null)
     {
-        return ZohoVendorController::getAll($page_token);
+        return ZohoVendorController::getAll($page_token,$fields);
     }
 
     public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
@@ -176,6 +176,11 @@ class ZohoAllInOne
     public static function createVendor($data)
     {
         return ZohoVendorController::create($data);
+    }
+
+    public static function getVendorImage($zoho_id)
+    {
+        return ZohoVendorController::getImage($zoho_id);
     }
 
 
