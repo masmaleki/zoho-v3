@@ -182,7 +182,14 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getImage($zoho_id);
     }
-
+    public static function updateVendorAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoVendorController::updateAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName);
+    }
+    public static function deleteVendorAvatar($zoho_vendor_id)
+    {
+        return ZohoVendorController::deleteAvatar($zoho_vendor_id);
+    }
 
     public static function getVendorsZB($organization_id, $page = 1, $condition = '')
     {
