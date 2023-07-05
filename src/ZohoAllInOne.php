@@ -167,6 +167,7 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getAll($page_token,$fields);
     }
+   
 
     public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
     {
@@ -185,6 +186,10 @@ class ZohoAllInOne
     public static function updateVendorAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName)
     {
         return ZohoVendorController::updateAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName);
+    }
+    public static function updateVendor($zoho_crm_id, $data)
+    {
+        return ZohoVendorController::update($zoho_crm_id, $data);
     }
     public static function deleteVendorAvatar($zoho_vendor_id)
     {
