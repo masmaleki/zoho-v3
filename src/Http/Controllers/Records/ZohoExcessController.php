@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Carbon;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoExcessController
@@ -51,9 +52,9 @@ class ZohoExcessController
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
-    } 
+    }
 
-    public static function getProductExcesses($product_id, $fields = null, $condition)
+    public static function getProductExcesses($product_id, $fields, $condition)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -68,7 +69,7 @@ class ZohoExcessController
         ];
 
         if (!$fields) {
-            $fields = 'Name,Product_name,id,Owner,Currency,Created_Time,Valid,Price,Excess_Type,Lead_Time,Excess_Source,Rating,SKU_name,Excess_Stage,Quantity';
+            $fields = 'Name,id,Currency,Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ';
         }
 
         if (!$condition) {
@@ -79,6 +80,39 @@ class ZohoExcessController
             'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.excess') . " where " . $condition . " order by Created_Time desc",
         ];
 
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getRecentExcesses($offset, $fields, $condition)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!$fields) {
+            $fields = 'Name,id,Currency,Owner,Owner.email,Owner.first_name,Owner.last_name,Product_name,Product_name.Product_Name,Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ';
+        }
+
+        if (!$condition) {
+            $condition = " Created_Time between '" . Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00' and '" . Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00' ";
+        }
+        // dd($condition);
+        $body = [
+            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.excess') . " where " . $condition . " order by Created_Time desc limit " . $offset . ", 200",
+        ];
+        // dd($body);
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
 
         $statusCode = $response->getStatusCode();
