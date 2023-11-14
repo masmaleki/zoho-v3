@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Carbon;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoRFQController
@@ -27,13 +28,13 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function getRFQList($rfq_id,$list)
+    public static function getRFQList($rfq_id, $list)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v2/' . config('zoho-v3.custom_modules_names.rfq') . '/' . $rfq_id . '/'.$list;
+        $apiURL = $token->api_domain . '/crm/v2/' . config('zoho-v3.custom_modules_names.rfq') . '/' . $rfq_id . '/' . $list;
         $client = new Client();
 
         $headers = [
@@ -71,11 +72,9 @@ class ZohoRFQController
         if (!$token) {
             return null;
         }
-    
-        // $apiURL = $token->api_domain . '/crm/v3/Accounts/' . $zoho_crm_account_id[0] . '/RFQ_NEW?';
-        // $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq') . '/search?criteria=(Account_Name.id:equals:' . $zoho_crm_account_id . ')';
+
         $apiURL = $token->api_domain . '/crm/v3/Accounts/' . $zoho_crm_account_id . '/RFQ_NEW?';
-        
+
         if ($conditions) {
             $apiURL .= '&criteria=(' . $conditions . ')';
         }
@@ -91,16 +90,16 @@ class ZohoRFQController
         if ($fields) {
             $apiURL .= '&fields=' . $fields;
         }
-        
+
         $client = new Client();
-    
+
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
-    
+
         $response = $client->request('GET', $apiURL, ['headers' => $headers]);
         $responseBody = json_decode($response->getBody(), true);
-            
+
         return $responseBody;
     }
 
@@ -127,6 +126,35 @@ class ZohoRFQController
             'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . $zoho_crm_account_id_conditions . "  limit " . $offset . ", 200",
         ];
 
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getRFQsCOQL($offset, $conditions, $fields)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $conditions = $conditions ?? '(id != 1)';
+
+        $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id,  Status, RFQ_Dead_Line,Owner,Owner.email,Owner.first_name,Owner.last_name, Product_Name,Product_Name.Manufacture.Name, Product_Name.Product_Name,  Account_Name,  Account_Name.Account_Name, Quantity, RFQ_Status, RFQ_Source';
+        $body = [
+            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . "  limit " . $offset . ", 200",
+        ];
+
+        // dd($body['select_query']);
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
 
         $statusCode = $response->getStatusCode();
@@ -211,28 +239,29 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function setRFQAlternative($rfq_id,$product_id)  {
+    public static function setRFQAlternative($rfq_id, $product_id)
+    {
         if (!$rfq_id || !$product_id) {
             return null;
         }
-        
+
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        
+
         $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.rfq_alternative_product');
         $client = new Client();
 
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
-        $data=[
-            'Alternative_Products'=>[
-                'id'=>$product_id
+        $data = [
+            'Alternative_Products' => [
+                'id' => $product_id
             ],
-            'RFQ_Alternative'=>[
-                'id'=>$rfq_id
+            'RFQ_Alternative' => [
+                'id' => $rfq_id
             ],
             // 'Owner'=>['id'=>538281000040776006]
         ];
