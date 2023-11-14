@@ -87,7 +87,7 @@ class ZohoExcessController
         return $responseBody;
     }
 
-    public static function getRecentExcesses($offset, $fields, $condition)
+    public static function getRecentExcesses($offset, $condition, $fields)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -108,7 +108,6 @@ class ZohoExcessController
         if (!$condition) {
             $condition = " Created_Time between '" . Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00' and '" . Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00' ";
         }
-        // dd($condition);
         $body = [
             'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.excess') . " where " . $condition . " order by Created_Time desc limit " . $offset . ", 200",
         ];
