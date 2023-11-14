@@ -532,9 +532,9 @@ class ZohoAllInOne
         return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $offset, $conditions, $fields);
     }
 
-    public static function getRFQsCOQL( $offset = 0, $conditions = null, $fields = null)
+    public static function getRFQsCOQL($offset = 0, $conditions = null, $fields = null)
     {
-        return ZohoRFQController::getRFQsCOQL( $offset, $conditions, $fields);
+        return ZohoRFQController::getRFQsCOQL($offset, $conditions, $fields);
     }
 
     public static function rfqsSearch($phrase, $criteria = null)
@@ -776,9 +776,9 @@ class ZohoAllInOne
         return ZohoExcessController::getProductExcesses($product_id, $fields, $condition);
     }
 
-    public static function getRecentExcesses($offset = 0, $fields = null, $condition = null)
+    public static function getRecentExcesses($offset = 0, $condition = null, $fields = null)
     {
-        return ZohoExcessController::getRecentExcesses($offset, $fields, $condition);
+        return ZohoExcessController::getRecentExcesses($offset, $condition, $fields);
     }
 
     // end - Excess functions

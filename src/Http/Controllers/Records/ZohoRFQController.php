@@ -133,7 +133,7 @@ class ZohoRFQController
         return $responseBody;
     }
 
-    public static function getRFQsCOQL( $offset, $conditions, $fields)
+    public static function getRFQsCOQL($offset, $conditions, $fields)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -147,14 +147,14 @@ class ZohoRFQController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $conditions = ($conditions) ?? '';
+        $conditions = $conditions ?? '(id != 1)';
 
-
-        $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id,  Status, RFQ_Dead_Line,Owner,Owner.email,Owner.first_name,Owner.last_name, Product_Name, Product_Name.Product_Name,  Account_Name, Quantity, RFQ_Status, RFQ_Source';
+        $fields = $fields ? $fields : 'Name, Customer_RFQ_No, RFQ_Date, id,  Status, RFQ_Dead_Line,Owner,Owner.email,Owner.first_name,Owner.last_name, Product_Name,Product_Name.Manufacture.Name, Product_Name.Product_Name,  Account_Name,  Account_Name.Account_Name, Quantity, RFQ_Status, RFQ_Source';
         $body = [
-            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions ?? '(id != 1)'.  "  limit " . $offset . ", 200",
+            'select_query' => "select " . $fields . " from " . config('zoho-v3.custom_modules_names.rfq') . "  where " . $conditions . "  limit " . $offset . ", 200",
         ];
 
+        // dd($body['select_query']);
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
 
         $statusCode = $response->getStatusCode();
