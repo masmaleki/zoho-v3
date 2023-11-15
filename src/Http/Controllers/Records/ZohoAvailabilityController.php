@@ -3,6 +3,7 @@
 namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Carbon;
 use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoAvailabilityController
@@ -156,4 +157,35 @@ class ZohoAvailabilityController
         return $responseBody;
     }
 
+    public static function getAvailabilitiesCOQL($offset, $condition, $fields)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v3/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!$fields) {
+            $fields = 'Name,id,Availability_No,Availability_Source,Availability_Type,Currency,Date_Code,MOQ,SKU_name,SPQ,Owner,Owner.email,Owner.first_name,Owner.last_name,Product_name,Product_name.Product_Name,Created_Time,Price,Quantity';
+        }
+
+        if (!$condition) {
+            $condition = " Created_Time between '" . Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00' and '" . Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00' ";
+        }
+        $body = [
+            'select_query' => "select " . $fields . " from Availability where " . $condition . " order by Created_Time desc limit " . $offset . ", 200",
+        ];
+        // dd($body);
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
 }
