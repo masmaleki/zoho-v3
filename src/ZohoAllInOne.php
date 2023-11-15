@@ -598,7 +598,10 @@ class ZohoAllInOne
     {
         return ZohoAvailabilityController::update($data);
     }
-
+    public static function getAvailabilitiesCOQL($offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoAvailabilityController::getAvailabilitiesCOQL($offset, $conditions, $fields);
+    }
 
     // end - Availability functions
 
