@@ -15,7 +15,7 @@ class ZohoOrganizationController
             return null;
         }
 
-        $apiURL = config('zoho-v3.books_api_base_url') . '/api/v3/organizations';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/organizations';
 
         $client = new Client();
         $postInput = [
