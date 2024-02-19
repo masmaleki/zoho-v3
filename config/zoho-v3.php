@@ -119,7 +119,7 @@ return [
     |
     */
     'api_base_url' => env('ZOHO_API_BASE_URL', 'www.zohoapis.com'),
-    'books_api_base_url' => env('ZOHO_BOOKS_API_BASE_URL', 'books.zoho.eu'),
+    'books_api_base_url' => env('ZOHO_BOOKS_API_BASE_URL', 'www.zohoapis.eu'),
 
     /*
     |--------------------------------------------------------------------------
