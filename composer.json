@@ -1,17 +1,17 @@
 {
-    "name": "masmaleki/zoho-v3",
+    "name": "alimehraei/zoho-v4",
     "description": "Zoho all in one for Laravel",
     "keywords": [
-        "masmaleki",
+        "AliMehraei",
         "laravel",
         "zoho-v3"
     ],
-    "homepage": "https://github.com/masmaleki/zoho-v3",
+    "homepage": "https://github.com/alimehraei/zoho-v4",
     "license": "MIT",
     "authors": [
         {
-            "name": "Mohammad Sadegh Maleki",
-            "email": "masmaleki@gmail.com",
+            "name": "Ali Mehraei",
+            "email": "Ali.Mehraei@gmail.com",
             "role": "Developer"
         }
     ],
@@ -31,13 +31,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Masmaleki\\ZohoAllInOne\\": "src",
-            "Masmaleki\\ZohoAllInOne\\Database\\Factories\\": "database/factories"
+            "AliMehraei\\ZohoAllInOne\\": "src",
+            "AliMehraei\\ZohoAllInOne\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Masmaleki\\ZohoAllInOne\\Tests\\": "tests"
+            "AliMehraei\\ZohoAllInOne\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -55,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Masmaleki\\ZohoAllInOne\\ZohoAllInOneServiceProvider"
+                "AliMehraei\\ZohoAllInOne\\ZohoAllInOneServiceProvider"
             ],
             "aliases": {
-                "ZohoAllInOne": "Masmaleki\\ZohoAllInOne\\Facades\\ZohoAllInOne"
+                "ZohoAllInOne": "AliMehraei\\ZohoAllInOne\\Facades\\ZohoAllInOne"
             }
         }
     },
