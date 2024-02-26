@@ -163,11 +163,11 @@ class ZohoAllInOne
     // end - accounts functions
 
     // start - vendors functions
-    public static function getVendors($page_token = null,$fields=null)
+    public static function getVendors($page_token = null, $fields = null)
     {
-        return ZohoVendorController::getAll($page_token,$fields);
+        return ZohoVendorController::getAll($page_token, $fields);
     }
-   
+
 
     public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
     {
@@ -183,14 +183,17 @@ class ZohoAllInOne
     {
         return ZohoVendorController::getImage($zoho_id);
     }
+
     public static function updateVendorAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName)
     {
         return ZohoVendorController::updateAvatar($zoho_vendor_id, $filePath, $fileMime, $fileUploadedName);
     }
+
     public static function updateVendor($zoho_crm_id, $data)
     {
         return ZohoVendorController::update($zoho_crm_id, $data);
     }
+
     public static function deleteVendorAvatar($zoho_vendor_id)
     {
         return ZohoVendorController::deleteAvatar($zoho_vendor_id);
@@ -387,6 +390,7 @@ class ZohoAllInOne
     {
         return ZohoLeadController::getLead($id);
     }
+
     public static function updateLead($data)
     {
         return ZohoLeadController::update($data);
@@ -396,16 +400,17 @@ class ZohoAllInOne
     {
         return ZohoLeadController::getByEmailAddress($zoho_email);
     }
-    public static function convertLead($data,$id)
+
+    public static function convertLead($data, $id)
     {
-        return ZohoLeadController::convertLead($data,$id);
+        return ZohoLeadController::convertLead($data, $id);
     }
-    
+
     public static function conversionOptionsLead($data)
     {
         return ZohoLeadController::conversionOptions($data);
     }
-    
+
 
     // end - leads functions
 
@@ -497,9 +502,9 @@ class ZohoAllInOne
         return ZohoRFQController::get($rfq_id);
     }
 
-    public static function setRFQAlternative($rfq_id,$product_id)
+    public static function setRFQAlternative($rfq_id, $product_id)
     {
-        return ZohoRFQController::setRFQAlternative($rfq_id,$product_id);
+        return ZohoRFQController::setRFQAlternative($rfq_id, $product_id);
     }
 
     public static function getRFQList($rfq_id, $list)
@@ -525,6 +530,11 @@ class ZohoAllInOne
     public static function getAccountRFQsCOQL($zoho_crm_account_id, $offset = 0, $conditions = null, $fields = null)
     {
         return ZohoRFQController::getAccountRFQsCOQL($zoho_crm_account_id, $offset, $conditions, $fields);
+    }
+
+    public static function getRFQsCOQL($offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoRFQController::getRFQsCOQL($offset, $conditions, $fields);
     }
 
     public static function rfqsSearch($phrase, $criteria = null)
@@ -588,7 +598,10 @@ class ZohoAllInOne
     {
         return ZohoAvailabilityController::update($data);
     }
-
+    public static function getAvailabilitiesCOQL($offset = 0, $conditions = null, $fields = null)
+    {
+        return ZohoAvailabilityController::getAvailabilitiesCOQL($offset, $conditions, $fields);
+    }
 
     // end - Availability functions
 
@@ -764,6 +777,11 @@ class ZohoAllInOne
     public static function getProductExcesses($product_id, $fields = null, $condition = null)
     {
         return ZohoExcessController::getProductExcesses($product_id, $fields, $condition);
+    }
+
+    public static function getRecentExcesses($offset = 0, $condition = null, $fields = null)
+    {
+        return ZohoExcessController::getRecentExcesses($offset, $condition, $fields);
     }
 
     // end - Excess functions
