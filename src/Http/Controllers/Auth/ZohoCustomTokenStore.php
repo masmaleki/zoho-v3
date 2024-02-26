@@ -1,12 +1,12 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Auth;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Auth;
 
 use com\zoho\api\authenticator\Token;
 use com\zoho\crm\api\exception\SDKException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Carbon;
-use Masmaleki\ZohoAllInOne\Models\ZohoToken;
+use AliMehraei\ZohoAllInOne\Models\ZohoToken;
 
 class ZohoCustomTokenStore
 {

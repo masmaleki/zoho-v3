@@ -1,11 +1,11 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne;
+namespace AliMehraei\ZohoAllInOne;
 
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Masmaleki\ZohoAllInOne\Commands\ZohoAllInOneCommand;
+use AliMehraei\ZohoAllInOne\Commands\ZohoAllInOneCommand;
 
 class ZohoAllInOneServiceProvider extends PackageServiceProvider
 {

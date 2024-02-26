@@ -1,11 +1,11 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Auth;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Auth;
 
 
 use Carbon\Carbon;
-use Masmaleki\ZohoAllInOne\ZohoAllInOne;
-use Masmaleki\ZohoAllInOne\ZohoToken;
+use AliMehraei\ZohoAllInOne\ZohoAllInOne;
+use AliMehraei\ZohoAllInOne\ZohoToken;
 
 class ZohoConfig
 {

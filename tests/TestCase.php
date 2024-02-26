@@ -1,10 +1,10 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Tests;
+namespace AliMehraei\ZohoAllInOne\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Masmaleki\ZohoAllInOne\ZohoAllInOneServiceProvider;
+use AliMehraei\ZohoAllInOne\ZohoAllInOneServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Masmaleki\\ZohoAllInOne\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'AliMehraei\\ZohoAllInOne\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

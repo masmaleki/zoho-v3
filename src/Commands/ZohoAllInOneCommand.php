@@ -1,6 +1,6 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Commands;
+namespace AliMehraei\ZohoAllInOne\Commands;
 
 use Illuminate\Console\Command;
 

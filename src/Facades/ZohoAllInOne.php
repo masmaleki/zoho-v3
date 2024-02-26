@@ -1,16 +1,16 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Facades;
+namespace AliMehraei\ZohoAllInOne\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Masmaleki\ZohoAllInOne\ZohoAllInOne
+ * @see \AliMehraei\ZohoAllInOne\ZohoAllInOne
  */
 class ZohoAllInOne extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Masmaleki\ZohoAllInOne\ZohoAllInOne::class;
+        return \AliMehraei\ZohoAllInOne\ZohoAllInOne::class;
     }
 }

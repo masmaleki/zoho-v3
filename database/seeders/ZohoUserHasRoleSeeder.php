@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Masmaleki\ZohoAllInOne\Models\ZohoModelHasRole;
+use AliMehraei\ZohoAllInOne\Models\ZohoModelHasRole;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
