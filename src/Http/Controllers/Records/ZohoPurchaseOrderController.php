@@ -16,7 +16,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -37,7 +37,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -60,7 +60,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id . '';
         $client = new Client();
 
         $headers = [
@@ -80,7 +80,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders?page=1&per_page=200&sort_column=created_time&sort_order=D&custom_field_222119000000940129_contains=' . $item_name . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?page=1&per_page=200&sort_column=created_time&sort_order=D&custom_field_222119000000940129_contains=' . $item_name . '';
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
         }
@@ -103,7 +103,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
 
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
@@ -130,7 +130,7 @@ class ZohoPurchaseOrderController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id . '?accept=pdf';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id . '?accept=pdf';
         $client = new Client();
 
         $headers = [

@@ -15,7 +15,7 @@ class ZohoPackageController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/packages?organization_id=' . $organization_id . '&page=' . $page . $condition;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -36,7 +36,7 @@ class ZohoPackageController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/packages?customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?customer_id=' . $zoho_customer_id .'';
 
         if ($searchParameter) {
             $apiURL .= '&package_number_contains=' . $searchParameter;

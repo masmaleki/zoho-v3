@@ -81,11 +81,11 @@ class ZohoCustomTokenStore
             'client_secret' => $token->client_secret,
             'grant_type' => 'refresh_token',
         ];
-        $z_url = config('zoho-v3.accounts_url');
-        $z_return_url = config('zoho-v3.redirect_uri');
-        $z_api_url = config('zoho-v3.api_base_url');
+        $z_url = config('zoho-v4.accounts_url');
+        $z_return_url = config('zoho-v4.redirect_uri');
+        $z_api_url = config('zoho-v4.api_base_url');
 
-        $refreshed_token_resp = self::getToken($z_url, config('zoho-v3.location'), $postInput);
+        $refreshed_token_resp = self::getToken($z_url, config('zoho-v4.location'), $postInput);
 
         //check the error response
         if (array_key_exists('error', $refreshed_token_resp ?? [])) {

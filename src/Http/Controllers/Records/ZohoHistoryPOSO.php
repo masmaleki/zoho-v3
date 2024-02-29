@@ -15,7 +15,7 @@ class ZohoHistoryPOSO
             return null;
         
         }
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.history_po_so') . '?';
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.history_po_so') . '?';
 
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;

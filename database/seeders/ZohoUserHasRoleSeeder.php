@@ -21,7 +21,7 @@ class ZohoUserHasRoleSeeder extends Seeder
         DB::statement("SET foreign_key_checks=0");
         ZohoModelHasRole::truncate();
 
-        foreach (config('zoho-v3.roles') as $key => $role) {
+        foreach (config('zoho-v4.roles') as $key => $role) {
             $user = User::where('email', $role['default_email'])->first();
             if (!$user) {
                 $user = new User();

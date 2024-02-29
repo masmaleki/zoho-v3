@@ -29,7 +29,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         /*
-        $migration = include __DIR__.'/../database/migrations/create_zoho-v3_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_zoho-v4_table.php.stub';
         $migration->up();
         */
     }
