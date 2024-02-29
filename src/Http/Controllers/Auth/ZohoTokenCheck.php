@@ -1,11 +1,11 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Auth;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Auth;
 
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Masmaleki\ZohoAllInOne\Models\ZohoToken;
+use AliMehraei\ZohoAllInOne\Models\ZohoToken;
 
 class ZohoTokenCheck
 {

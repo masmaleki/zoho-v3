@@ -1,6 +1,6 @@
 <?php
 
-// config for Masmaleki/ZohoAllInOne
+// config for AliMehraei/ZohoAllInOne
 return [
     /*
     |--------------------------------------------------------------------------

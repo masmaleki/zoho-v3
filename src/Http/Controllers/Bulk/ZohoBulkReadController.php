@@ -1,10 +1,10 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Bulk;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Bulk;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoBulkReadController
 {
