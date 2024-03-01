@@ -8,17 +8,21 @@ use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoProductController
 {
-    public static function getAll($page_token = null)
+    public static function getAll($page_token = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Products?fields=Product_Name,Lifecylce_Status,Owner,Created_By,Modified_By';
-//        $apiURL = $token->api_domain . '/crm/v3/Products';
+
+        $fields = $fields ? $fields : 'Product_Name,Lifecylce_Status,Owner,Created_By,Modified_By'; 
+
+        $apiURL = $token->api_domain . '/crm/v3/Products?fields=' . $fields;
+
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
+        
         $client = new Client();
 
         $headers = [
