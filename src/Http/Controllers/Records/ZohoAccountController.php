@@ -149,7 +149,7 @@ class ZohoAccountController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/contacts?organization_id=' . $organization_id . '&zcrm_account_id=' . $zoho_crm_account_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/contacts?organization_id=' . $organization_id . '&zcrm_account_id=' . $zoho_crm_account_id . '';
 
         $client = new Client();
 

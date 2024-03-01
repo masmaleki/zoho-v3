@@ -61,7 +61,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -81,7 +81,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains='.$product_name;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains='.$product_name;
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
         }
@@ -161,7 +161,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -230,7 +230,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -252,7 +252,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items?organization_id=' . $organization_id . '&page=' . $page . $conditions;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?organization_id=' . $organization_id . '&page=' . $page . $conditions;
 
         $client = new Client();
 

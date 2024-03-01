@@ -15,7 +15,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?organization_id=' . $organization_id . '&page=' . $page . $condition;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -36,7 +36,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $zoho_invoice_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $zoho_invoice_id;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
@@ -103,7 +103,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id .'';
 
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
@@ -128,7 +128,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id .'';
 
         if ($searchParameter) {
             $apiURL .= '&invoice_number_contains=' . $searchParameter;
@@ -155,7 +155,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=pdf';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=pdf';
         $client = new Client();
 
         $headers = [
@@ -183,7 +183,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=html';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=html';
         $client = new Client();
 
         $headers = [
