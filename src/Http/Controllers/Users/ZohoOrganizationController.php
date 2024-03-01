@@ -1,9 +1,9 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Users;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Users;
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoOrganizationController
 {
@@ -15,7 +15,7 @@ class ZohoOrganizationController
             return null;
         }
 
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/organizations';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/organizations';
 
         $client = new Client();
         $postInput = [

@@ -1,9 +1,9 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Users;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Users;
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoUserController
 {

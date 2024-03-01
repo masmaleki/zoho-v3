@@ -1,10 +1,10 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Records;
 
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ZohoVendorRFQController
@@ -16,7 +16,7 @@ class ZohoVendorRFQController
             return null;
         }
         
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.vendor_rfq') . '/' . $vendor_rfq_id;
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.vendor_rfq') . '/' . $vendor_rfq_id;
         $client = new Client();
 
         $headers = [
@@ -35,7 +35,7 @@ class ZohoVendorRFQController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.vendor_rfq') . '?fields=Created_Time,id,Date,Email,Offered_Products,Quantity,Related_RFQs,Requested_Products,Secondary_Email,Status,Vendor_Name,Tag,Name,Vendor_RFQ_Number,Owner';
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.vendor_rfq') . '?fields=Created_Time,id,Date,Email,Offered_Products,Quantity,Related_RFQs,Requested_Products,Secondary_Email,Status,Vendor_Name,Tag,Name,Vendor_RFQ_Number,Owner';
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         } else {
@@ -61,7 +61,7 @@ class ZohoVendorRFQController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v3.custom_modules_names.vendor_rfq') . '/' . $zoho_rfq_id . '';
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.vendor_rfq') . '/' . $zoho_rfq_id . '';
         $client = new Client();
 
         $headers = [

@@ -1,10 +1,10 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Records;
 
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoVendorController
 {
@@ -88,7 +88,7 @@ class ZohoVendorController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/vendors?organization_id=' . $organization_id . '&page=' . $page . $condition;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/vendors?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
         $client = new Client();
 
@@ -128,7 +128,7 @@ class ZohoVendorController
             return null;
         }
         // TODO: Must be checked
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/vendors?zcrm_vendor_id=' . $zoho_crm_vendor_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/vendors?zcrm_vendor_id=' . $zoho_crm_vendor_id;
         // $apiURL = $token->api_domain . '/books/v3/crm/vendor/' . $zoho_crm_vendor_id . '/import?organization_id=' . $organization_id;
 
         if ($organization_id) {
@@ -153,7 +153,7 @@ class ZohoVendorController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_vendor_id ;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_vendor_id ;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }

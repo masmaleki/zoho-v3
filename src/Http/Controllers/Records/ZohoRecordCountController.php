@@ -1,9 +1,9 @@
 <?php
 
-namespace Masmaleki\ZohoAllInOne\Http\Controllers\Records;
+namespace AliMehraei\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
-use Masmaleki\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 
 class ZohoRecordCountController
 {
@@ -120,7 +120,7 @@ class ZohoRecordCountController
             return null;
         }
 
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/' . $moduleName . '?page=1&per_page=2&response_option=2&organization_id=' . $organization_id;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/' . $moduleName . '?page=1&per_page=2&response_option=2&organization_id=' . $organization_id;
 
         if ($condition) {
             $apiURL .= $condition;
