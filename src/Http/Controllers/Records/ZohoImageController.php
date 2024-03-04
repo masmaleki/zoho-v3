@@ -36,7 +36,7 @@ class ZohoImageController
 
         return $img;
     }
-    public static function updateImage($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
+    public static function updateImage($zoho_id,$module, $image, $fileMime, $fileUploadedName)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -54,7 +54,7 @@ class ZohoImageController
                     'name' => 'file',
                     'filename' => $fileUploadedName,
                     'Mime-Type' => $fileMime,
-                    'contents' => fopen($filePath, 'r'),
+                    'contents' => $image,
                 ],
             ],
         ];
