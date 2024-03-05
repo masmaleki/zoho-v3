@@ -251,6 +251,17 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::update($zoho_crm_manufacture_id, $data);
     }
+    public static function updateManufactureV6($zoho_crm_manufacture_id, $data)
+    {
+        return ZohoManufactureController::updateV6($zoho_crm_manufacture_id, $data);
+    }
+    public static function getRelatedVendorLineCardV6($zoho_crm_manufacture_id){
+
+        return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_crm_manufacture_id);
+
+
+    }
+
 
     // end - manufactures functions
 
