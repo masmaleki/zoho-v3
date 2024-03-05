@@ -19,6 +19,7 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoExcessController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoImageController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
@@ -796,5 +797,21 @@ class ZohoAllInOne
     }
 
     // end - Excess functions
+
+
+    public static function getImage($zoho_id,$module)
+    {
+        return ZohoImageController::getImage($zoho_id,$module);
+    }
+
+    public static function updateImage($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoImageController::updateImage($zoho_id,$module, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteImage($zoho_id,$module)
+    {
+        return ZohoImageController::deleteImage($zoho_id,$module);
+    }
 
 }
