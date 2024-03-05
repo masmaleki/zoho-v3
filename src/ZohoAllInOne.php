@@ -256,11 +256,13 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::updateV6($zoho_crm_manufacture_id, $data);
     }
+    public static function deleteManufactureV6($zoho_crm_manufacture_id)
+    {
+        return ZohoManufactureController::deleteV6($zoho_crm_manufacture_id);
+    }
     public static function getRelatedVendorLineCardV6($zoho_crm_manufacture_id){
 
         return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_crm_manufacture_id);
-
-
     }
 
 
