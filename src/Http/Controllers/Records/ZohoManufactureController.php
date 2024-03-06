@@ -182,13 +182,13 @@ class ZohoManufactureController
         return $responseBody;
     }
 
-    public static function getRelatedVendorLineCardV6($zoho_manufacture_id){
+    public static function getRelatedVendorLineCardV6($zoho_id){
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v6/Manufacture/' . $zoho_manufacture_id . '/Vendors X Manufacture2';
+        $apiURL = $token->api_domain . '/crm/v6/Manufacture/' . $zoho_id . '/Vendors16?fields=Vendor_Name';
         
         $client = new Client();
 
@@ -203,13 +203,76 @@ class ZohoManufactureController
 
     }
 
-    public static function deleteV6($zoho_manufacture_id){
+    public static function getRelatedVendorStrongLineV6($zoho_id){
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Manufacture/' . $zoho_manufacture_id;
+        $apiURL = $token->api_domain . '/crm/v6/Manufacture/' . $zoho_id . '/Vendors5?fields=Vendor_Name';
+        
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+
+    }
+
+    public static function deleteRelatedVendorLineCardV6($zoho_id,$ids){
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Vendors_X_Manufacture2?ids='.$ids;
+        
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('DELETE', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+
+    }
+
+    public static function deleteRelatedVendorStrongLineV6($zoho_id,$ids){
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Vendors_X_Manufacture?ids='.$ids;
+        
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('DELETE', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+
+    }
+
+    public static function deleteV6($zoho_id){
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Manufacture/' . $zoho_id;
         $client = new Client();
 
         $headers = [

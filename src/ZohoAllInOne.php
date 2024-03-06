@@ -252,17 +252,29 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::update($zoho_crm_manufacture_id, $data);
     }
-    public static function updateManufactureV6($zoho_crm_manufacture_id, $data)
+    public static function updateManufactureV6($zoho_id, $data)
     {
-        return ZohoManufactureController::updateV6($zoho_crm_manufacture_id, $data);
+        return ZohoManufactureController::updateV6($zoho_id, $data);
     }
-    public static function deleteManufactureV6($zoho_crm_manufacture_id)
+    public static function deleteManufactureV6($zoho_id)
     {
-        return ZohoManufactureController::deleteV6($zoho_crm_manufacture_id);
+        return ZohoManufactureController::deleteV6($zoho_id);
     }
-    public static function getRelatedVendorLineCardV6($zoho_crm_manufacture_id){
+    public static function getRelatedVendorLineCardV6($zoho_id){
 
-        return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_crm_manufacture_id);
+        return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_id);
+    }
+    public static function deleteRelatedVendorLineCardV6($zoho_id,$ids){
+
+        return ZohoManufactureController::deleteRelatedVendorLineCardV6($zoho_id,$ids);
+    }
+    public static function getRelatedVendorStrongLineV6($zoho_id){
+
+        return ZohoManufactureController::getRelatedVendorStrongLineV6($zoho_id);
+    }
+    public static function deleteRelatedVendorStrongLineV6($zoho_id,$ids){
+
+        return ZohoManufactureController::deleteRelatedVendorStrongLineV6($zoho_id,$ids);
     }
 
 
