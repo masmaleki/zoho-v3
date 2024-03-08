@@ -590,7 +590,10 @@ class ZohoAllInOne
     {
         return ZohoVendorRFQController::update($data);
     }
-
+    public static function createVendorRFQV6($data)
+    {
+        return ZohoVendorRFQController::createV6($data);
+    }
     // end - Vendor RFQ functions
 
     // start - Availability functions
