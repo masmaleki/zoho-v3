@@ -816,19 +816,19 @@ class ZohoAllInOne
     // end - Excess functions
 
 
-    public static function getImage($zoho_id,$module)
+    public static function getImageV6($zoho_id,$module)
     {
-        return ZohoImageController::getImage($zoho_id,$module);
+        return ZohoImageController::getImageV6($zoho_id,$module);
     }
 
-    public static function updateImage($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
+    public static function updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
     {
-        return ZohoImageController::updateImage($zoho_id,$module, $filePath, $fileMime, $fileUploadedName);
+        return ZohoImageController::updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName);
     }
 
-    public static function deleteImage($zoho_id,$module)
+    public static function deleteImageV6($zoho_id,$module)
     {
-        return ZohoImageController::deleteImage($zoho_id,$module);
+        return ZohoImageController::deleteImageV6($zoho_id,$module);
     }
 
 }

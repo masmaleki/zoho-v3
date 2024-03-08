@@ -11,13 +11,13 @@ class ZohoImageController
 
     
 
-    public static function getImage($zoho_id,$module)
+    public static function getImageV6($zoho_id,$module)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/'.$module.'/' . $zoho_id . '/photo';
+        $apiURL = $token->api_domain . '/crm/v6/'.$module.'/' . $zoho_id . '/photo';
         $client = new Client();
 
         $headers = [
@@ -36,13 +36,13 @@ class ZohoImageController
 
         return $img;
     }
-    public static function updateImage($zoho_id,$module, $image, $fileMime, $fileUploadedName)
+    public static function updateImageV6($zoho_id,$module, $image, $fileMime, $fileUploadedName)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/'.$module.'/' . $zoho_id . '/photo';
+        $apiURL = $token->api_domain . '/crm/v6/'.$module.'/' . $zoho_id . '/photo';
         $client = new Client();
 
         $params = [
@@ -65,13 +65,13 @@ class ZohoImageController
         return $responseBody;
     }
 
-    public static function deleteImage($zoho_id,$module)
+    public static function deleteImageV6($zoho_id,$module)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/'.$module.'/' . $zoho_id . '/photo';
+        $apiURL = $token->api_domain . '/crm/v6/'.$module.'/' . $zoho_id . '/photo';
         $client = new Client();
 
         $headers = [
