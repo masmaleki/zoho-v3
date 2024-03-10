@@ -677,6 +677,11 @@ class ZohoAllInOne
         return ZohoQuoteController::update($data);
     }
 
+    public static function createQuoteV6($data)
+    {
+        return ZohoQuoteController::createV6($data);
+    }
+
     // end - Quote functions
 
     // start - tasks functions
@@ -796,6 +801,11 @@ class ZohoAllInOne
     public static function createExcess($data)
     {
         return ZohoExcessController::create($data);
+    }
+
+    public static function updateExcessV6($data = [])
+    {
+        return ZohoExcessController::updateV6($data);
     }
 
     public static function getExcess($excess_id)
