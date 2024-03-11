@@ -18,6 +18,7 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoExcessController;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoFileController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoImageController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
@@ -849,6 +850,19 @@ class ZohoAllInOne
     public static function deleteImageV6($zoho_id,$module)
     {
         return ZohoImageController::deleteImageV6($zoho_id,$module);
+    }
+
+    public static function uploadFileV6($file_path, $file_mime, $file_uploaded_name)
+    {
+        return ZohoFileController::uploadFileV6($file_path, $file_mime, $file_uploaded_name);
+    }
+    public static function getFileV6($id)
+    {
+        return ZohoFileController::getFileV6($id);
+    }
+    public static function deleteFileV6($id)
+    {
+        return ZohoFileController::deleteFileV6($id);
     }
 
 }
