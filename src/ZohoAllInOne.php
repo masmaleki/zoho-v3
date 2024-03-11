@@ -508,6 +508,16 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getPDF($sale_order_id);
     }
 
+    public static function updatePurchaseOrderV6($data = [])
+    {
+        return ZohoPurchaseOrderController::updateV6($data);
+    }
+
+    public static function createPurchaseOrderV6($data)
+    {
+        return ZohoPurchaseOrderController::createV6($data);
+    }
+
     // end -  purchase order functions
 
 
