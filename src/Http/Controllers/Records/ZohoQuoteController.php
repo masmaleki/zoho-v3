@@ -180,6 +180,40 @@ class ZohoQuoteController
         return $responseBody;
     }
 
+    public static function updateSkipMandatoryV6($data = [])
+    {
+        $zoho_contact_id = $data['id'];
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v2.2/Quotes/' . $zoho_contact_id . '?affected_data=true';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!isset($data['id'])) {
+            $data['id'] = $zoho_contact_id;
+        }
+
+        $body = [
+            'data' => [
+                0 => $data,
+                
+            ],
+            'skip_mandatory' => true
+            
+        ];
+        info(json_encode($body));
+        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function createV6($data = null)
     {
         if (!$data) {

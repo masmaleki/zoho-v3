@@ -688,6 +688,11 @@ class ZohoAllInOne
         return ZohoQuoteController::update($data);
     }
 
+    public static function updateQuoteSkipMandatoryV6($data = [])
+    {
+        return ZohoQuoteController::updateSkipMandatoryV6($data);
+    }
+
     public static function createQuoteV6($data)
     {
         return ZohoQuoteController::createV6($data);
