@@ -188,7 +188,7 @@ class ZohoQuoteController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v2.2/Quotes/' . $zoho_contact_id . '?affected_data=true';
+        $apiURL = $token->api_domain . '/crm/v6/Quotes/' . $zoho_contact_id . '?affected_data=true';
         $client = new Client();
 
         $headers = [
