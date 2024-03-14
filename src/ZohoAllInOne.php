@@ -819,9 +819,9 @@ class ZohoAllInOne
         return ZohoExcessController::create($data);
     }
 
-    public static function updateExcessV6($data = [])
+    public static function updateExcessV2_2($data = [])
     {
-        return ZohoExcessController::updateV6($data);
+        return ZohoExcessController::updateV2_2($data);
     }
 
     public static function getExcess($excess_id)

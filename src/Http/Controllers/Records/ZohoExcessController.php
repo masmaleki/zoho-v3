@@ -35,7 +35,7 @@ class ZohoExcessController
         return $responseBody;
     }
 
-    public static function updateV6($data = [])
+    public static function updateV2_2($data = [])
     {
         $zoho_excess_id = $data['id'];
 
@@ -43,7 +43,7 @@ class ZohoExcessController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v6/'. config('zoho-v4.custom_modules_names.excess').'/' . $zoho_excess_id . '';
+        $apiURL = $token->api_domain . '/crm/v2.2/'. config('zoho-v4.custom_modules_names.excess').'/' . $zoho_excess_id . '';
         $client = new Client();
 
         $headers = [
@@ -58,6 +58,7 @@ class ZohoExcessController
             'data' => [
                 0 => $data
             ]
+
         ];
 
         $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
