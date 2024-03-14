@@ -483,7 +483,11 @@ class ZohoAllInOne
     {
         return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
-
+    
+    public static function getPurchaseOrderV6($purchase_order_id)
+    {
+        return ZohoPurchaseOrderController::getByIdV6($purchase_order_id);
+    }
     public static function getCRMPurchaseOrder($purchase_order_id)
     {
         return ZohoPurchaseOrderController::getCRMPurchaseOrderById($purchase_order_id);
@@ -509,9 +513,9 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::getPDF($sale_order_id);
     }
 
-    public static function updatePurchaseOrderV6($data = [])
+    public static function updatePurchaseOrderV2_2($data = [])
     {
-        return ZohoPurchaseOrderController::updateV6($data);
+        return ZohoPurchaseOrderController::updateV2_2($data);
     }
 
     public static function createPurchaseOrderV6($data)
