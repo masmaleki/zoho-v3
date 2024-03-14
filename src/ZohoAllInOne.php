@@ -18,7 +18,9 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoContactController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoDealController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoEmailController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoExcessController;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoFileController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoHistoryPOSO;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoImageController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoInvoiceController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
@@ -251,6 +253,31 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::update($zoho_crm_manufacture_id, $data);
     }
+    public static function updateManufactureV6($zoho_id, $data)
+    {
+        return ZohoManufactureController::updateV6($zoho_id, $data);
+    }
+    public static function deleteManufactureV6($zoho_id)
+    {
+        return ZohoManufactureController::deleteV6($zoho_id);
+    }
+    public static function getRelatedVendorLineCardV6($zoho_id){
+
+        return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_id);
+    }
+    public static function deleteRelatedVendorLineCardV6($zoho_id,$ids){
+
+        return ZohoManufactureController::deleteRelatedVendorLineCardV6($zoho_id,$ids);
+    }
+    public static function getRelatedVendorStrongLineV6($zoho_id){
+
+        return ZohoManufactureController::getRelatedVendorStrongLineV6($zoho_id);
+    }
+    public static function deleteRelatedVendorStrongLineV6($zoho_id,$ids){
+
+        return ZohoManufactureController::deleteRelatedVendorStrongLineV6($zoho_id,$ids);
+    }
+
 
     // end - manufactures functions
 
@@ -456,7 +483,11 @@ class ZohoAllInOne
     {
         return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
-
+    
+    public static function getPurchaseOrderV6($purchase_order_id)
+    {
+        return ZohoPurchaseOrderController::getByIdV6($purchase_order_id);
+    }
     public static function getCRMPurchaseOrder($purchase_order_id)
     {
         return ZohoPurchaseOrderController::getCRMPurchaseOrderById($purchase_order_id);
@@ -480,6 +511,16 @@ class ZohoAllInOne
     public static function getPurchaseOrderPDF($sale_order_id)
     {
         return ZohoPurchaseOrderController::getPDF($sale_order_id);
+    }
+
+    public static function updatePurchaseOrderV2_2($data = [])
+    {
+        return ZohoPurchaseOrderController::updateV2_2($data);
+    }
+
+    public static function createPurchaseOrderV6($data)
+    {
+        return ZohoPurchaseOrderController::createV6($data);
     }
 
     // end -  purchase order functions
@@ -564,7 +605,10 @@ class ZohoAllInOne
     {
         return ZohoVendorRFQController::update($data);
     }
-
+    public static function createVendorRFQV6($data)
+    {
+        return ZohoVendorRFQController::createV6($data);
+    }
     // end - Vendor RFQ functions
 
     // start - Availability functions
@@ -646,6 +690,16 @@ class ZohoAllInOne
     public static function updateQuote($data = [])
     {
         return ZohoQuoteController::update($data);
+    }
+
+    public static function updateQuoteSkipMandatoryV6($data = [])
+    {
+        return ZohoQuoteController::updateSkipMandatoryV6($data);
+    }
+
+    public static function createQuoteV6($data)
+    {
+        return ZohoQuoteController::createV6($data);
     }
 
     // end - Quote functions
@@ -769,6 +823,11 @@ class ZohoAllInOne
         return ZohoExcessController::create($data);
     }
 
+    public static function updateExcessV2_2($data = [])
+    {
+        return ZohoExcessController::updateV2_2($data);
+    }
+
     public static function getExcess($excess_id)
     {
         return ZohoExcessController::get($excess_id);
@@ -785,5 +844,34 @@ class ZohoAllInOne
     }
 
     // end - Excess functions
+
+
+    public static function getImageV6($zoho_id,$module)
+    {
+        return ZohoImageController::getImageV6($zoho_id,$module);
+    }
+
+    public static function updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoImageController::updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteImageV6($zoho_id,$module)
+    {
+        return ZohoImageController::deleteImageV6($zoho_id,$module);
+    }
+
+    public static function uploadFileV6($file_path, $file_mime, $file_uploaded_name)
+    {
+        return ZohoFileController::uploadFileV6($file_path, $file_mime, $file_uploaded_name);
+    }
+    public static function getFileV6($id)
+    {
+        return ZohoFileController::getFileV6($id);
+    }
+    public static function deleteFileV6($id)
+    {
+        return ZohoFileController::deleteFileV6($id);
+    }
 
 }

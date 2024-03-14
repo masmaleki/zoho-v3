@@ -53,6 +53,26 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
+    public static function getByIdV6($purchase_order_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders/' . $purchase_order_id;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
     public static function getByCustomerId($zoho_vendor_id, $organization_id)
     {
 
@@ -172,6 +192,64 @@ class ZohoPurchaseOrderController
         ];
 
         $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function createV6($data = null)
+    {
+        if (!$data) {
+            return null;
+        }
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders' ;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function updateV2_2($data = [])
+    {
+        $zoho_po_id = $data['id'];
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v2.2/Purchase_Orders/' . $zoho_po_id . '';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!isset($data['id'])) {
+            $data['id'] = $zoho_po_id;
+        }
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+
+        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
         $statusCode = $response->getStatusCode();
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
