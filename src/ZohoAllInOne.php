@@ -306,6 +306,16 @@ class ZohoAllInOne
         return ZohoProductController::getImage($zoho_product_id);
     }
 
+    public static function updateProductImage($zoho_product_id, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoProductController::updateImage($zoho_product_id, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteProductImage($zoho_product_id)
+    {
+        return ZohoProductController::deleteImage($zoho_product_id);
+    }
+
     public function getZohoBooksItem($zoho_books_item_id, $organization_id = null)
     {
         return ZohoProductController::getZohoBooksItem($zoho_books_item_id, $organization_id);
