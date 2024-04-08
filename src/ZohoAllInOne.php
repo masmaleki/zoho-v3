@@ -843,6 +843,11 @@ class ZohoAllInOne
         return ZohoExcessController::getRecentExcesses($offset, $condition, $fields);
     }
 
+    public static function getRecentExcessesV6($offset = 0, $condition = null, $fields = null,$action)
+    {
+        return ZohoExcessController::getRecentExcessesV6($offset, $condition, $fields,$action);
+    }
+
     // end - Excess functions
 
 
