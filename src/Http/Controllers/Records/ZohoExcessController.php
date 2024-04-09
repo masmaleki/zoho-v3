@@ -167,7 +167,7 @@ class ZohoExcessController
 
         if (!$fields) {
             $fields = 'Name,id,Currency,Owner,Owner.email,Owner.first_name,Owner.last_name,Product_name,Product_name.Product_Name,
-            Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Excess_File,Email,Excess_Source
+            Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Email,Excess_Source,
             Created_By,Secondary_Email';
             
         }
