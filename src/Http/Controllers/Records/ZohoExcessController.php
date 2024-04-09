@@ -166,7 +166,10 @@ class ZohoExcessController
         ];
 
         if (!$fields) {
-            $fields = 'Name,id,Currency,Owner,Owner.email,Owner.first_name,Owner.last_name,Product_name,Product_name.Product_Name,Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ,sync_panel';
+            $fields = 'Name,id,Currency,Owner,Owner.email,Owner.first_name,Owner.last_name,Product_name,Product_name.Product_Name,
+            Created_Time,Cost,Quantity,Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Excess_File,Email,Excess_Source
+            Created_By,Secondary_Email';
+            
         }
 
         if (!$condition) {
@@ -174,7 +177,7 @@ class ZohoExcessController
             $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
 
             if ($action == 'create') {
-                $condition = "sync_panel is null and Created_Time between '{$todayStart}' and '{$todayEnd}'";
+                $condition = "sync_with_panel is null and Created_Time between '{$todayStart}' and '{$todayEnd}'";
             } else {
                 $condition = "Created_Time between '{$todayStart}' and '{$todayEnd}' and sync_panel <> Modified_Time";
             }
