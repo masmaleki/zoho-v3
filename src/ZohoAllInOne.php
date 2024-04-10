@@ -196,6 +196,15 @@ class ZohoAllInOne
         return ZohoVendorController::update($zoho_crm_id, $data);
     }
 
+    public static function getRelatedManufactureLineCardV6($zoho_id){
+
+        return ZohoVendorController::getRelatedManufactureLineCardV6($zoho_id);
+    }
+    public static function getRelatedManufactureStrongLineV6($zoho_id){
+
+        return ZohoVendorController::getRelatedManufactureStrongLineV6($zoho_id);
+    }
+    
     public static function deleteVendorAvatar($zoho_vendor_id)
     {
         return ZohoVendorController::deleteAvatar($zoho_vendor_id);
@@ -261,6 +270,7 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::deleteV6($zoho_id);
     }
+
     public static function getRelatedVendorLineCardV6($zoho_id){
 
         return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_id);
@@ -841,6 +851,11 @@ class ZohoAllInOne
     public static function getRecentExcesses($offset = 0, $condition = null, $fields = null)
     {
         return ZohoExcessController::getRecentExcesses($offset, $condition, $fields);
+    }
+
+    public static function getRecentExcessesV6($offset = 0, $condition = null, $fields = null,$action)
+    {
+        return ZohoExcessController::getRecentExcessesV6($offset, $condition, $fields,$action);
     }
 
     // end - Excess functions

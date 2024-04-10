@@ -270,5 +270,47 @@ class ZohoVendorController
         return $responseBody;
     }
 
+    public static function getRelatedManufactureLineCardV6($zoho_id){
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture16?fields=Vendor_Name';
+        
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+
+    }
+
+    public static function getRelatedManufactureStrongLineV6($zoho_id){
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture5?fields=Vendor_Name';
+        
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+
+    }
+
 
 }
