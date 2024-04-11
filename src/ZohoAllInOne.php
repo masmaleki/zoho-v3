@@ -256,9 +256,9 @@ class ZohoAllInOne
 
     // start - products functions
 
-    public static function getProducts($page_token = null)
+    public static function getProducts($page_token = null, $fields = null)
     {
-        return ZohoProductController::getAll($page_token);
+        return ZohoProductController::getAll($page_token, $fields);
     }
 
     public static function getProduct($zoho_product_id, $fields = null)
@@ -304,6 +304,16 @@ class ZohoAllInOne
     public static function getProductImage($zoho_product_id)
     {
         return ZohoProductController::getImage($zoho_product_id);
+    }
+
+    public static function updateProductImage($zoho_product_id, $filePath, $fileMime, $fileUploadedName)
+    {
+        return ZohoProductController::updateImage($zoho_product_id, $filePath, $fileMime, $fileUploadedName);
+    }
+
+    public static function deleteProductImage($zoho_product_id)
+    {
+        return ZohoProductController::deleteImage($zoho_product_id);
     }
 
     public function getZohoBooksItem($zoho_books_item_id, $organization_id = null)
@@ -427,6 +437,11 @@ class ZohoAllInOne
     public static function getCRMSaleOrder($sale_order_id)
     {
         return ZohoSaleOrderController::getCRMSaleOrderById($sale_order_id);
+    }
+
+    public static function createCRMSaleOrder($data = [])
+    {
+        return ZohoSaleOrderController::createCRMSaleOrder($data);
     }
 
     public static function getSaleOrderByCustomerId($zoho_customer_id, $organization_id = null)
