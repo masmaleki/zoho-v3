@@ -439,6 +439,11 @@ class ZohoAllInOne
         return ZohoSaleOrderController::getCRMSaleOrderById($sale_order_id);
     }
 
+    public static function createCRMSaleOrder($data = [])
+    {
+        return ZohoSaleOrderController::createCRMSaleOrder($data);
+    }
+
     public static function getSaleOrderByCustomerId($zoho_customer_id, $organization_id = null)
     {
         return ZohoSaleOrderController::getByCustomerId($zoho_customer_id, $organization_id);
