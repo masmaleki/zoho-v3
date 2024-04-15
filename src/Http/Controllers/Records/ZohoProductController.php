@@ -5,6 +5,7 @@ namespace AliMehraei\ZohoAllInOne\Http\Controllers\Records;
 
 use GuzzleHttp\Client;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
+use Illuminate\Support\Carbon;
 
 class ZohoProductController
 {
@@ -287,6 +288,44 @@ class ZohoProductController
 
         $body = [
             'select_query' => "select " . $fields . " from Products where " . $conditions . $zoho_crm_product_id_conditions . "  limit " . $offset . ", 200",
+        ];
+
+        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+
+        $statusCode = $response->getStatusCode();
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
+    }
+
+    public static function getRecentProductsV6($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null,$action)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+
+        $apiURL = $token->api_domain . '/crm/v6/coql';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        if (!$conditions) {
+            $todayStart = Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00";
+            $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
+        
+            if ($action == 'create') {
+                $conditions = "sync_with_panel is null and Created_Time between '{$todayStart}' and '{$todayEnd}'";
+            } else {
+                $conditions = "Created_Time between '{$todayStart}' and '{$todayEnd}' and sync_with_panel <> Modified_Time";
+            }
+        } 
+
+        $fields = $fields ? $fields : 'Qty_in_Demand , Owner ,RoHs,  Product_Active , Created_Time, id, Product_Name , Lifecylce_Status , SPQ1 , Record_Image , RoHs_Status ,  Catagory, MPN_ID , Taxable ,Product_Category, Manufacture_Name, Packaging, Datasheet_URL, Octopart_URL';
+        // return $zoho_crm_product_id_conditions . $conditions;
+        $body = [
+            'select_query' => "select " . $fields . " from Products where "  . $conditions  . "  limit " . $offset . ", 200",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
