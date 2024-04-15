@@ -353,9 +353,9 @@ class ZohoAllInOne
         return ZohoProductController::getAllZohoBooksItems($organization_id, $page, $conditions);
     }
 
-    public static function getRecentProductsV6($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null,$action)
+    public static function getRecentProductsV6($offset = 0, $conditions = null, $fields = null,$action)
     {
-        return ZohoProductController::getRecentProductsV6($zoho_crm_product_id,$offset, $conditions, $fields,$action);
+        return ZohoProductController::getRecentProductsV6($offset, $conditions, $fields,$action);
     }
     // end - product functions
 
