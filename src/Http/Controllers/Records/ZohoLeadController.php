@@ -181,9 +181,8 @@ class ZohoLeadController
             }
         }
         $body = [
-            'select_query' => "select " . $fields . " from " . config('zoho-v4.custom_modules_names.excess') . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", 200",
+            'select_query' => "select " . $fields . " from Leads where " . $condition . " order by Modified_Time desc limit " . $offset . ", 200",
         ];
-        // dd($body);
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
 
         $statusCode = $response->getStatusCode();
