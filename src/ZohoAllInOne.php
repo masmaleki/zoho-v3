@@ -26,6 +26,7 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoRecentModuleController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
@@ -897,6 +898,11 @@ class ZohoAllInOne
     public static function deleteFileV6($id)
     {
         return ZohoFileController::deleteFileV6($id);
+    }
+
+    public static function getRecentModuleIdFieldV6($module,$action)
+    {
+        return ZohoRecentModuleController::getRecentModuleIdFieldV6($module,$action);
     }
 
 }
