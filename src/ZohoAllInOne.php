@@ -453,6 +453,11 @@ class ZohoAllInOne
         return ZohoLeadController::conversionOptions($data);
     }
 
+    public static function getRecentLeadsV6($offset = 0, $condition = null, $fields = null,$action)
+    {
+        return ZohoLeadController::getRecentLeadsV6($offset, $condition, $fields,$action);
+    }
+
 
     // end - leads functions
 
