@@ -180,7 +180,7 @@ class ZohoExcessController
             if ($action == 'create') {
                 $condition = "sync_with_panel is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             } else {
-                // $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}' and (sync_with_panel != Modified_Time)";
+                // $condition = "(((sync_with_panel is not null) and (Modified_Time between '{$todayStart}' and '{$todayEnd}')) and (sync_with_panel < Modified_Time))";
                 $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             }
         }

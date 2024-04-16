@@ -297,7 +297,7 @@ class ZohoProductController
         return $responseBody;
     }
 
-    public static function getRecentProductsV6($offset = 0, $conditions = null, $fields = null,$action)
+    public static function getRecentProductsV6($offset = 0, $condition = null, $fields = null,$action)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -311,14 +311,14 @@ class ZohoProductController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        if (!$conditions) {
+        if (!$condition) {
             $todayStart = Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00";
             $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
         
             if ($action == 'create') {
-                $conditions = "sync_with_panel is null and Created_Time between '{$todayStart}' and '{$todayEnd}'";
+                $condition = "sync_with_panel is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             } else {
-                $conditions = "Created_Time between '{$todayStart}' and '{$todayEnd}' and sync_with_panel <> Modified_Time";
+                $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             }
         } 
 
@@ -326,7 +326,7 @@ class ZohoProductController
 
        
         $body = [
-            'select_query' => "select " . $fields . " from Products where "  . $conditions  . "  limit " . $offset . ", 200",
+            'select_query' => "select " . $fields . " from Products where "  . $condition  . "  limit " . $offset . ", 200",
         ];
 
         $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);

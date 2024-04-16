@@ -166,10 +166,7 @@ class ZohoLeadController
         ];
 
         if (!$fields) {
-            $fields = 'Name,id,Currency,Owner,Product_name,Created_Time,Cost,Quantity,
-            Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Email,Excess_Source,
-            Created_By,Secondary_Email,Comment,Customer_Internal_No,Email_Opt_Out,
-            Excess_No,Excess_Type,Exchange_Rate,Modified_By,Portal_Excess_Id,Modified_Time';
+            $fields = 'id';
             
         }
 
@@ -180,7 +177,7 @@ class ZohoLeadController
             if ($action == 'create') {
                 $condition = "sync_with_panel is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             } else {
-                $condition = "(sync_with_panel is not null) and (sync_with_panel < Modified_Time) and (Modified_Time between '{$todayStart}' and '{$todayEnd}')";
+                $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             }
         }
         $body = [
