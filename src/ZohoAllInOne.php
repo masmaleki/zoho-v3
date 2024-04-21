@@ -771,6 +771,11 @@ class ZohoAllInOne
         return ZohoCallController::create($data);
     }
 
+    public static function updateCallV6($data = [])
+    {
+        return ZohoCallController::updateV6($data);
+    }
+
     // end - calls functions
 
     // start - bulk functions
