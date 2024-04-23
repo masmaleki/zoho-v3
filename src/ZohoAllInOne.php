@@ -492,6 +492,11 @@ class ZohoAllInOne
         return ZohoSaleOrderController::getPDF($sale_order_id);
     }
 
+    public static function updateSalesOrderV6($data = [])
+    {
+        return ZohoSaleOrderController::updateV6($data);
+    }
+
     // end - sales orders functions
 
     // start - purchase order functions
