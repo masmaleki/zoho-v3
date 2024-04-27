@@ -417,9 +417,19 @@ class ZohoAllInOne
     // end - packages functions
 
     // start - deals functions
+    public static function getCRMDealV6($deal_id)
+    {
+        return ZohoDealController::getCRMDealByIdV6($deal_id);
+    }
+
     public static function createDeal($data)
     {
         return ZohoDealController::create($data);
+    }
+
+    public static function updateDealV6($data = [])
+    {
+        return ZohoDealController::updateV6($data);
     }
     // end - deals functions
 
