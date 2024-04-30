@@ -26,6 +26,7 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoLeadController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoPackageController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoProductController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoQuoteController;
+use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoRecentModuleController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoSaleOrderController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoTaskController;
 use AliMehraei\ZohoAllInOne\Http\Controllers\Records\ZohoVendorController;
@@ -352,6 +353,11 @@ class ZohoAllInOne
     {
         return ZohoProductController::getAllZohoBooksItems($organization_id, $page, $conditions);
     }
+
+    public static function getRecentProductsV6($offset = 0, $conditions = null, $fields = null,$action)
+    {
+        return ZohoProductController::getRecentProductsV6($offset, $conditions, $fields,$action);
+    }
     // end - product functions
 
     // start - invoice functions
@@ -411,9 +417,19 @@ class ZohoAllInOne
     // end - packages functions
 
     // start - deals functions
+    public static function getCRMDealV6($deal_id)
+    {
+        return ZohoDealController::getCRMDealByIdV6($deal_id);
+    }
+
     public static function createDeal($data)
     {
         return ZohoDealController::create($data);
+    }
+
+    public static function updateDealV6($data = [])
+    {
+        return ZohoDealController::updateV6($data);
     }
     // end - deals functions
 
@@ -448,6 +464,11 @@ class ZohoAllInOne
         return ZohoLeadController::conversionOptions($data);
     }
 
+    public static function getRecentLeadsV6($offset = 0, $condition = null, $fields = null,$action)
+    {
+        return ZohoLeadController::getRecentLeadsV6($offset, $condition, $fields,$action);
+    }
+
 
     // end - leads functions
 
@@ -479,6 +500,11 @@ class ZohoAllInOne
     public static function getSaleOrderPDF($sale_order_id)
     {
         return ZohoSaleOrderController::getPDF($sale_order_id);
+    }
+
+    public static function updateSalesOrderV6($data = [])
+    {
+        return ZohoSaleOrderController::updateV6($data);
     }
 
     // end - sales orders functions
@@ -760,6 +786,11 @@ class ZohoAllInOne
         return ZohoCallController::create($data);
     }
 
+    public static function updateCallV6($data = [])
+    {
+        return ZohoCallController::updateV6($data);
+    }
+
     // end - calls functions
 
     // start - bulk functions
@@ -887,6 +918,11 @@ class ZohoAllInOne
     public static function deleteFileV6($id)
     {
         return ZohoFileController::deleteFileV6($id);
+    }
+
+    public static function getRecentModuleIdFieldV6($module,$action)
+    {
+        return ZohoRecentModuleController::getRecentModuleIdFieldV6($module,$action);
     }
 
 }
