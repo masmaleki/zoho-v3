@@ -59,7 +59,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id ;
+        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id;
         // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
             $apiURL .= '?fields=' . $fields;
@@ -103,7 +103,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id . '';
 
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
@@ -128,7 +128,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id . '';
 
         if ($searchParameter) {
             $apiURL .= '&invoice_number_contains=' . $searchParameter;
@@ -155,7 +155,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=pdf';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=pdf';
         $client = new Client();
 
         $headers = [
@@ -165,7 +165,7 @@ class ZohoInvoiceController
         $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
         $responseBody = $response->getBody();
 
-        $streamResponse = new StreamedResponse(function() use ($responseBody) {
+        $streamResponse = new StreamedResponse(function () use ($responseBody) {
             while (!$responseBody->eof()) {
                 echo $responseBody->read(1024);
             }
@@ -183,7 +183,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=html';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=html';
         $client = new Client();
 
         $headers = [
@@ -193,6 +193,39 @@ class ZohoInvoiceController
         $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
         $responseBody = $response->getBody();
 
+        return $responseBody;
+    }
+
+    public static function createBooksInvoice($data = [], $organization_id = null)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/invoices';
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+
+        $body = $data;
+
+
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [];
+            $responseBody['code'] = $e->getCode();
+            $responseBody['message'] = $e->getMessage();
+        }
         return $responseBody;
     }
 

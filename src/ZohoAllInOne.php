@@ -160,6 +160,11 @@ class ZohoAllInOne
     {
         return ZohoAccountController::getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id);
     }
+
+    public static function getZohoBooksAccountById($zoho_books_customer_id, $organization_id = null)
+    {
+        return ZohoAccountController::getZohoBooksAccountById($zoho_books_customer_id, $organization_id);
+    }
     // end - accounts functions
 
     // start - vendors functions
@@ -366,6 +371,11 @@ class ZohoAllInOne
     public static function getInvoiceHTML($invoice_id)
     {
         return ZohoInvoiceController::getHTML($invoice_id);
+    }
+
+    public static function createBooksInvoice($data = [], $organization_id = null)
+    {
+        return ZohoInvoiceController::createBooksInvoice($data, $organization_id);
     }
 
     // end - invoice functions
@@ -613,6 +623,7 @@ class ZohoAllInOne
     {
         return ZohoAvailabilityController::update($data);
     }
+
     public static function getAvailabilitiesCOQL($offset = 0, $conditions = null, $fields = null)
     {
         return ZohoAvailabilityController::getAvailabilitiesCOQL($offset, $conditions, $fields);
