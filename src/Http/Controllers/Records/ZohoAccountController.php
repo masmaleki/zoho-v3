@@ -52,14 +52,14 @@ class ZohoAccountController
             $response = $client->request('GET', $apiURL, ['headers' => $headers]);
             $statusCode = $response->getStatusCode();
             $responseBody = json_decode($response->getBody(), true);
-            if($responseBody != null){
+            if ($responseBody != null) {
                 $result = array_merge($result, $responseBody['data']);
                 if (($responseBody['info']['more_records'] ?? false) == true) {
                     $page++;
                 } else {
                     $morePage = false;
                 }
-            }else {
+            } else {
                 $morePage = false;
             }
 
@@ -162,5 +162,35 @@ class ZohoAccountController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function getZohoBooksAccountById($zoho_books_customer_id, $organization_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_customer_id;
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [];
+            $responseBody['code'] = $e->getCode();
+            $responseBody['message'] = $e->getMessage();
+        }
+
+        return $responseBody;
+    }
+
 
 }
