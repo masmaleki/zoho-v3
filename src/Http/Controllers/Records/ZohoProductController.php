@@ -15,14 +15,14 @@ class ZohoProductController
             return null;
         }
 
-        $fields = $fields ? $fields : 'Product_Name,Lifecylce_Status,Owner,Created_By,Modified_By'; 
+        $fields = $fields ? $fields : 'Product_Name,Lifecylce_Status,Owner,Created_By,Modified_By';
 
         $apiURL = $token->api_domain . '/crm/v3/Products?fields=' . $fields;
 
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
-        
+
         $client = new Client();
 
         $headers = [
@@ -42,7 +42,7 @@ class ZohoProductController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id ;
+        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id;
         // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
             $apiURL .= '?fields=' . $fields;
@@ -79,13 +79,43 @@ class ZohoProductController
         $responseBody = json_decode($response->getBody(), true);
         return $responseBody;
     }
+
+    public static function getAllItems($organization_id = null)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items';
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [];
+            $responseBody['code'] = $e->getCode();
+            $responseBody['message'] = $e->getMessage();
+        }
+
+
+        return $responseBody;
+    }
+
     public static function searchItemByName($product_name, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains='.$product_name;
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains=' . $product_name;
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
         }
