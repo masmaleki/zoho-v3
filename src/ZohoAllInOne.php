@@ -266,6 +266,11 @@ class ZohoAllInOne
         return ZohoProductController::getAll($page_token, $fields);
     }
 
+    public static function getItems($organization_id = null)
+    {
+        return ZohoProductController::getAllItems($organization_id);
+    }
+
     public static function getProduct($zoho_product_id, $fields = null)
     {
         return ZohoProductController::getById($zoho_product_id, $fields);
