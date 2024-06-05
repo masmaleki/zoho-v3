@@ -146,6 +146,11 @@ class ZohoAllInOne
         return ZohoAccountController::create($data);
     }
 
+    public static function createBooksCustomer($data, $organization_id = null)
+    {
+        return ZohoAccountController::createBooksCustomer($data, $organization_id);
+    }
+
     public static function updateAccount($zoho_crm_account_id, $data)
     {
         return ZohoAccountController::update($zoho_crm_account_id, $data);
