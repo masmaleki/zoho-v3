@@ -80,13 +80,13 @@ class ZohoProductController
         return $responseBody;
     }
 
-    public static function getAllItems($organization_id = null)
+    public static function getAllItems($organization_id = null, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
             return null;
         }
-        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items';
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/items?page=' . $page . $condition;
         if ($organization_id) {
             $apiURL .= '?organization_id=' . $organization_id;
         }
