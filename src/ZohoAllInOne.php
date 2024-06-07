@@ -278,7 +278,7 @@ class ZohoAllInOne
 
     public static function getItems($organization_id = null, $page = 1, $condition = '')
     {
-        return ZohoProductController::getAllItems($organization_id, $page , $condition );
+        return ZohoProductController::getAllItems($organization_id, $page, $condition);
     }
 
     public static function getProduct($zoho_product_id, $fields = null)
@@ -304,6 +304,11 @@ class ZohoAllInOne
     public static function createProduct($data)
     {
         return ZohoProductController::create($data);
+    }
+
+    public static function createItem($data = [], $organization_id = null)
+    {
+        return ZohoProductController::createItem($data, $organization_id);
     }
 
     public static function updateItem($data = [])
