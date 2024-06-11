@@ -74,9 +74,16 @@ class ZohoProductController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [];
+            $responseBody['code'] = $e->getCode();
+            $responseBody['message'] = $e->getMessage();
+        }
+
         return $responseBody;
     }
 
