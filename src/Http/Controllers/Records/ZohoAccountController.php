@@ -253,7 +253,8 @@ class ZohoAccountController
         }
         return $responseBody;
     }
-    public static function updateBooksCustomer($data )
+
+    public static function updateBooksCustomer($data)
     {
         $zoho_books_item_id = $data['id'];
         $organization_id = $data['organization_id'] ?? null;
