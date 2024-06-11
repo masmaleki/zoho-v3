@@ -254,4 +254,39 @@ class ZohoAccountController
         return $responseBody;
     }
 
+    public static function updateBooksCustomer($data)
+    {
+        $zoho_books_item_id = $data['id'];
+        $organization_id = $data['organization_id'] ?? null;
+        unset($data['organization_id']);
+        unset($data['id']);
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_item_id;
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = $data;
+
+        try {
+            $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
+        return $responseBody;
+    }
+
 }
