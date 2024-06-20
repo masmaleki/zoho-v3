@@ -13,7 +13,10 @@ class ZohoPackageController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
@@ -23,9 +26,16 @@ class ZohoPackageController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -34,7 +44,10 @@ class ZohoPackageController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?customer_id=' . $zoho_customer_id .'';
 
@@ -51,9 +64,16 @@ class ZohoPackageController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
