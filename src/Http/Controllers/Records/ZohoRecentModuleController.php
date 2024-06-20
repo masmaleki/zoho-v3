@@ -8,14 +8,21 @@ use Illuminate\Support\Carbon;
 
 class ZohoRecentModuleController
 {
-   
+
     public static function getRecentModuleIdFieldV6($module,$action)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
-
         $apiURL = $token->api_domain . '/crm/v6/coql';
         $client = new Client();
 
@@ -24,8 +31,8 @@ class ZohoRecentModuleController
         ];
 
         $fields = 'id';
-            
-        
+
+
 
         $todayStart = Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00";
         $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
@@ -35,14 +42,26 @@ class ZohoRecentModuleController
         } else {
             $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
         }
-        
+
         $body = [
             'select_query' => "select " . $fields . " from ".$module." where " . $condition . " order by Modified_Time desc limit 0, 200",
         ];
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
 
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 }

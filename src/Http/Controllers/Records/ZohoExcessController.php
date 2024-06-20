@@ -15,7 +15,15 @@ class ZohoExcessController
         }
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.excess');
         $client = new Client();
@@ -29,9 +37,21 @@ class ZohoExcessController
                 0 => $data
             ]
         ];
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -41,7 +61,15 @@ class ZohoExcessController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v2.2/'. config('zoho-v4.custom_modules_names.excess').'/' . $zoho_excess_id . '';
         $client = new Client();
@@ -61,9 +89,21 @@ class ZohoExcessController
 
         ];
 
-        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -71,7 +111,15 @@ class ZohoExcessController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.excess') . '/' . $excess_id;
         $client = new Client();
@@ -80,9 +128,21 @@ class ZohoExcessController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -90,7 +150,15 @@ class ZohoExcessController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
 
         $apiURL = $token->api_domain . '/crm/v3/coql';
@@ -112,10 +180,21 @@ class ZohoExcessController
             'select_query' => "select " . $fields . " from " . config('zoho-v4.custom_modules_names.excess') . " where " . $condition . " order by Created_Time desc",
         ];
 
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -123,7 +202,15 @@ class ZohoExcessController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
 
         $apiURL = $token->api_domain . '/crm/v3/coql';
@@ -144,10 +231,21 @@ class ZohoExcessController
             'select_query' => "select " . $fields . " from " . config('zoho-v4.custom_modules_names.excess') . " where " . $condition . " order by Created_Time desc limit " . $offset . ", 200",
         ];
         // dd($body);
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -155,7 +253,15 @@ class ZohoExcessController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
 
         $apiURL = $token->api_domain . '/crm/v6/coql';
@@ -170,7 +276,7 @@ class ZohoExcessController
             Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Email,Excess_Source,
             Created_By,Secondary_Email,Comment,Customer_Internal_No,Email_Opt_Out,
             Excess_No,Excess_Type,Exchange_Rate,Modified_By,Portal_Excess_Id,Modified_Time';
-            
+
         }
 
         if (!$condition) {
@@ -188,10 +294,21 @@ class ZohoExcessController
             'select_query' => "select " . $fields . " from " . config('zoho-v4.custom_modules_names.excess') . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", 200",
         ];
         // dd($body);
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 }

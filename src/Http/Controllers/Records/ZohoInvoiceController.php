@@ -13,7 +13,10 @@ class ZohoInvoiceController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
@@ -23,9 +26,16 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -34,7 +44,10 @@ class ZohoInvoiceController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $zoho_invoice_id;
         if ($organization_id) {
@@ -46,9 +59,16 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -70,9 +90,21 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -81,7 +113,15 @@ class ZohoInvoiceController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v3/Invoices/search?criteria=(Vendor_ID:equals:' . $zoho_vendor_id . ')';
         $client = new Client();
@@ -90,9 +130,21 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -101,7 +153,10 @@ class ZohoInvoiceController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id .'';
 
@@ -115,9 +170,16 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -126,7 +188,10 @@ class ZohoInvoiceController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id .'';
 
@@ -143,9 +208,16 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -153,7 +225,10 @@ class ZohoInvoiceController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=pdf';
         $client = new Client();
@@ -162,26 +237,33 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
-        $responseBody = $response->getBody();
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+            $responseBody = $response->getBody();
 
-        $streamResponse = new StreamedResponse(function() use ($responseBody) {
-            while (!$responseBody->eof()) {
-                echo $responseBody->read(1024);
-            }
-        });
+            $streamResponse = new StreamedResponse(function() use ($responseBody) {
+                while (!$responseBody->eof()) {
+                    echo $responseBody->read(1024);
+                }
+            });
 
-        $streamResponse->headers->set('Content-Type', 'application/pdf');
-        $streamResponse->headers->set('Cache-Control', 'no-cache');
+            $streamResponse->headers->set('Content-Type', 'application/pdf');
+            $streamResponse->headers->set('Cache-Control', 'no-cache');
 
-        return $streamResponse;
+            return $streamResponse;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     public static function getHTML($invoice_id)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=html';
         $client = new Client();
@@ -190,9 +272,15 @@ class ZohoInvoiceController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
-        $responseBody = $response->getBody();
-
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+            $responseBody = $response->getBody();
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 

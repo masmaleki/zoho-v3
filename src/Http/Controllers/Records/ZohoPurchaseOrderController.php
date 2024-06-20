@@ -14,7 +14,10 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
 
@@ -24,9 +27,16 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -35,7 +45,10 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id;
         if ($organization_id) {
@@ -47,9 +60,16 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -58,7 +78,15 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders/' . $purchase_order_id;
         $client = new Client();
@@ -67,9 +95,21 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -78,7 +118,10 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id . '';
         $client = new Client();
@@ -87,9 +130,16 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -98,7 +148,10 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?page=1&per_page=200&sort_column=created_time&sort_order=D&custom_field_222119000000940129_contains=' . $item_name . '';
         if ($organization_id) {
@@ -110,9 +163,16 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -121,7 +181,10 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
 
@@ -138,9 +201,16 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
         return $responseBody;
     }
 
@@ -148,7 +218,10 @@ class ZohoPurchaseOrderController
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'code' => 498,
+                'message' => 'Invalid or missing token.',
+            ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id . '?accept=pdf';
         $client = new Client();
@@ -157,26 +230,38 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
-        $responseBody = $response->getBody();
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
+            $responseBody = $response->getBody();
 
-        $streamResponse = new StreamedResponse(function () use ($responseBody) {
-            while (!$responseBody->eof()) {
-                echo $responseBody->read(1024);
-            }
-        });
+            $streamResponse = new StreamedResponse(function () use ($responseBody) {
+                while (!$responseBody->eof()) {
+                    echo $responseBody->read(1024);
+                }
+            });
 
-        $streamResponse->headers->set('Content-Type', 'application/pdf');
-        $streamResponse->headers->set('Cache-Control', 'no-cache');
+            $streamResponse->headers->set('Content-Type', 'application/pdf');
+            $streamResponse->headers->set('Cache-Control', 'no-cache');
 
-        return $streamResponse;
+            return $streamResponse;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     public static function getCRMPurchaseOrderById($purchase_order_id, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
 
         $apiURL = $token->api_domain . '/crm/v3/Purchase_Orders/' . $purchase_order_id ;
@@ -191,9 +276,21 @@ class ZohoPurchaseOrderController
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
         ];
 
-        $response = $client->request('GET', $apiURL, ['headers' => $headers]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -204,7 +301,15 @@ class ZohoPurchaseOrderController
         }
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders' ;
         $client = new Client();
@@ -218,9 +323,21 @@ class ZohoPurchaseOrderController
                 0 => $data
             ]
         ];
-        $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
@@ -230,7 +347,15 @@ class ZohoPurchaseOrderController
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
-            return null;
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
         }
         $apiURL = $token->api_domain . '/crm/v2.2/Purchase_Orders/' . $zoho_po_id . '';
         $client = new Client();
@@ -249,9 +374,21 @@ class ZohoPurchaseOrderController
             ]
         ];
 
-        $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-        $statusCode = $response->getStatusCode();
-        $responseBody = json_decode($response->getBody(), true);
+        try {
+            $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
         return $responseBody;
     }
 
