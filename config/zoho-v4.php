@@ -270,4 +270,6 @@ return [
         ],
     ],
 
+    'sync_new_records_period_in_days' => env('ZOHO_SYNC_NEW_RECORDS_PERIOD_IN_DAYS', 1),
+    'report_data_collector_months_ago' => env('ZOHO_REPORT_DATA_COLLECTOR_MONTHS_AGO', 1),
 ];
