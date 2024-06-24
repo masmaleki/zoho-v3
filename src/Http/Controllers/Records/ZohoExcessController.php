@@ -273,7 +273,7 @@ class ZohoExcessController
 
         if (!$fields) {
             $fields = 'Name,id,Currency,Owner,Product_name,Created_Time,Cost,Quantity,
-            Date_Code,SPQ,MOQ,sync_with_panel,Account_Name,Contact,Email,Excess_Source,
+            Date_Code,SPQ,MOQ,Sales_Tools_Synced_At,Account_Name,Contact,Email,Excess_Source,
             Created_By,Secondary_Email,Comment,Customer_Internal_No,Email_Opt_Out,
             Excess_No,Excess_Type,Exchange_Rate,Modified_By,Portal_Excess_Id,Modified_Time';
 
@@ -284,10 +284,10 @@ class ZohoExcessController
             $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
 
             if ($action == 'create') {
-                $condition = "sync_with_panel is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
+                $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             } else {
-                // $condition = "(((sync_with_panel is not null) and (Modified_Time between '{$todayStart}' and '{$todayEnd}')) and (sync_with_panel < Modified_Time))";
-                $condition = "sync_with_panel is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
+                // $condition = "(((Sales_Tools_Synced_At is not null) and (Modified_Time between '{$todayStart}' and '{$todayEnd}')) and (Sales_Tools_Synced_At < Modified_Time))";
+                $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
             }
         }
         $body = [
