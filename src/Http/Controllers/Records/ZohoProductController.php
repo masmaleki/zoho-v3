@@ -67,7 +67,7 @@ class ZohoProductController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id ;
+        $apiURL = $token->api_domain . '/crm/v3/Products/' . $zoho_product_id;
         // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
             $apiURL .= '?fields=' . $fields;
@@ -126,6 +126,7 @@ class ZohoProductController
         }
         return $responseBody;
     }
+
     public static function searchItemByName($product_name, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
@@ -135,7 +136,7 @@ class ZohoProductController
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains='.$product_name;
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains=' . $product_name;
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
         }
@@ -477,63 +478,4 @@ class ZohoProductController
         }
         return $responseBody;
     }
-
-    public static function getRecentProductsV6($offset = 0, $condition = null, $fields = null,$action)
-    {
-        $token = ZohoTokenCheck::getToken();
-        if (!$token) {
-            return [
-                'data' => [
-                    0 => [
-                        'code' => 498,
-                        'message' => 'Invalid or missing token.',
-                        'status' => 'error',
-                    ]
-                ],
-            ];
-        }
-
-        $apiURL = $token->api_domain . '/crm/v6/coql';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        if (!$condition) {
-            $todayStart = Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00";
-            $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
-
-            if ($action == 'create') {
-                $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
-            } else {
-                $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
-            }
-        }
-
-        $fields = $fields ? $fields : 'id';
-
-
-        $body = [
-            'select_query' => "select " . $fields . " from Products where "  . $condition  . "  limit " . $offset . ", 200",
-        ];
-
-        try {
-            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-            $statusCode = $response->getStatusCode();
-            $responseBody = json_decode($response->getBody(), true);
-        } catch (\Exception $e) {
-            $responseBody = [
-                'data' => [
-                    0 => [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
-                        'status' => 'error',
-                    ]
-                ],
-            ];
-        }
-        return $responseBody;
-    }
-
 }

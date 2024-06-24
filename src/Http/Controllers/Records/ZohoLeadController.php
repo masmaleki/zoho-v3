@@ -54,6 +54,7 @@ class ZohoLeadController
         }
         return $responseBody;
     }
+
     public static function update($data = null)
     {
         if (!$data) {
@@ -100,7 +101,8 @@ class ZohoLeadController
         }
         return $responseBody;
     }
-    public static function convertLead($data = null,$id = null)
+
+    public static function convertLead($data = null, $id = null)
     {
         if (!$data) {
             return null;
@@ -117,7 +119,7 @@ class ZohoLeadController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v3/Leads/'.$id.'/actions/convert';
+        $apiURL = $token->api_domain . '/crm/v3/Leads/' . $id . '/actions/convert';
         $client = new Client();
 
         $headers = [
@@ -147,6 +149,7 @@ class ZohoLeadController
         }
         return $responseBody;
     }
+
     public static function conversionOptions($id = null)
     {
         if (!$id) {
@@ -164,7 +167,7 @@ class ZohoLeadController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v3/Leads/'.$id.'/__conversion_options';
+        $apiURL = $token->api_domain . '/crm/v3/Leads/' . $id . '/__conversion_options';
         $client = new Client();
 
         $headers = [
@@ -267,61 +270,4 @@ class ZohoLeadController
         return $responseBody;
     }
 
-    public static function getRecentLeadsV6($offset, $condition, $fields,$action)
-    {
-        $token = ZohoTokenCheck::getToken();
-        if (!$token) {
-            return [
-                'data' => [
-                    0 => [
-                        'code' => 498,
-                        'message' => 'Invalid or missing token.',
-                        'status' => 'error',
-                    ]
-                ],
-            ];
-        }
-
-        $apiURL = $token->api_domain . '/crm/v6/coql';
-        $client = new Client();
-
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
-
-        if (!$fields) {
-            $fields = 'id';
-
-        }
-
-        if (!$condition) {
-            $todayStart = Carbon::today()->subDays(1)->format("Y-m-d") . "T00:00:01+00:00";
-            $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
-
-            if ($action == 'create') {
-                $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
-            } else {
-                $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
-            }
-        }
-        $body = [
-            'select_query' => "select " . $fields . " from Leads where " . $condition . " order by Modified_Time desc limit " . $offset . ", 200",
-        ];
-        try {
-            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
-            $statusCode = $response->getStatusCode();
-            $responseBody = json_decode($response->getBody(), true);
-        } catch (\Exception $e) {
-            $responseBody = [
-                'data' => [
-                    0 => [
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage(),
-                        'status' => 'error',
-                    ]
-                ],
-            ];
-        }
-        return $responseBody;
-    }
 }

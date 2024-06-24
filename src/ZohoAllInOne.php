@@ -197,15 +197,18 @@ class ZohoAllInOne
         return ZohoVendorController::update($zoho_crm_id, $data);
     }
 
-    public static function getRelatedManufactureLineCardV6($zoho_id){
+    public static function getRelatedManufactureLineCardV6($zoho_id)
+    {
 
         return ZohoVendorController::getRelatedManufactureLineCardV6($zoho_id);
     }
-    public static function getRelatedManufactureStrongLineV6($zoho_id){
+
+    public static function getRelatedManufactureStrongLineV6($zoho_id)
+    {
 
         return ZohoVendorController::getRelatedManufactureStrongLineV6($zoho_id);
     }
-    
+
     public static function deleteVendorAvatar($zoho_vendor_id)
     {
         return ZohoVendorController::deleteAvatar($zoho_vendor_id);
@@ -263,30 +266,39 @@ class ZohoAllInOne
     {
         return ZohoManufactureController::update($zoho_crm_manufacture_id, $data);
     }
+
     public static function updateManufactureV6($zoho_id, $data)
     {
         return ZohoManufactureController::updateV6($zoho_id, $data);
     }
+
     public static function deleteManufactureV6($zoho_id)
     {
         return ZohoManufactureController::deleteV6($zoho_id);
     }
 
-    public static function getRelatedVendorLineCardV6($zoho_id){
+    public static function getRelatedVendorLineCardV6($zoho_id)
+    {
 
         return ZohoManufactureController::getRelatedVendorLineCardV6($zoho_id);
     }
-    public static function deleteRelatedVendorLineCardV6($zoho_id,$ids){
 
-        return ZohoManufactureController::deleteRelatedVendorLineCardV6($zoho_id,$ids);
+    public static function deleteRelatedVendorLineCardV6($zoho_id, $ids)
+    {
+
+        return ZohoManufactureController::deleteRelatedVendorLineCardV6($zoho_id, $ids);
     }
-    public static function getRelatedVendorStrongLineV6($zoho_id){
+
+    public static function getRelatedVendorStrongLineV6($zoho_id)
+    {
 
         return ZohoManufactureController::getRelatedVendorStrongLineV6($zoho_id);
     }
-    public static function deleteRelatedVendorStrongLineV6($zoho_id,$ids){
 
-        return ZohoManufactureController::deleteRelatedVendorStrongLineV6($zoho_id,$ids);
+    public static function deleteRelatedVendorStrongLineV6($zoho_id, $ids)
+    {
+
+        return ZohoManufactureController::deleteRelatedVendorStrongLineV6($zoho_id, $ids);
     }
 
 
@@ -354,10 +366,6 @@ class ZohoAllInOne
         return ZohoProductController::getAllZohoBooksItems($organization_id, $page, $conditions);
     }
 
-    public static function getRecentProductsV6($offset = 0, $conditions = null, $fields = null,$action)
-    {
-        return ZohoProductController::getRecentProductsV6($offset, $conditions, $fields,$action);
-    }
     // end - product functions
 
     // start - invoice functions
@@ -464,12 +472,6 @@ class ZohoAllInOne
         return ZohoLeadController::conversionOptions($data);
     }
 
-    public static function getRecentLeadsV6($offset = 0, $condition = null, $fields = null,$action)
-    {
-        return ZohoLeadController::getRecentLeadsV6($offset, $condition, $fields,$action);
-    }
-
-
     // end - leads functions
 
     public static function getSaleOrders($organization_id, $page = 1, $condition = '')
@@ -519,11 +521,12 @@ class ZohoAllInOne
     {
         return ZohoPurchaseOrderController::getById($purchase_order_id, $organization_id);
     }
-    
+
     public static function getPurchaseOrderV6($purchase_order_id)
     {
         return ZohoPurchaseOrderController::getByIdV6($purchase_order_id);
     }
+
     public static function getCRMPurchaseOrder($purchase_order_id)
     {
         return ZohoPurchaseOrderController::getCRMPurchaseOrderById($purchase_order_id);
@@ -641,6 +644,7 @@ class ZohoAllInOne
     {
         return ZohoVendorRFQController::update($data);
     }
+
     public static function createVendorRFQV6($data)
     {
         return ZohoVendorRFQController::createV6($data);
@@ -678,6 +682,7 @@ class ZohoAllInOne
     {
         return ZohoAvailabilityController::update($data);
     }
+
     public static function getAvailabilitiesCOQL($offset = 0, $conditions = null, $fields = null)
     {
         return ZohoAvailabilityController::getAvailabilitiesCOQL($offset, $conditions, $fields);
@@ -884,45 +889,42 @@ class ZohoAllInOne
         return ZohoExcessController::getRecentExcesses($offset, $condition, $fields);
     }
 
-    public static function getRecentExcessesV6($offset = 0, $condition = null, $fields = null,$action)
-    {
-        return ZohoExcessController::getRecentExcessesV6($offset, $condition, $fields,$action);
-    }
-
     // end - Excess functions
 
 
-    public static function getImageV6($zoho_id,$module)
+    public static function getImageV6($zoho_id, $module)
     {
-        return ZohoImageController::getImageV6($zoho_id,$module);
+        return ZohoImageController::getImageV6($zoho_id, $module);
     }
 
-    public static function updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName)
+    public static function updateImageV6($zoho_id, $module, $filePath, $fileMime, $fileUploadedName)
     {
-        return ZohoImageController::updateImageV6($zoho_id,$module, $filePath, $fileMime, $fileUploadedName);
+        return ZohoImageController::updateImageV6($zoho_id, $module, $filePath, $fileMime, $fileUploadedName);
     }
 
-    public static function deleteImageV6($zoho_id,$module)
+    public static function deleteImageV6($zoho_id, $module)
     {
-        return ZohoImageController::deleteImageV6($zoho_id,$module);
+        return ZohoImageController::deleteImageV6($zoho_id, $module);
     }
 
     public static function uploadFileV6($file_path, $file_mime, $file_uploaded_name)
     {
         return ZohoFileController::uploadFileV6($file_path, $file_mime, $file_uploaded_name);
     }
+
     public static function getFileV6($id)
     {
         return ZohoFileController::getFileV6($id);
     }
+
     public static function deleteFileV6($id)
     {
         return ZohoFileController::deleteFileV6($id);
     }
 
-    public static function getRecentModuleIdFieldV6($module,$action)
+    public static function getRecentModuleIdFieldV6($module, $action)
     {
-        return ZohoRecentModuleController::getRecentModuleIdFieldV6($module,$action);
+        return ZohoRecentModuleController::getRecentModuleIdFieldV6($module, $action);
     }
 
 }
