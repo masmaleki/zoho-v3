@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class ZohoRecentModuleController
 {
 
-    public static function getRecentModuleIdFieldV6($module, $action)
+    public static function getRecentModuleIdFieldV6($module, $action = 'create')
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -33,14 +33,21 @@ class ZohoRecentModuleController
         $fields = 'id';
 
 
-        $todayStart = Carbon::today()->subDays(config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
-        $todayEnd = Carbon::today()->addDay()->format("Y-m-d") . "T23:59:59+00:00";
+        $startDay = Carbon::today()->subDays(config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
+        $endDay = Carbon::today()->addDay(1)->format("Y-m-d") . "T23:59:59+00:00";
 
-        if ($action == 'create') {
-            $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
-        } else {
-            $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$todayStart}' and '{$todayEnd}'";
+        switch ($action) {
+            case 'create':
+                $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$startDay}' and '{$endDay}'";
+                break;
+            case 'edit':
+                $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$startDay}' and '{$endDay}'";
+                break;
+            case 'sync':
+                $condition = "Created_Time between '{$startDay}' and '{$endDay}'";
+                break;
         }
+
 
         $body = [
             'select_query' => "select " . $fields . " from " . $module . " where " . $condition . " order by Modified_Time desc limit 0, 200",
