@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class ZohoRecentModuleController
 {
 
-    public static function getRecentModuleIdFieldV6($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null)
+    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -52,7 +52,6 @@ class ZohoRecentModuleController
 
 
         $body = ['select_query' => $query,];
-
         try {
             $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
             $statusCode = $response->getStatusCode();
