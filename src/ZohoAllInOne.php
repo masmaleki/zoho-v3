@@ -922,9 +922,9 @@ class ZohoAllInOne
         return ZohoFileController::deleteFileV6($id);
     }
 
-    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null)
+    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null, $startDay = null, $endDay = null)
     {
-        return ZohoRecentModuleController::getModuleRecentRecords($module, $action , $offset , $perPage, $fields);
+        return ZohoRecentModuleController::getModuleRecentRecords($module, $action, $offset, $perPage, $fields, $startDay, $endDay);
     }
 
 }
