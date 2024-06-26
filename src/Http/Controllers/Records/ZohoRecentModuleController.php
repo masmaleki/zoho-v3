@@ -40,7 +40,7 @@ class ZohoRecentModuleController
                 $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$startDay}' and '{$endDay}'";
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", " . $perPage;
                 break;
-            case 'edit':
+            case 'update':
                 $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$startDay}' and '{$endDay}'";
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Sales_Tools_Synced_At desc limit " . $offset . ", " . $perPage;
                 break;
