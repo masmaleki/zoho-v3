@@ -54,6 +54,46 @@ class ZohoVendorController
         return $responseBody;
     }
 
+    public static function getById($zoho_vendor_id)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Vendors/search?criteria=(id:equals:' . $zoho_vendor_id . ')';
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        try {
+            $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        return $responseBody;
+    }
+
     public static function create($data)
     {
         if (!$data) {
