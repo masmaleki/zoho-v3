@@ -171,6 +171,10 @@ class ZohoAllInOne
         return ZohoVendorController::getAll($page_token, $fields);
     }
 
+    public static function getVendor($zoho_vendor_id, $fields = null)
+    {
+        return ZohoVendorController::getById($zoho_vendor_id, $fields);
+    }
 
     public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
     {
