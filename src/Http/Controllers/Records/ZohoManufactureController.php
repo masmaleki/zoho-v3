@@ -378,7 +378,7 @@ class ZohoManufactureController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Manufacture/' . $zoho_id . '/Vendors?fields=Vendor_Name';
+        $apiURL = $token->api_domain . '/crm/v6/Manufacture/' . $zoho_id . '/Vendors5?fields=Vendor_Name';
 
         $client = new Client();
 
