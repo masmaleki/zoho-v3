@@ -505,7 +505,7 @@ class ZohoVendorController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture16?fields=Vendor_Name';
+        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture16?fields=Line_Card';
 
         $client = new Client();
 
@@ -546,7 +546,7 @@ class ZohoVendorController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture5?fields=Vendor_Name';
+        $apiURL = $token->api_domain . '/crm/v6/Vendors/' . $zoho_id . '/Manufacture5?fields=Strong_Lines';
 
         $client = new Client();
 
