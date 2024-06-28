@@ -32,7 +32,7 @@ class ZohoRecentModuleController
 
         $fields = $fields ?: 'id';
 
-        $startDay = $startDay ?: Carbon::today()->subDays(config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
+        $startDay = $startDay ?: Carbon::today()->subDays((int) config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
         $endDay = $endDay ?: Carbon::today()->addDay(1)->format("Y-m-d") . "T23:59:59+00:00";
 
         switch ($action) {
@@ -41,7 +41,7 @@ class ZohoRecentModuleController
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", " . $perPage;
                 break;
             case 'update':
-                $condition = "Sales_Tools_Synced_At is not null and Modified_Time between '{$startDay}' and '{$endDay}'";
+                $condition = "Modified_Time between '{$startDay}' and '{$endDay}'";
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Sales_Tools_Synced_At desc limit " . $offset . ", " . $perPage;
                 break;
             case 'sync':
