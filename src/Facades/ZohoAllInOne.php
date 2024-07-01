@@ -71,6 +71,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getInvoices(int $organization_id, int $page = 1, string $condition = '')
  * @method static mixed getInvoice(int $zoho_invoice_id, int|null $organization_id = null)
  * @method static mixed getCRMInvoice(int $zoho_invoice_id)
+ * @method static mixed updateCRMInvoice(array $data = [])
  * @method static mixed getVendorInvoices(int $zoho_vendor_id)
  * @method static mixed getInvoiceByCustomerId(int $zoho_customer_id, int|null $organization_id = null)
  * @method static mixed searchInvoiceByCustomerId(int $zoho_customer_id, string|null $searchParameter = null, int|null $organization_id = null)

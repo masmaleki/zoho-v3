@@ -388,6 +388,11 @@ class ZohoAllInOne
         return ZohoInvoiceController::getCRMInvoiceById($zoho_invoice_id);
     }
 
+    public static function updateCRMInvoice($data = [])
+    {
+        return ZohoInvoiceController::updateCRMInvoice($data);
+    }
+
     public static function getVendorInvoices($zoho_vendor_id)
     {
         return ZohoInvoiceController::getByVendorId($zoho_vendor_id);

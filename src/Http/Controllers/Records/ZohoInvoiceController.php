@@ -79,7 +79,7 @@ class ZohoInvoiceController
         if (!$token) {
             return null;
         }
-        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id ;
+        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id;
         // $apiURL = $token->api_domain . '/crm/v3/Products/search?criteria=(id:equals:' . $zoho_product_id . ')';
         if ($fields) {
             $apiURL .= '?fields=' . $fields;
@@ -92,6 +92,53 @@ class ZohoInvoiceController
 
         try {
             $response = $client->request('GET', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        return $responseBody;
+    }
+
+    public static function updateCRMInvoice($data = [])
+    {
+
+        $zoho_invoice_id = $data['id'];
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        $apiURL = $token->api_domain . '/crm/v3/Invoices/' . $zoho_invoice_id;
+        $client = new Client();
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = [
+            'data' => [
+                0 => $data
+            ]
+        ];
+
+        try {
+            $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
             $statusCode = $response->getStatusCode();
             $responseBody = json_decode($response->getBody(), true);
         } catch (\Exception $e) {
@@ -158,7 +205,7 @@ class ZohoInvoiceController
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id . '';
 
         if ($organization_id) {
             $apiURL .= '&organization_id=' . $organization_id;
@@ -193,7 +240,7 @@ class ZohoInvoiceController
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id . '';
 
         if ($searchParameter) {
             $apiURL .= '&invoice_number_contains=' . $searchParameter;
@@ -230,7 +277,7 @@ class ZohoInvoiceController
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=pdf';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=pdf';
         $client = new Client();
 
         $headers = [
@@ -241,7 +288,7 @@ class ZohoInvoiceController
             $response = $client->request('GET', $apiURL, ['headers' => $headers, 'stream' => false]);
             $responseBody = $response->getBody();
 
-            $streamResponse = new StreamedResponse(function() use ($responseBody) {
+            $streamResponse = new StreamedResponse(function () use ($responseBody) {
                 while (!$responseBody->eof()) {
                     echo $responseBody->read(1024);
                 }
@@ -265,7 +312,7 @@ class ZohoInvoiceController
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id .'?accept=html';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=html';
         $client = new Client();
 
         $headers = [
