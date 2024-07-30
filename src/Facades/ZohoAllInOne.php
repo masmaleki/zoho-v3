@@ -95,6 +95,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed searchSaleOrderByCustomerId(int $zoho_customer_id, string|null $searchParameter = null, int|null $organization_id = null)
  * @method static mixed getSaleOrderPDF(int $sale_order_id)
  * @method static mixed updateSalesOrderV6(array $data = [])
+ * @method static mixed createSalesOrderV6(array $data = [])
  * @method static array getPurchaseOrders(int $organization_id, int $page = 1, string $condition = '')
  * @method static mixed getPurchaseOrder(int $purchase_order_id, int|null $organization_id = null)
  * @method static mixed getPurchaseOrderV6(int $purchase_order_id)
