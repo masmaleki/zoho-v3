@@ -235,7 +235,7 @@ class ZohoSaleOrderController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Sales_Orders/';
+        $apiURL = $token->api_domain . '/crm/v6/Sales_Orders';
         $client = new Client();
 
         $headers = [
