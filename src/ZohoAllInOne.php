@@ -518,6 +518,11 @@ class ZohoAllInOne
         return ZohoSaleOrderController::updateV6($data);
     }
 
+     public static function updateSalesOrderV2_1($data = [])
+    {
+        return ZohoSaleOrderController::updateV2_1($data);
+    }
+
     public static function createSalesOrderV6($data = [])
     {
         return ZohoSaleOrderController::createV6($data);
