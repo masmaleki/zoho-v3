@@ -32,10 +32,14 @@ class ZohoRecentModuleController
 
         $fields = $fields ?: 'id';
 
-        $startDay = $startDay ?: Carbon::today()->subDays((int) config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
+        $startDay = $startDay ?: Carbon::today()->subDays((int)config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
         $endDay = $endDay ?: Carbon::today()->addDay(1)->format("Y-m-d") . "T23:59:59+00:00";
 
         switch ($action) {
+            case 'fast-update':
+                $condition = "((Sales_Tools_Synced_At is null and Modified_Time between '{$startDay}' and '{$endDay}') and (Created_Time between '{$startDay}' and '{$endDay}'))";
+                $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", " . $perPage;
+                break;
             case 'create':
                 $condition = "Sales_Tools_Synced_At is null and Modified_Time between '{$startDay}' and '{$endDay}'";
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Modified_Time desc limit " . $offset . ", " . $perPage;
@@ -49,7 +53,7 @@ class ZohoRecentModuleController
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Created_Time desc limit " . $offset . ", " . $perPage;
                 break;
         }
-
+dump($condition,$query);
 
         $body = ['select_query' => $query,];
         try {
