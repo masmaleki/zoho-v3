@@ -53,7 +53,6 @@ class ZohoRecentModuleController
                 $query = "select " . $fields . " from " . $module . " where " . $condition . " order by Created_Time desc limit " . $offset . ", " . $perPage;
                 break;
         }
-dump($condition,$query);
 
         $body = ['select_query' => $query,];
         try {
