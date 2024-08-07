@@ -400,7 +400,7 @@ class ZohoProductController
         return $responseBody;
     }
 
-    public static function getAllZohoBooksItems($organization_id = null, $page, $conditions)
+    public static function getAllZohoBooksItems($organization_id, $page, $conditions)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
