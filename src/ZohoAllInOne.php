@@ -365,7 +365,7 @@ class ZohoAllInOne
         return ZohoProductController::getZohoBooksItem($zoho_books_item_id, $organization_id);
     }
 
-    public function getAllZohoBooksItems($organization_id = null, $page, $conditions)
+    public function getAllZohoBooksItems($organization_id, $page, $conditions)
     {
         return ZohoProductController::getAllZohoBooksItems($organization_id, $page, $conditions);
     }
@@ -518,7 +518,7 @@ class ZohoAllInOne
         return ZohoSaleOrderController::updateV6($data);
     }
 
-     public static function updateSalesOrderV2_1($data = [])
+    public static function updateSalesOrderV2_1($data = [])
     {
         return ZohoSaleOrderController::updateV2_1($data);
     }
@@ -941,9 +941,9 @@ class ZohoAllInOne
         return ZohoFileController::deleteFileV6($id);
     }
 
-    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null, $startDay = null, $endDay = null)
+    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null, $startDay = null, $endDay = null, $startTime = null, $endTime = null)
     {
-        return ZohoRecentModuleController::getModuleRecentRecords($module, $action, $offset, $perPage, $fields, $startDay, $endDay);
+        return ZohoRecentModuleController::getModuleRecentRecords($module, $action, $offset, $perPage, $fields, $startDay, $endDay, $startTime, $endTime);
     }
 
 }

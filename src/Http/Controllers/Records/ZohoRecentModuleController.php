@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class ZohoRecentModuleController
 {
 
-    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null, $startDay = null, $endDay = null)
+    public static function getModuleRecentRecords($module, $action = 'create', $offset = 0, $perPage = 200, $fields = null, $startDay = null, $endDay = null, $startTime = null, $endTime = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -32,8 +32,11 @@ class ZohoRecentModuleController
 
         $fields = $fields ?: 'id';
 
-        $startDay = $startDay ?: Carbon::today()->subDays((int)config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . "T00:00:01+00:00";
-        $endDay = $endDay ?: Carbon::today()->addDay(1)->format("Y-m-d") . "T23:59:59+00:00";
+        $startTime = $startTime ?: "T00:00:01+00:00";
+        $endTime = $endTime ?: "T23:59:59+00:00";
+
+        $startDay = $startDay ?: Carbon::today()->subDays((int)config('zoho-v4.sync_new_records_period_in_days'))->format("Y-m-d") . $startTime;
+        $endDay = $endDay ?: Carbon::today()->addDay(1)->format("Y-m-d") . $endTime;
 
         switch ($action) {
             case 'fast-update':

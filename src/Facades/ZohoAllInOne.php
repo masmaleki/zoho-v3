@@ -168,7 +168,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed uploadFileV6(string $file_path, string $file_mime, string $file_uploaded_name)
  * @method static mixed getFileV6(int $id)
  * @method static mixed deleteFileV6(int $id)
- * @method static array getModuleRecentRecords(string $module, string $action = 'create', int $offset = 0, int $perPage = 200, string|null $fields = null, string|null $startDay = null, string|null $endDay = null)
+ * @method static array getModuleRecentRecords(string $module, string $action = 'create', int $offset = 0, int $perPage = 200, string|null $fields = null, string|null $startDay = null, string|null $endDay = null, string|null $startTime = null, string|null $endTime = null)
  */
 class ZohoAllInOne extends Facade
 {
