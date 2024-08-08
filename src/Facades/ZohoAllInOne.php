@@ -110,6 +110,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getOrganizations()
  * @method static mixed getRFQ(int $rfq_id)
  * @method static mixed setRFQAlternative(int $rfq_id, int $product_id)
+ * @method static mixed deleteRFQAlternativeProduct(int $alternative_product_x_rfq_id)
  * @method static mixed getRFQList(int $rfq_id, string $list)
  * @method static array getRFQs()
  * @method static mixed updateRFQ(array $data = [])

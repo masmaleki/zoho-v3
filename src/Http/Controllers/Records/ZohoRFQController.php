@@ -450,7 +450,6 @@ class ZohoRFQController
             'RFQ_Alternative' => [
                 'id' => $rfq_id
             ],
-            // 'Owner'=>['id'=>538281000040776006]
         ];
         $body = [
             'data' => [
@@ -461,7 +460,6 @@ class ZohoRFQController
         try {
             $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
             $statusCode = $response->getStatusCode();
-            // dd($response->getBody());
             $responseBody = json_decode($response->getBody(), true);
         } catch (\Exception $e) {
             $responseBody = [
@@ -477,4 +475,42 @@ class ZohoRFQController
         return $responseBody;
     }
 
+    public static function deleteRFQAlternativeProduct($alternative_product_x_rfq_id)
+    {
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return [
+                'data' => [
+                    0 => [
+                        'code' => 498,
+                        'message' => 'Invalid or missing token.',
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        $apiURL = $token->api_domain . '/crm/v3/' . config('zoho-v4.custom_modules_names.rfq_alternative_product') . '/' . $alternative_product_x_rfq_id;
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        try {
+            $response = $client->request('DELETE', $apiURL, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'data' => [
+                    0 => [
+                        'code' => $e->getCode(),
+                        'message' => $e->getMessage(),
+                        'status' => 'error',
+                    ]
+                ],
+            ];
+        }
+        return $responseBody;
+    }
 }

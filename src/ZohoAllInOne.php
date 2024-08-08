@@ -606,6 +606,11 @@ class ZohoAllInOne
         return ZohoRFQController::setRFQAlternative($rfq_id, $product_id);
     }
 
+    public static function deleteRFQAlternativeProduct($alternative_product_x_rfq_id)
+    {
+        return ZohoRFQController::deleteRFQAlternativeProduct($alternative_product_x_rfq_id);
+    }
+
     public static function getRFQList($rfq_id, $list)
     {
         return ZohoRFQController::getRFQList($rfq_id, $list);
