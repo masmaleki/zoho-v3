@@ -367,6 +367,25 @@ class ZohoAllInOne
     {
         return ZohoInvoiceController::getById($zoho_invoice_id, $organization_id);
     }
+    public static function getRecurringInvoices($organization_id, $page = 1, $condition = '')
+    {
+        return ZohoInvoiceController::getRecurringInvoices($organization_id, $page, $condition);
+    }
+
+    public static function searchInvoicesByRelation($relation,$relation_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoInvoiceController::searchInvoicesByRelation($relation,$relation_id, $searchParameter, $organization_id);
+    }
+
+    public static function searchRecurringInvoiceByRelation($relation,$relation_id, $searchParameter = null, $organization_id = null)
+    {
+        return ZohoInvoiceController::searchRecurringInvoiceByRelation($relation,$relation_id, $searchParameter, $organization_id);
+    }
+
+    public static function getRecurringInvoice($zoho_invoice_id, $organization_id = null)
+    {
+        return ZohoInvoiceController::getRecurringInvoiceById($zoho_invoice_id, $organization_id);
+    }
 
     public static function getCRMInvoice($zoho_invoice_id)
     {
