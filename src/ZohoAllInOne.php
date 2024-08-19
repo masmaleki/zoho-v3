@@ -421,6 +421,10 @@ class ZohoAllInOne
     {
         return ZohoInvoiceController::createBooksInvoice($data, $organization_id);
     }
+    public static function createBooksRecurringInvoice($data = [], $organization_id = null)
+    {
+        return ZohoInvoiceController::createBooksRecurringInvoice($data, $organization_id);
+    }
 
     // end - invoice functions
 

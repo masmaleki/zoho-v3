@@ -324,4 +324,36 @@ class ZohoInvoiceController
         return $responseBody;
     }
 
+    public static function createBooksRecurringInvoice($data = [], $organization_id = null)
+    {
+
+        $token = ZohoTokenCheck::getToken();
+        if (!$token) {
+            return null;
+        }
+        $apiURL = config('zoho-v3.books_api_base_url') . '/books/v3/recurringinvoices';
+        if ($organization_id) {
+            $apiURL .= '?organization_id=' . $organization_id;
+        }
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+
+        $body = $data;
+
+        try {
+            $response = $client->request('POST', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [];
+            $responseBody['code'] = $e->getCode();
+            $responseBody['message'] = $e->getMessage();
+        }
+        return $responseBody;
+    }
+
 }
