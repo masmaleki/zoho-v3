@@ -93,14 +93,14 @@ class ZohoAccountController
                     ],
                 ];
             }
-            if($responseBody != null){
+            if ($responseBody != null) {
                 $result = array_merge($result, $responseBody['data']);
                 if (($responseBody['info']['more_records'] ?? false) == true) {
                     $page++;
                 } else {
                     $morePage = false;
                 }
-            }else {
+            } else {
                 $morePage = false;
             }
 
@@ -247,10 +247,10 @@ class ZohoAccountController
     public static function getZohoBooksAccountByCrmAccountId($zoho_crm_account_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/contacts?organization_id=' . $organization_id . '&zcrm_account_id=' . $zoho_crm_account_id . '';
