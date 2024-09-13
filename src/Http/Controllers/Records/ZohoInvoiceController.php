@@ -12,10 +12,10 @@ class ZohoInvoiceController
     public static function getAll($organization_id, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?organization_id=' . $organization_id . '&page=' . $page . $condition;
@@ -43,16 +43,13 @@ class ZohoInvoiceController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
-                'code' => 498,
-                'message' => 'Invalid or missing token.',
+
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $zoho_invoice_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $zoho_invoice_id . '?organization_id=' . $organization_id;
         $client = new Client();
 
         $headers = [
@@ -199,17 +196,13 @@ class ZohoInvoiceController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id . '';
-
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?&customer_id=' . $zoho_customer_id . '&organization_id=' . $organization_id;
 
         $client = new Client();
 
@@ -234,20 +227,18 @@ class ZohoInvoiceController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices?customer_id=' . $zoho_customer_id . '&organization_id=' . $organization_id;
 
         if ($searchParameter) {
             $apiURL .= '&invoice_number_contains=' . $searchParameter;
         }
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+
 
         $client = new Client();
 
@@ -268,13 +259,13 @@ class ZohoInvoiceController
         return $responseBody;
     }
 
-    public static function getPDF($invoice_id)
+    public static function getPDF($invoice_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=pdf';
@@ -303,13 +294,13 @@ class ZohoInvoiceController
         }
     }
 
-    public static function getHTML($invoice_id)
+    public static function getHTML($invoice_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/invoices/' . $invoice_id . '?accept=html';
