@@ -146,20 +146,19 @@ class ZohoRecordCountController
         return $responseBody;
     }
 
-    public static function countZBCOQL($moduleName = null, $organization_id, $condition = null)
+    public static function countZBCOQL($moduleName, $organization_id, $condition = null)
     {
-
-        $responseBody['count'] = 0;
-        if (!$moduleName) {
-            return $responseBody;
-        }
-
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
+        }
+        $responseBody['count'] = 0;
+
+        if (!$moduleName) {
+            return $responseBody;
         }
 
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/' . $moduleName . '?page=1&per_page=2&response_option=2&organization_id=' . $organization_id;
