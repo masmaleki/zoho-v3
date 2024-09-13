@@ -99,16 +99,13 @@ class ZohoProductController
     public static function getItemById($zoho_books_item_id, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id . '?organization_id=' . $organization_id;
         $client = new Client();
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
@@ -130,16 +127,13 @@ class ZohoProductController
     public static function searchItemByName($product_name, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains=' . $product_name;
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?page=1&per_page=25&sort_column=created_time&sort_order=A&name_contains=' . $product_name . '&organization_id=' . $organization_id;
         $client = new Client();
         $headers = [
             'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
@@ -254,6 +248,40 @@ class ZohoProductController
         return $responseBody;
     }
 
+    public static function createItem($data = [])
+    {
+        $organization_id = $data['organization_id'] ?? null;
+        unset($data['organization_id']);
+        $token = ZohoTokenCheck::getToken();
+        if (!$token || !$organization_id) {
+            return [
+                'code' => 498,
+                'message' => 'Invalid/missing token or organization ID.',
+            ];
+        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/?organization_id=' . $organization_id;
+
+        $client = new Client();
+
+        $headers = [
+            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
+        ];
+
+        $body = $data;
+
+        try {
+            $response = $client->request('PUT', $apiURL, ['headers' => $headers, 'body' => json_encode($body)]);
+            $statusCode = $response->getStatusCode();
+            $responseBody = json_decode($response->getBody(), true);
+        } catch (\Exception $e) {
+            $responseBody = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ];
+        }
+        return $responseBody;
+    }
+
     public static function updateItem($data = [])
     {
         $zoho_books_item_id = $data['id'];
@@ -261,16 +289,14 @@ class ZohoProductController
         unset($data['organization_id']);
         unset($data['id']);
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id . '?organization_id=' . $organization_id;
+
         $client = new Client();
 
         $headers = [
@@ -371,16 +397,14 @@ class ZohoProductController
     public static function getZohoBooksItem($zoho_books_item_id, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items/' . $zoho_books_item_id . '?organization_id=' . $organization_id;
+
         $client = new Client();
 
         $headers = [
@@ -403,10 +427,10 @@ class ZohoProductController
     public static function getAllZohoBooksItems($organization_id, $page, $conditions)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/items?organization_id=' . $organization_id . '&page=' . $page . $conditions;
