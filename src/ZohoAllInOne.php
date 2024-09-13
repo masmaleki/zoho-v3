@@ -345,6 +345,11 @@ class ZohoAllInOne
         return ZohoProductController::updateItem($data);
     }
 
+    public static function createItem($data = [])
+    {
+        return ZohoProductController::createItem($data);
+    }
+
     public static function getProductsCOQL($zoho_crm_product_id = null, $offset = 0, $conditions = null, $fields = null)
     {
         return ZohoProductController::getProductsCOQL($zoho_crm_product_id, $offset, $conditions, $fields);
@@ -408,14 +413,14 @@ class ZohoAllInOne
         return ZohoInvoiceController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
     }
 
-    public static function getInvoicePDF($invoice_id)
+    public static function getInvoicePDF($invoice_id, $organization_id)
     {
-        return ZohoInvoiceController::getPDF($invoice_id);
+        return ZohoInvoiceController::getPDF($invoice_id, $organization_id);
     }
 
-    public static function getInvoiceHTML($invoice_id)
+    public static function getInvoiceHTML($invoice_id, $organization_id)
     {
-        return ZohoInvoiceController::getHTML($invoice_id);
+        return ZohoInvoiceController::getHTML($invoice_id, $organization_id);
     }
 
     // end - invoice functions
@@ -508,9 +513,9 @@ class ZohoAllInOne
         return ZohoSaleOrderController::searchByCustomerId($zoho_customer_id, $searchParameter, $organization_id);
     }
 
-    public static function getSaleOrderPDF($sale_order_id)
+    public static function getSaleOrderPDF($sale_order_id, $organization_id)
     {
-        return ZohoSaleOrderController::getPDF($sale_order_id);
+        return ZohoSaleOrderController::getPDF($sale_order_id, $organization_id);
     }
 
     public static function updateSalesOrderV6($data = [])
@@ -566,9 +571,9 @@ class ZohoAllInOne
         return ZohoPurchaseOrderController::searchByCustomerId($zoho_vendor_id, $searchParameter, $organization_id);
     }
 
-    public static function getPurchaseOrderPDF($sale_order_id)
+    public static function getPurchaseOrderPDF($sale_order_id, $organization_id)
     {
-        return ZohoPurchaseOrderController::getPDF($sale_order_id);
+        return ZohoPurchaseOrderController::getPDF($sale_order_id, $organization_id);
     }
 
     public static function updatePurchaseOrderV2_2($data = [])
