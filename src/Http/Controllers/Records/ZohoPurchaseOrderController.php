@@ -13,10 +13,10 @@ class ZohoPurchaseOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
@@ -44,16 +44,14 @@ class ZohoPurchaseOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id . '?organization_id=' . $organization_id;
+
         $client = new Client();
 
         $headers = [
@@ -117,13 +115,13 @@ class ZohoPurchaseOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?organization_id=' . $organization_id . '&vendor_id=' . $zoho_vendor_id;
         $client = new Client();
 
         $headers = [
@@ -147,16 +145,13 @@ class ZohoPurchaseOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?page=1&per_page=200&sort_column=created_time&sort_order=D&custom_field_222119000000940129_contains=' . $item_name . '';
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?page=1&per_page=200&sort_column=created_time&sort_order=D&custom_field_222119000000940129_contains=' . $item_name . '&organization_id=' . $organization_id;
         $client = new Client();
 
         $headers = [
@@ -180,20 +175,18 @@ class ZohoPurchaseOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
                 'message' => 'Invalid or missing token.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders?&vendor_id=' . $zoho_vendor_id . '&organization_id=' . $organization_id;
 
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
         }
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+
 
         $client = new Client();
 
@@ -214,13 +207,13 @@ class ZohoPurchaseOrderController
         return $responseBody;
     }
 
-    public static function getPDF($purchase_order_id)
+    public static function getPDF($purchase_order_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/purchaseorders/' . $purchase_order_id . '?accept=pdf';
@@ -264,7 +257,7 @@ class ZohoPurchaseOrderController
             ];
         }
 
-        $apiURL = $token->api_domain . '/crm/v3/Purchase_Orders/' . $purchase_order_id ;
+        $apiURL = $token->api_domain . '/crm/v3/Purchase_Orders/' . $purchase_order_id;
 
         if ($fields) {
             $apiURL .= '?fields=' . $fields;
@@ -311,7 +304,7 @@ class ZohoPurchaseOrderController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders' ;
+        $apiURL = $token->api_domain . '/crm/v6/Purchase_Orders';
         $client = new Client();
 
         $headers = [
