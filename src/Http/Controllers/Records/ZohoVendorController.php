@@ -9,7 +9,7 @@ use AliMehraei\ZohoAllInOne\Http\Controllers\Auth\ZohoTokenCheck;
 class ZohoVendorController
 {
 
-    public static function getAll($page_token = null,$fields=null)
+    public static function getAll($page_token = null, $fields = null)
     {
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -23,10 +23,10 @@ class ZohoVendorController
                 ],
             ];
         }
-        if($fields==null){
-            $fields='Email,Business_Vendor,Vendor_Source,Vendor_Type,LinkedIn,Website,Mobile,Phone,Vendor_Name,Country,First_Name,Last_Name,ZohoBooksID,Octopart_ID,Broker_Type,Vendor_Site,Vendor_Owner,Zip_Code,Street,State,Description,City,VAT_No,Approve_status,Currency,Incoterms,Line_Card,Parent_Vendor,Payment_Terms,Vendor_Number';
+        if ($fields == null) {
+            $fields = 'Email,Business_Vendor,Vendor_Source,Vendor_Type,LinkedIn,Website,Mobile,Phone,Vendor_Name,Country,First_Name,Last_Name,ZohoBooksID,Octopart_ID,Broker_Type,Vendor_Site,Vendor_Owner,Zip_Code,Street,State,Description,City,VAT_No,Approve_status,Currency,Incoterms,Line_Card,Parent_Vendor,Payment_Terms,Vendor_Number';
         }
-        $apiURL = $token->api_domain . '/crm/v3/Vendors?fields='.$fields;
+        $apiURL = $token->api_domain . '/crm/v3/Vendors?fields=' . $fields;
         if ($page_token) {
             $apiURL .= '&page_token=' . $page_token;
         }
@@ -141,7 +141,6 @@ class ZohoVendorController
         return $responseBody;
     }
 
-
     public static function getZohoCrmVendor($zoho_crm_vendor_id)
     {
         $token = ZohoTokenCheck::getToken();
@@ -185,10 +184,10 @@ class ZohoVendorController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/vendors?organization_id=' . $organization_id . '&page=' . $page . $condition;
@@ -254,19 +253,14 @@ class ZohoVendorController
     public static function getZohoBooksVendorByCrmVendorId($zoho_crm_vendor_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         // TODO: Must be checked
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/vendors?zcrm_vendor_id=' . $zoho_crm_vendor_id;
-        // $apiURL = $token->api_domain . '/books/v3/crm/vendor/' . $zoho_crm_vendor_id . '/import?organization_id=' . $organization_id;
-
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/vendors?zcrm_vendor_id=' . $zoho_crm_vendor_id . '&organization_id=' . $organization_id;
 
         $client = new Client();
 
@@ -290,16 +284,13 @@ class ZohoVendorController
     public static function getZohoBooksVendorById($zoho_books_vendor_id, $organization_id = null)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_vendor_id ;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/contacts/' . $zoho_books_vendor_id . '?organization_id=' . $organization_id;
 
         $client = new Client();
 
@@ -356,6 +347,7 @@ class ZohoVendorController
             return null;
         }
     }
+
     public static function updateAvatar($zoho_contact_id, $filePath, $fileMime, $fileUploadedName)
     {
         $token = ZohoTokenCheck::getToken();
@@ -491,7 +483,8 @@ class ZohoVendorController
         return $responseBody;
     }
 
-    public static function getRelatedManufactureLineCardV6($zoho_id){
+    public static function getRelatedManufactureLineCardV6($zoho_id)
+    {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
@@ -532,7 +525,8 @@ class ZohoVendorController
 
     }
 
-    public static function getRelatedManufactureStrongLineV6($zoho_id){
+    public static function getRelatedManufactureStrongLineV6($zoho_id)
+    {
 
         $token = ZohoTokenCheck::getToken();
         if (!$token) {
