@@ -12,10 +12,10 @@ class ZohoSaleOrderController
     public static function getAll($organization_id, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders?organization_id=' . $organization_id . '&page=' . $page . $condition;
@@ -43,21 +43,17 @@ class ZohoSaleOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders/' . $sale_order_id;
-        if ($organization_id) {
-            $apiURL .= '?organization_id=' . $organization_id;
-        }
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders/' . $sale_order_id . '?organization_id=' . $organization_id;
+
         $client = new Client();
 
-        $headers = [
-            'Authorization' => 'Zoho-oauthtoken ' . $token->access_token,
-        ];
+        $headers = ['Authorization' => 'Zoho-oauthtoken ' . $token->access_token,];
 
         try {
             $response = $client->request('GET', $apiURL, ['headers' => $headers]);
@@ -76,10 +72,10 @@ class ZohoSaleOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders?organization_id=' . $organization_id . '&customer_id=' . $zoho_customer_id . '';
@@ -106,19 +102,16 @@ class ZohoSaleOrderController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders?&customer_id=' . $zoho_customer_id . '';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders?&customer_id=' . $zoho_customer_id . '&organization_id=' . $organization_id;
 
         if ($searchParameter) {
             $apiURL .= '&salesorder_number_contains=' . $searchParameter;
-        }
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
         }
 
         $client = new Client();
@@ -140,13 +133,13 @@ class ZohoSaleOrderController
         return $responseBody;
     }
 
-    public static function getPDF($sale_order_id)
+    public static function getPDF($sale_order_id, $organization_id)
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/salesorders/' . $sale_order_id . '?accept=pdf';
@@ -282,7 +275,7 @@ class ZohoSaleOrderController
                 ],
             ];
         }
-        $apiURL = $token->api_domain . '/crm/v6/Sales_Orders/' . $zoho_sales_order_id . '';
+        $apiURL = $token->api_domain . '/crm/v6/Sales_Orders/' . $zoho_sales_order_id;
         $client = new Client();
 
         $headers = [
