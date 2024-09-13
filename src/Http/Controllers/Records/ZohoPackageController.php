@@ -12,10 +12,10 @@ class ZohoPackageController
     public static function getAll($organization_id, $page = 1, $condition = '')
     {
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
         $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?organization_id=' . $organization_id . '&page=' . $page . $condition;
@@ -43,19 +43,16 @@ class ZohoPackageController
     {
 
         $token = ZohoTokenCheck::getToken();
-        if (!$token) {
+        if (!$token || !$organization_id) {
             return [
                 'code' => 498,
-                'message' => 'Invalid or missing token.',
+                'message' => 'Invalid/missing token or organization ID.',
             ];
         }
-        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?customer_id=' . $zoho_customer_id .'';
+        $apiURL = config('zoho-v4.books_api_base_url') . '/books/v3/packages?customer_id=' . $zoho_customer_id . '&organization_id=' . $organization_id;
 
         if ($searchParameter) {
             $apiURL .= '&package_number_contains=' . $searchParameter;
-        }
-        if ($organization_id) {
-            $apiURL .= '&organization_id=' . $organization_id;
         }
 
         $client = new Client();
